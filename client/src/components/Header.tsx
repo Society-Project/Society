@@ -92,7 +92,7 @@ const TopLine = styled.div`
   position: absolute;
   background-color: ${Colors.caramel};
   height: ${HEADER_TOP_LINE_HEIGHT};
-  width: calc(${FULL_WIDTH} - 180px);
+  width: calc(${FULL_WIDTH} - ${HEADER_LOGO_WIDTH});
   right: 0;
   top: 0;
   border-radius: ${Radiuses.headerTopLineRadius};
