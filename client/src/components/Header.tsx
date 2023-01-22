@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 import { Colors } from "../colors/Colors";
@@ -24,7 +25,9 @@ const Header = () => {
     <HeaderWrapper>
       <InnerWrapper>
         <TopLine />
-        <Logo src={headerLogo.src} alt="Header logo" />
+        <Link href="/">
+          <Logo src={headerLogo.src} alt="Header logo" />
+        </Link>
         <SearchAndProfilePicWrapper>
           <TextField
             label="Search"
@@ -78,6 +81,12 @@ const SearchAndProfilePicWrapper = styled.div`
 const Logo = styled.img`
   height: ${HEADER_LOGO_HEIGHT};
   width: ${HEADER_LOGO_WIDTH};
+  opacity: 0.9;
+
+  :hover {
+    cursor: pointer;
+    opacity: 1;
+  }
 `;
 
 const TopLine = styled.div`
