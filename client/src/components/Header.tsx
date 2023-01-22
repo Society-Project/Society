@@ -15,7 +15,6 @@ import {
   HEADER_LOGO_HEIGHT,
   HEADER_LOGO_WIDTH,
   HEADER_TOP_LINE_HEIGHT,
-  HEADER_TOP_LINE_WIDTH,
 } from "../values/HardCodedValues";
 
 const Header = () => {
@@ -93,7 +92,7 @@ const TopLine = styled.div`
   position: absolute;
   background-color: ${Colors.caramel};
   height: ${HEADER_TOP_LINE_HEIGHT};
-  width: ${HEADER_TOP_LINE_WIDTH};
+  width: calc(${FULL_WIDTH} - 180px);
   right: 0;
   top: 0;
   border-radius: ${Radiuses.headerTopLineRadius};
