@@ -9,6 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/server": "^11.10.0",
+    "@emotion/styled": "^11.10.5",
+    "@mui/material": "^5.11.5",
+    "@mui/material-next": "^6.0.0-alpha.71",
     "@next/font": "13.1.4",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
@@ -18,6 +23,11 @@
     "next": "13.1.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "sass": "^1.57.1",
+    "styled-components": "^5.3.6",
     "typescript": "4.9.4"
+  },
+  "devDependencies": {
+    "@types/styled-components": "^5.1.26"
   }
 }
