@@ -1,18 +1,12 @@
 import Image from "next/image";
 import { Inter } from "@next/font/google";
 import styles from "./page.module.css";
-import SassExample from "../basicExamples/sass/SassExample";
-import StyledComponentsExample from "../basicExamples/styledComponents/StyledComponentsExample";
-import MuiAndStyledCompExample from "../basicExamples/mui/MuiAndStyledCompExample";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <SassExample />
-      <StyledComponentsExample />
-      <MuiAndStyledCompExample />
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
