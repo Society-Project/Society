@@ -1,0 +1,19 @@
+server:
+  port: 8082
+spring:
+  application:
+    name: posts
+  datasource:
+    driverClassName: org.postgresql.Driver
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://postgres:5432/posts
+    username: ${DB_USER}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        show_sql: false
+    open-in-view: false

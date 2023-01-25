@@ -1,0 +1,77 @@
+name: society
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: beval
+      POSTGRES_PASSWORD: password
+      POSTGRES_MULTIPLE_DATABASES: auth,posts
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - postgres
+    restart: unless-stopped
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - postgres
+    restart: unless-stopped
+  apigw:
+    image: bobo91280/society-project:apigw
+    container_name: apigw
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - JWT_SECRET=${JWT_SECRET}
+    networks:
+      - spring
+    env_file: .env
+  posts:
+    image: bobo91280/society-project:posts
+    container_name: posts
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      - spring
+    depends_on:
+      - postgres
+    env_file: .env
+#  auth:
+#    image: ivaylo1234/society:latest
+#    container_name: auth
+#    ports:
+#      - "8081:8081"
+#    networks:
+#      - spring
+#    depends_on:
+#      - postgres
+#    env_file: .env
+
+networks:
+  postgres:
+    driver: bridge
+  spring:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
