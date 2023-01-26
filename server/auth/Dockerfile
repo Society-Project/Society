@@ -1,5 +1,7 @@
 FROM node:14-alpine
-COPY . /app
-WORKDIR /app 
+WORKDIR /usr/src/app
+COPY package*.json ./
 RUN npm install
-CMD npm start
+COPY . .
+EXPOSE 8081
+CMD ["npm", "start"]
