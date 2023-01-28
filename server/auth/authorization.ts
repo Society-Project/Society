@@ -1,18 +1,18 @@
+export {};
 const express = require('express');
-const app = express();
-const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
+const jwt = require('jsonwebtoken');
 
-
-let refreshTokens = [];
+const app = express();
+let refreshTokens: any = [];
 app.use(express.json());
 dotenv.config();
 
-function auth(req, res, next){
+function auth(req: any, res: any, next: any){
     let token = req.headers['authorization'];
     token = token.split(' ')[1];
 
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err: Error, user: string) => {
         if(!err){
             req.user = user;
             next();
@@ -22,14 +22,14 @@ function auth(req, res, next){
     });
 }
 
-app.post('/renewAccessToken', (req, res) => {
+app.post('/renew-access-token', (req: any, res: any) => {
     const refreshToken = req.body.token;
 
     if(!refreshToken && !refreshTokens.includes(refreshToken)) {
         return res.status(403).send('User not authenticated');
     }
 
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_ACCESS, (err, user) => {
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_ACCESS, (err: Error, user: any) => {
         if(!err){
             const accessToken = jwt.sign({username: user.name}, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '20m' });
             return res.status(201).json({ accessToken })
@@ -40,7 +40,7 @@ app.post('/renewAccessToken', (req, res) => {
 });
 
 
-app.post('/login', (req, res) => {
+app.post('/login', (req: any, res: any) => {
     const { user } = req.body;
 
     if(!user) {
@@ -48,7 +48,7 @@ app.post('/login', (req, res) => {
     }
 
     let accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "20m" });
-    let refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_ACCESS, { expiresIn: "7d" });
+    let refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_ACCESS, { expiresIn: "1h" });
     refreshTokens.push(refreshToken);
 
     return res.status(201).json({
