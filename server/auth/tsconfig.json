@@ -7,12 +7,13 @@
     "lib": ["es2016", "esnext", "dom"],
     "outDir": "build",
     "strict": true,
+    "types": ["node", "jest"],
     "strictNullChecks": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
     "allowJs": false
   },
-  "include": ["server.ts", "build/server.js"],
+  "include": ["server.ts", "build/**/*.js", "tests/**/*.test.js"],
   "exclude": ["build"]
 }

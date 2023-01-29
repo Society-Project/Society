@@ -1,6 +1,6 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const authorization = require('./authorization');
+import express from 'express';
+import dotenv from 'dotenv';
+import authorization from './authorization';
 
 const app = express();
 const PORT = process.env.PORT || 3006;
