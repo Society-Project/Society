@@ -55,16 +55,16 @@ services:
     depends_on:
       - postgres
     env_file: .env
-#  auth:
-#    image: ivaylo1234/society:latest
-#    container_name: auth
-#    ports:
-#      - "8081:8081"
-#    networks:
-#      - spring
-#    depends_on:
-#      - postgres
-#    env_file: .env
+  auth:
+   image: ivaylo124/society:latest
+   container_name: auth
+   ports:
+     - "8081:8081"
+   networks:
+     - spring
+   depends_on:
+     - postgres
+   env_file: .env
 
 networks:
   postgres:
