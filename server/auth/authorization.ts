@@ -1,9 +1,7 @@
 export {};
-import express, { Request, Response } from 'express';
+import express from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-
-
 
 const app = express();
 let refreshTokens: string[] = [];
@@ -31,12 +29,11 @@ app.post('/renew-access-token', (req: express.Request, res: express.Response) =>
 app.post('/login', (req: express.Request, res: express.Response) => {
     const { user } = req.body;
 
-    if(!user) {
-        return res.status(403).send(user);
-    }
-    if(typeof(user) !== 'string'){
-        return res.status(409).send('Incorrect input value');
-    }
+    if(!user) return res.status(403).send(user);
+
+    if(typeof user.name !== 'string') return res.status(409).send('Incorrect input value');
+
+    if(user.name === '' || user.name === ' ') return res.status(404).send('User not found');
 
     let accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET as string, { expiresIn: "20m" });
     let refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_ACCESS as string, { expiresIn: "1h" });
