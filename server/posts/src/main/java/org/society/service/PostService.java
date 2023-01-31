@@ -23,9 +23,9 @@ public class PostService {
     public PostDTO createPost(String username, CreatePostDTO createPostDTO) {
         PostEntity postEntity = postRepository.save(PostEntity
                 .builder()
-                        .creatorUsername(username)
-                        .textContent(createPostDTO.getTextContent())
-                        .imageUrl(createPostDTO.getImageUrl())
+                .creatorUsername(username)
+                .textContent(createPostDTO.getTextContent())
+                .imageUrl(createPostDTO.getImageUrl())
                 .build());
         return modelMapper.map(postEntity, PostDTO.class);
     }
