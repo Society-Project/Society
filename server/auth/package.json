@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon build/server.js",
+    "start": "nodemon build/authorization.js",
     "test": "jest"
   },
   "keywords": [],
