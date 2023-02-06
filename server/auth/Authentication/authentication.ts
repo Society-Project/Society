@@ -1,7 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv';
 import bcrypt from 'bcrypt';
-import client from '../database/database'
+import client from '../../database/database'
 
 const app = express();
 app.use(express.json());
@@ -12,7 +12,6 @@ app.post('/registration', async (req: express.Request, res: express.Response) =>
     const { firstname, lastname, email, username, password, dayOfBirth, monthOfBirth, yearOfBirth } = req.body;
 
     const hashingPasswordWithBcrypt: string = await bcrypt.hash(password, 10);
-
 
     //Default values -> Should change in future
     const account_enabled: boolean = true;

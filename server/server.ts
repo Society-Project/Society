@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import authorization from './auth/authorization';
-import registration from './Authentication/authentication'
+import registration from './auth/Authentication/authentication'
 
 const app = express();
 const PORT = process.env.PORT || 3006;
