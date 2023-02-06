@@ -12,14 +12,4 @@ const client = new Client({
 }); 
 client.connect();
 
-client.query('SELECT * FROM users', (err, res) => {
-    if(err){
-        console.log(err.message);
-        return;
-    } else{
-        console.log(res.rows)
-    }
-
-    client.end;
-})
 export default client
