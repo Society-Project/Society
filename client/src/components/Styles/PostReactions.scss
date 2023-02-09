@@ -1,0 +1,136 @@
+.reactions {
+  justify-content: space-evenly;
+}
+
+#likesCounter {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 5px 0px 0px 5px;
+  color: "#6495ED";
+}
+
+.comTextArea {
+  resize: none;
+  border-style: none;
+  font-size: 1rem;
+  background-color: white;
+}
+
+
+
+.editTextArea {
+  width: 80%;
+  height: 1px;
+  padding: 15px;
+  outline: none;
+  resize: none;
+  font-size: 1rem;
+  margin-top: 3px;
+  border-radius: 5px;
+  background-color: white;
+}
+.editTextArea:is(:focus, :valid) {
+  border-width: 2px;
+  padding: 10px;
+  border-color: #4671ea;
+}
+.editTextArea::-webkit-scrollbar {
+  width: 0%;
+}
+
+.commentsBox {
+  border: none;
+  border-radius: 13px;
+  margin-left: 7px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.editBox {
+  justify-content: center;
+}
+
+#saveBtn {
+  padding-top: 40px;
+  margin-right: 50px;
+}
+
+.editBtnsDiv > button {
+  margin: 1px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+#likeCmntBtn {
+  justify-content: right;
+}
+
+.test {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  margin-left: 2.65rem;
+}
+
+.createPostTxtArea {
+  width: 88%;
+  height: 1px;
+  padding: 15px;
+  outline: none;
+  resize: none;
+  font-size: 1rem;
+  margin-top: 3px;
+  margin-left: 15px;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border: none;
+  font-size: 1rem;
+  margin-top: 10px;
+}
+
+.createPostGrid {
+  background-color: rgba(74, 122, 99, 0.2);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  height: 100px;
+  width: 500px;
+  margin: auto;
+  border-radius: 5px;
+  margin-top: 50px;
+}
+
+#createPostDivBtn {
+  margin-left: 240px;
+}
+
+#createPostBtn {
+  border-radius: 5px;
+  border: none;
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-left: 38px;
+}
+
+.CreatePostIconBtn {
+  margin-left: 10px;
+}
+
+#tag {
+  color: rgba(21, 104, 41, 1);
+}
+
+#addPhoto {
+  color: rgba(204, 144, 28, 1);
+}
+
+#location {
+  color: rgba(124, 13, 107, 1);
+}
+
+.cmnt {
+  display: inline-flex;
+}
+
+.popover {
+  margin-left: 9rem;
+}
+
+#cmntReactions {
+  margin-left: 290px;
+}
