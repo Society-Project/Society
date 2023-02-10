@@ -1,8 +1,8 @@
 import 'mocha';
-import 'chai'
+import 'chai';
 import supertest from 'supertest';
-import app from '../authorization'
-import { describe, expect, it } from '@jest/globals'
+import app from '../auth/authorization';
+import { expect, describe, it } from '@jest/globals';
 
 const user = {
    userData: {
