@@ -16,10 +16,12 @@ import java.util.function.Predicate;
 @Component
 public class JwtAuthenticationFilter extends AbstractGatewayFilterFactory<JwtAuthenticationFilter.Config> {
     private final JwtTokenProvider jwtTokenProvider;
+
     public JwtAuthenticationFilter(JwtTokenProvider jwtTokenProvider) {
         super(Config.class);
         this.jwtTokenProvider = jwtTokenProvider;
     }
+
     @Override
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
@@ -42,7 +44,7 @@ public class JwtAuthenticationFilter extends AbstractGatewayFilterFactory<JwtAut
 
                 String token = request.getHeaders().getOrEmpty("Authorization").get(0);
                 boolean isValid = jwtTokenProvider.validateJwtToken(token);
-                if (!isValid){
+                if (!isValid) {
                     return sendUnauthorized(exchange);
                 }
                 String userRoles = jwtTokenProvider.getRolesFromJwtToken(token);

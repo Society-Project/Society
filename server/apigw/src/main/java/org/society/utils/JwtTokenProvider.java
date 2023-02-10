@@ -59,7 +59,7 @@ public class JwtTokenProvider {
         return false;
     }
 
-    private Key getKey(){
+    private Key getKey() {
         return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
     }
 }

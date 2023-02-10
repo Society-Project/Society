@@ -1,11 +1,13 @@
-package org.society;
+package org.society.comments;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class PostsApplication {
+public class CommentsApplication {
+
     public static void main(String[] args) {
-        SpringApplication.run(PostsApplication.class, args);
+        SpringApplication.run(CommentsApplication.class, args);
     }
+
 }
