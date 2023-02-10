@@ -15,9 +15,9 @@ export const CommentInput: React.FC<CommentInputProps> = ({ onSubmit }) => {
     const [text, setText] = useState<string>('');
     const [test, setTest] = useState(false);
 
-    const onSubmitHandler = (e: React.FormEvent<HTMLButtonElement>) => {
+    const onSubmitHandler = (event: React.FormEvent<HTMLButtonElement>) => {
         if(text != ''){
-            e.preventDefault();
+            event.preventDefault();
             onSubmit(text);
             setText('');
             setTest(true);
@@ -32,7 +32,7 @@ export const CommentInput: React.FC<CommentInputProps> = ({ onSubmit }) => {
                         sx={{ width: '55ch', size: 'small', marginLeft: 2 }}
                         variant="standard"
                         value={text}
-                        onChange={(e) => setText(e.target.value)}
+                        onChange={(event) => setText(event.target.value)}
                     />
                     <IconButton onClick={onSubmitHandler} sx={{ marginLeft: 2 }}
                     >

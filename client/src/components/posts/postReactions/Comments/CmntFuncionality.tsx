@@ -87,10 +87,10 @@ export const CmntFunctionality: React.FC<CmntFunctionalityProps> = ({
                                                                     spellCheck="false"
                                                                     className='editTextArea'
                                                                     value={comment.text}
-                                                                    onChange={(e) =>
+                                                                    onChange={(event) =>
                                                                         setComments(
-                                                                            comments.map((c) =>
-                                                                                c.id === comment.id ? { ...c, text: e.target.value } : c
+                                                                            comments.map((com) =>
+                                                                                com.id === comment.id ? { ...com, text: event.target.value } : com
                                                                             )
                                                                         )
                                                                     }
@@ -104,9 +104,7 @@ export const CmntFunctionality: React.FC<CmntFunctionalityProps> = ({
                                                 </ListItem>
                                             </>
                                         ) : (
-
                                             <>
-
                                                 <Grid className={'commentsBox'}>
 
                                                     <ListItem alignItems="flex-start">
@@ -124,10 +122,10 @@ export const CmntFunctionality: React.FC<CmntFunctionalityProps> = ({
                                                                             spellCheck="false"
                                                                             className='comTextArea'
                                                                             value={comment.text}
-                                                                            onChange={(e) =>
+                                                                            onChange={(event) =>
                                                                                 setComments(
                                                                                     comments.map((c) =>
-                                                                                        c.id === comment.id ? { ...c, text: e.target.value } : c
+                                                                                        c.id === comment.id ? { ...c, text: event.target.value } : c
                                                                                     )
                                                                                 )
                                                                             }
