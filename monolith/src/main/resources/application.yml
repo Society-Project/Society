@@ -27,3 +27,14 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
+springdoc:
+  packagesToScan: com.society.server.api.v1
+  pathsToMatch: /api/v1/**
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha
+    url: /v3/api-docs
+  show-actuator: true
+  api-docs:
+    version: openapi_3_0
+#    path: /documentation
