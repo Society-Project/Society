@@ -1,15 +1,13 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
 import styled from "styled-components";
 import { Colors } from "../colors/Colors";
 import { Shadows } from "../values/Shadows";
 import { Radiuses } from "../values/Radiuses";
 import { Spacings } from "../values/Spacings";
-import { Avatar, TextField } from "@mui/material";
-import ClearIcon from "@mui/icons-material/Clear";
-import SearchIcon from "@mui/icons-material/Search";
+
 import headerLogo from "/src/images/headerLogo.png";
+import SearchField from "./SearchField";
 import {
   FULL_WIDTH,
   HEADER_LOGO_HEIGHT,
@@ -18,8 +16,6 @@ import {
 } from "../values/HardCodedValues";
 
 const Header = () => {
-  const [searchValue, setSearchValue] = useState<string>("");
-
   return (
     <HeaderWrapper>
       <InnerWrapper>
@@ -27,24 +23,7 @@ const Header = () => {
         <Link href="/">
           <Logo src={headerLogo.src} alt="Header logo" />
         </Link>
-        <SearchAndProfilePicWrapper>
-          <TextField
-            label="Search"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            InputProps={{
-              startAdornment: <SearchIcon />,
-              endAdornment: searchValue && (
-                <CloseIconWrapper onClick={() => setSearchValue("")}>
-                  <ClearIcon />
-                </CloseIconWrapper>
-              ),
-              color: "success",
-            }}
-            InputLabelProps={{ color: "success" }}
-          />
-          <Avatar />
-        </SearchAndProfilePicWrapper>
+        <SearchField />
       </InnerWrapper>
     </HeaderWrapper>
   );
@@ -68,15 +47,6 @@ const InnerWrapper = styled.div`
   padding: ${Spacings.small};
 `;
 
-const SearchAndProfilePicWrapper = styled.div`
-  display: flex;
-  direction: row;
-  align-items: center;
-  padding-top: ${Spacings.medium};
-  gap: ${Spacings.medium};
-  padding-right: ${Spacings.small};
-`;
-
 const Logo = styled.img`
   height: ${HEADER_LOGO_HEIGHT};
   width: ${HEADER_LOGO_WIDTH};
@@ -96,10 +66,4 @@ const TopLine = styled.div`
   right: 0;
   top: 0;
   border-radius: ${Radiuses.headerTopLineRadius};
-`;
-
-const CloseIconWrapper = styled.div`
-  :hover {
-    cursor: pointer;
-  }
 `;
