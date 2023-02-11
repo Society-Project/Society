@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "spring.datasource.driverClassName.password",
+      "type": "java.lang.String",
+      "description": "Description for spring.datasource.driverClassName.password."
+  }
+] }

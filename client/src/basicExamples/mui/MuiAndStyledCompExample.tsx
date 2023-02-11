@@ -3,7 +3,7 @@ import Button from "@mui/material-next/Button";
 import styled from "styled-components";
 
 const MuiAndStyledCompExample = () => (
-  <StyledButton variant="text">I am Mui + styled comps</StyledButton>
+    <StyledButton variant="text">I am Mui + styled comps</StyledButton>
 );
 
 export default MuiAndStyledCompExample;

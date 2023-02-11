@@ -2,9 +2,9 @@
 import styled from "styled-components";
 
 const StyledComponentsExample = () => (
-  <Container>
-    <Content>Hello World from styled-components!</Content>
-  </Container>
+    <Container>
+        <Content>Hello World from styled-components!</Content>
+    </Container>
 );
 
 export default StyledComponentsExample;
