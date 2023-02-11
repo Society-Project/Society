@@ -11,9 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class BeanConfiguration {
 
-    public BeanConfiguration() {
-    }
-
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -29,10 +26,5 @@ public class BeanConfiguration {
             Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-
-//    @Bean
-//    public TimedAspect timedAspect(MeterRegistry registry) {
-//        return new TimedAspect(registry);
-//    }
 
 }

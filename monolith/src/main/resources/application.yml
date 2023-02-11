@@ -12,8 +12,8 @@ spring:
   datasource:
     driverClassName: org.postgresql.Driver
     password: ${DB_PASSWORD}
-    url: ${DB_URL} #jdbc:postgresql://localhost:5432/reddit
-    username: ${DB_USER} #compose-postgres
+    url: ${DB_URL}
+    username: ${DB_USER}
   jpa:
     hibernate:
       ddl-auto: create-drop
