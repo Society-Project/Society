@@ -1,25 +1,24 @@
 import React from 'react'
-import {Box, Button, TextField, Typography } from '@mui/material'
+import { Box, Button, TextField, Typography } from '@mui/material'
 import laptopPicture from "/src/images/laptopPicture.jpg";
 import headerLogo from "/src/images/headerLogo.png"
 import styled from "styled-components";
+import "../../src/components/Styles/LoginStyles.scss"
 
 
 
 const Login = () => {
   return (
     <div className='wrapper'>
-        <Logo src={laptopPicture.src} alt="Picture" />
+        <LaptopPicture className="Image" src={laptopPicture.src} alt="Picture" />
 
-          <Box 
+          <Box className="Form"
                 display="flex" 
                 flexDirection={"column"} 
                 maxWidth={381}
                 alignItems="center" 
                 justifyContent={"center"}
                 margin="auto"
-                marginTop={6}
-                padding={10}
                 borderRadius={5}
                 boxShadow={'3px 13px 80px rgba(0, 0, 0, 0.25);'}    
                 color={"red"} 
@@ -31,8 +30,8 @@ const Login = () => {
                 textAlign='center'
                 >
                 <img src={headerLogo.src} alt="HeaderLogo" 
-                width= "434px" 
-                height= "241px"/>
+                 
+                />
                   Login
                   </Typography>
                 <TextField 
@@ -106,16 +105,20 @@ const Login = () => {
     </div>
   )
 }
-const Logo = styled.img`
-  height: 350px;
-  width: 200px;
+const LaptopPicture = styled.img`
+
+  border-radius: "0% 10% 10% 0%";
+
   opacity: 0.9;
-  border-radius"0% 10% 10% 0%"
 
 
   :hover {
     cursor: pointer;
     opacity: 1;
   }
+}
 `;
+
 export default Login
+
+
