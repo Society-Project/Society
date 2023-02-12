@@ -1,0 +1,40 @@
+.navigation-root-element{
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    height: 100vh;
+
+    .icon-buttons{
+        cursor: pointer;
+        width: 100%;
+        margin-left: 1rem;
+    }
+    .css-i4bv87-MuiSvgIcon-root {
+        font-size: 2.2rem;
+        margin: 20px;
+    }
+    .css-1s4ffru-MuiListItem-root{
+        padding-top: 0;
+        padding-bottom: 0;
+        border-top-left-radius: 35%;
+        border-bottom-left-radius: 35%;
+        border-top-right-radius: -30px;
+        margin-top: 20px;
+    
+        box-shadow: 0 5px 10px 0 #aaaaaa;
+    }
+    .css-m1z76u-MuiListItem-root{
+        margin-top: .9rem;
+    }
+    
+}
+@media only screen and (min-width: 1836px) and (max-width: 2136px){
+   .navigation-root-element {
+
+        .css-i4bv87-MuiSvgIcon-root{
+            font-size: 2.8rem;
+            margin-top: 3rem;
+        }
+   }
+}
