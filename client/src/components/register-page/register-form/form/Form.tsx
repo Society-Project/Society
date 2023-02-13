@@ -1,9 +1,9 @@
 import React from 'react'
 import "../../../Styles/LoginRegisterStyles.scss"
-import { BoxElement } from './BoxElement'
+import { BoxElement } from '../form/BoxElement'
 import { LaptopImg } from '../../laptop-img/LaptopImg'
 
-const Register = () => {
+const RegisterForm = () => {
   return (
     <div className='wrapper'>
       <LaptopImg />
@@ -13,4 +13,4 @@ const Register = () => {
 }
 
 
-export default Register
+export default RegisterForm

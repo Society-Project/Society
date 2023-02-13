@@ -3,8 +3,7 @@ import { Box, Button, Typography } from '@mui/material'
 import headerLogo from "/src/images/headerLogo.png"
 import "../../../Styles/LoginRegisterStyles.scss"
 import { UserInput } from '../user-input/UserInput'
-import { SignUpBtn } from '../../sign-in__sign-up-Btns/sign-up/SignUpBtn'
-import { LogInBtn } from '../../sign-in__sign-up-Btns/log-in/LogInBtn'
+import { SignUpLogInBtn } from '../../sign-in__sign-up-Btns/SignUp-LogIn-Btn'
 
 export const BoxElement = () => {
   return (
@@ -34,8 +33,8 @@ export const BoxElement = () => {
         marginTop: 3,
         marginBottom: 3,
         borderRadius: 4,
-        backgroundColor: "white",
-        color: "rgba(74, 122, 99, 1)",
+        backgroundColor: "rgba(32, 111, 79, 1)",
+        color: "white",
         fontFamily: 'Arial',
         fontSize: 20,
         letterSpacing: 0.5,
@@ -46,9 +45,7 @@ export const BoxElement = () => {
         color='success'>
         Sign Up
       </Button>
-      <LogInBtn />
-      <SignUpBtn />
-
+      <SignUpLogInBtn />
     </Box>
   )
 }

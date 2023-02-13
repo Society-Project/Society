@@ -4,8 +4,9 @@ import laptopPicture from "/src/images/laptopPicture.jpg";
 import headerLogo from "/src/images/headerLogo.png";
 import styled from "styled-components";
 import "../../src/components/Styles/LoginRegisterStyles.scss";
+import { SignUpLogInBtn } from "@/components/register-page/sign-in__sign-up-Btns/SignUp-LogIn-Btn";
  
-const Login = () => {
+export const Login = () => {
   return (
     <Box className="wrapper" margin="-8px">
       <img className="Image" src={laptopPicture.src} alt="Picture" />
@@ -85,9 +86,9 @@ const Login = () => {
         >
           Sign Up
         </Button>
+        <SignUpLogInBtn />
       </Box>
     </Box>
   );
 };
  
-export default Login;

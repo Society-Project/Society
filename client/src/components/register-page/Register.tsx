@@ -1,10 +1,9 @@
 import Form from '@/components/register-page/register-form/form/Form'
 import React from 'react'
 
-const register = () => {
+export const Register = () => {
     return (
         <Form />
     )
 }
 
-export default register
