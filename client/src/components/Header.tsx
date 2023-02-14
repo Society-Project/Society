@@ -3,7 +3,6 @@ import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 import { Colors } from "../colors/Colors";
-import { Shadows } from "../values/Shadows";
 import { TextField } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";

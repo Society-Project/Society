@@ -3,6 +3,7 @@
     width: 100%;
     color: white;
 }
+
 .header-main-class{
     width: 100%;
     display: flex;
@@ -43,6 +44,9 @@
         }
     }
 }
+//@media screen and (min-width: 600px) {}
+
+
 @media only screen and (min-width: 1836px) and (max-width: 2136px) {
     .header-main-class {
         .header-logo {
