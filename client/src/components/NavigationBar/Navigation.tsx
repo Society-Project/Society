@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { Box, ListItem } from '@mui/material'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -10,12 +10,11 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 //File will execute automatically
 import '../Styles/NavigationBar.scss';
 
-
 export const NavigationBar = () => {
     let tokenMap: Map<number, boolean> = new Map();
 
     //I use any here because it throws an error when trying to set the type to Map<number, boolean>
-    const [mapState, setMapState]: any = React.useState(null);
+    const [mapState, setMapState]: any = useState(null);
 
 
     const IconArray: any = [

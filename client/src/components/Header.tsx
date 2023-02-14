@@ -4,48 +4,62 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Colors } from "../colors/Colors";
 import { Shadows } from "../values/Shadows";
-import { Radiuses } from "../values/Radiuses";
-import { Spacings } from "../values/Spacings";
-import { Avatar, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
-import headerLogo from "/src/images/headerLogo.png";
+import headerLogo from '/src/images/logo-mark.svg'
+
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import { Box } from '@mui/material';
+
+import "./Styles/Header.scss";
+
 import {
   FULL_WIDTH,
   HEADER_LOGO_HEIGHT,
   HEADER_LOGO_WIDTH,
-  HEADER_TOP_LINE_HEIGHT,
 } from "../values/HardCodedValues";
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>("");
+  const [isSearchButtonClicked, setIsSearchButtonClicked] = useState(false);
+
+  function onSeachButtonClick() {
+    setIsSearchButtonClicked(isSearchButtonClicked => !isSearchButtonClicked);
+  }
 
   return (
     <HeaderWrapper>
-      <InnerWrapper>
-        <TopLine />
-        <Link href="/">
-          <Logo src={headerLogo.src} alt="Header logo" />
-        </Link>
-        <SearchAndProfilePicWrapper>
-          <TextField
-            label="Search"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            InputProps={{
-              startAdornment: <SearchIcon />,
-              endAdornment: searchValue && (
-                <CloseIconWrapper onClick={() => setSearchValue("")}>
-                  <ClearIcon />
-                </CloseIconWrapper>
-              ),
-              color: "success",
-            }}
-            InputLabelProps={{ color: "success" }}
-          />
-          <Avatar />
-        </SearchAndProfilePicWrapper>
-      </InnerWrapper>
+      <Box className='top-line'>d</Box>
+      <Box className="header-main-class">
+        <Box className="header-logo">
+          <Link href="/">
+            <Logo src={headerLogo.src} className='header-logo-image' alt="Header logo" />
+          </Link>
+        </Box>
+        <Box className="search-bar">
+            <SearchIcon onClick={onSeachButtonClick} className='search-button' />
+            {
+               isSearchButtonClicked ? <TextField
+               label="Search"
+               value={searchValue}
+               onChange={(e) => setSearchValue(e.target.value)}
+               InputProps={{
+                 endAdornment: searchValue && (
+                   <CloseIconWrapper onClick={() => setSearchValue("")}>
+                     <ClearIcon />
+                   </CloseIconWrapper>
+                 ),
+                 color: "success",
+               }}
+               InputLabelProps={{ color: "success" }}
+             /> : null
+            }
+        </Box>
+        <Box className="user-profile">
+            <AccountCircleRoundedIcon className='user-account-icon' fontSize='large'/>
+        </Box>
+      </Box>
     </HeaderWrapper>
   );
 };
@@ -61,22 +75,6 @@ const HeaderWrapper = styled.div`
   left: 0;
 `;
 
-const InnerWrapper = styled.div`
-  display: flex;
-  direction: row;
-  justify-content: space-between;
-  padding: ${Spacings.small};
-`;
-
-const SearchAndProfilePicWrapper = styled.div`
-  display: flex;
-  direction: row;
-  align-items: center;
-  padding-top: ${Spacings.medium};
-  gap: ${Spacings.medium};
-  padding-right: ${Spacings.small};
-`;
-
 const Logo = styled.img`
   height: ${HEADER_LOGO_HEIGHT};
   width: ${HEADER_LOGO_WIDTH};
@@ -86,16 +84,6 @@ const Logo = styled.img`
     cursor: pointer;
     opacity: 1;
   }
-`;
-
-const TopLine = styled.div`
-  position: absolute;
-  background-color: ${Colors.caramel};
-  height: ${HEADER_TOP_LINE_HEIGHT};
-  width: calc(${FULL_WIDTH} - ${HEADER_LOGO_WIDTH});
-  right: 0;
-  top: 0;
-  border-radius: ${Radiuses.headerTopLineRadius};
 `;
 
 const CloseIconWrapper = styled.div`

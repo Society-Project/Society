@@ -1,0 +1,72 @@
+.top-line{
+    background-color: white;
+    width: 100%;
+    color: white;
+}
+.header-main-class{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(235, 233, 233);
+    box-shadow: none;
+
+    .header-logo{
+        background-color: white;  
+        width: 10.7%;
+
+        .header-logo-image{
+            max-width: 60px;
+            margin-left: 2.8rem;
+        }
+    }
+    .search-bar{
+        width: 66%;
+        text-align: right;
+        cursor: pointer;
+        margin-top: 1rem;
+        
+
+        .search-button{
+            margin-top: 1rem;
+        }
+       
+    }
+    .user-profile{
+        width: 10%;
+        background-color: white;
+
+        .user-account-icon{
+            position: absolute;
+            top: 23%;
+            right: 2.5%;
+            font-size: 5rem;
+        }
+    }
+}
+@media only screen and (min-width: 1836px) and (max-width: 2136px) {
+    .header-main-class {
+        .header-logo {
+            .header-logo-image {
+                max-width: 80px;
+                margin-left: 3rem;
+            }
+        }
+        .search-bar {
+            .search-button {
+                margin-top: .6rem;
+                font-size: 2rem;
+            }
+        }
+
+        .user-profile {
+            
+            .user-account-icon {
+                position: absolute;
+                right: 4.5rem;
+                font-size: 5rem;
+            }
+        }
+    }
+}
+
+

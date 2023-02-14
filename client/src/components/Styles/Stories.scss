@@ -13,21 +13,23 @@
     .story-data-box{
         margin-left: 1.5rem;
         margin-right: 1.5rem;
-        background-color: rgb(235, 233, 233);
-        border-radius: 15%;
+        border-radius: 35%;
         height: 75vh;
         
 
         .add-story-box{
             padding: .4rem;
             height: auto;
+            background-color: rgb(235, 233, 233);
+            border-radius: 7%;
             
             .add-story-button {
                 background-color: white;
                 padding: .5rem;
                 margin-top: 1rem;
                 border-radius: 50%;  
-                width: 70%;
+                border: 5px solid rgb(9, 104, 80);
+                width: 80%;
                 box-shadow: 5px 5px 10px 5px #aaaaaa;
                 cursor: pointer;
                 color: black;
@@ -58,6 +60,18 @@
     }
 }   
 
+@media only screen and (min-width: 1600px) and (max-width:  1735px) {
+    .stories-root-box {
+        .story-data-box {
+
+            .add-story-box {
+                .add-story-button {
+                    width: 70%;
+                }
+            }
+        }
+    }
+} 
 @media only screen and (min-width: 1836px) and (max-width: 2136px){
     .stories-root-box {
         .stories-paragraph {
@@ -70,7 +84,7 @@
             .add-story-box {
 
                 .add-story-button {
-                    width: 60%;
+                    width: 70%;
                     margin-top: 1rem;
                     padding: .4rem;
                     font-size: 1.2rem;
@@ -102,7 +116,7 @@
             .add-story-box {
 
                 .add-story-button {
-                    width: 50%;
+                    width: 60%;
                     padding: .5rem;
                     font-size: 1.3rem;
                     margin-top: 1rem;
