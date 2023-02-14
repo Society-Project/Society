@@ -68,7 +68,6 @@ export default Header;
 const HeaderWrapper = styled.div`
   width: ${FULL_WIDTH};
   background-color: ${Colors.white};
-  box-shadow: ${Shadows.headerShadow};
   position: relative;
   top: 0;
   left: 0;
