@@ -47,7 +47,7 @@ const UserProfile = () => {
             />
           </Box>
         </Box>
-        <h2>Name Name</h2>
+        <h2 className="profile-name">Name Name</h2>
         <Grid container spacing={2} className="profile-content">
           <Grid item xs={4} className="profile-information">
             <List
@@ -71,6 +71,9 @@ const UserProfile = () => {
                 Birthday
               </ListItem>
               <Typography>See more...</Typography>
+              <span>
+                <a href="#">Edit</a>
+              </span>
             </List>
 
             <Grid container spacing={2} className="album-grid">
@@ -113,9 +116,11 @@ const UserProfile = () => {
             </Grid>
           </Grid>
           <Grid className="profile-action" item xs={8}>
-            <CreatePost />
-            <Post />
-            <Post />
+            <CreatePost className="profile-create-post" />
+            <Box className="profile-publiations">
+              <Post />
+              <Post />
+            </Box>
           </Grid>
         </Grid>
       </Container>
