@@ -20,6 +20,7 @@ import profileThumbnail from "../../../public/profileThumbnail.png";
 import defaultUserPicture from "../../../public/defaultUserPicture.png";
 import albumPicture from "../../../public/albumPicture.png";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkIcon from "@mui/icons-material/Work";
@@ -40,14 +41,25 @@ const UserProfile = () => {
             className="profile-banner"
           />
           <Box className="profile-picture-box">
-            <Image
-              src={defaultUserPicture}
-              alt="Name"
-              className="profile-picture"
-            />
+            <Box className="profile-image-content">
+              <Image
+                src={defaultUserPicture}
+                alt="Name"
+                className="profile-picture"
+              />
+              <Box className="profile-add-photo">
+                <AddAPhotoIcon />
+              </Box>
+            </Box>
           </Box>
         </Box>
-        <h2 className="profile-name">Name Name</h2>
+        <Box className="profile-user-name">
+          <Typography className="profile-name name">Name Name</Typography>
+          <button className="profile-add-button add-button">
+            <PersonAddAltRoundedIcon />
+            Add friend
+          </button>
+        </Box>
         <Grid container spacing={2} className="profile-content">
           <Grid item xs={4} className="profile-information">
             <List
@@ -70,10 +82,9 @@ const UserProfile = () => {
                 <TodayIcon />
                 Birthday
               </ListItem>
-              <Typography>See more...</Typography>
-              <span>
+              <Typography className="profile-edit-link">
                 <a href="#">Edit</a>
-              </span>
+              </Typography>
             </List>
 
             <Grid container spacing={2} className="album-grid">
