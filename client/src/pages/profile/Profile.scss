@@ -44,6 +44,11 @@
     border-radius: 50%;
     background: white;
 
+    .profile-image-content {
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
     .profile-picture {
       border-radius: 50%;
       width: 100%;
