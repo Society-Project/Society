@@ -1,4 +1,3 @@
-import React from 'react'
 import { Icon, TextField } from '@mui/material'
 import "../../../Styles/LoginRegisterStyles.scss"
 import { userInputSx, userTextFieldIcon } from './UserInput'
@@ -6,6 +5,7 @@ import HttpsOutlinedIcon from '@mui/icons-material/HttpsOutlined';
 import dayjs, { Dayjs } from 'dayjs';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import React from 'react';
 
 export const UserInputTextField = (placeHolderValue: string) => {
     return (

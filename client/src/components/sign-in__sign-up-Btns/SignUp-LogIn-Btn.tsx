@@ -1,5 +1,5 @@
 import { Button, Icon } from '@mui/material'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import '../Styles/LoginRegisterStyles.scss'
 import BedtimeIcon from '@mui/icons-material/Bedtime';
 import { disabled, logInBtnSx, logInIconHelper, logInSecIconHelper, signUpBtnSx, signUpIconHelper, signUpSecIconHelper } from './btns-sx';

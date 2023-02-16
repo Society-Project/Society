@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box, Button, Typography } from '@mui/material'
 import headerLogo from "/src/images/headerLogo.png"
 import "../../../Styles/LoginRegisterStyles.scss"

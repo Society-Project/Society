@@ -1,4 +1,3 @@
-import React from 'react'
 import laptopPicture from "/src/images/laptopPicture.jpg"
 import styled from 'styled-components';
 

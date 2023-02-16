@@ -1,4 +1,3 @@
-import React from 'react'
 import { Icon, TextField } from '@mui/material'
 import "../../../Styles/LoginRegisterStyles.scss"
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
