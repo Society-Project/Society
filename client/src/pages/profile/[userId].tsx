@@ -80,6 +80,7 @@ const UserProfile = () => {
       body: formData,
     }).then((res) => res.json());
 
+    handleClose();
     setImageSrc(data.secure_url);
     setUploadData(data);
   };
@@ -95,11 +96,20 @@ const UserProfile = () => {
           />
           <Box className="profile-picture-box" onClick={handleOpen}>
             <Box className="profile-image-content">
-              <Image
-                src={defaultUserPicture}
-                alt="Name"
-                className="profile-picture"
-              />
+              {imageSrc !== "" ? (
+                <Image
+                  src={imageSrc}
+                  alt="Name"
+                  className={`profile-picture ${imageSrc !== "" && "change"}`}
+                  fill
+                />
+              ) : (
+                <Image
+                  src={defaultUserPicture}
+                  alt="Name"
+                  className="profile-picture"
+                />
+              )}
               <Box className="profile-add-photo">
                 <AddAPhotoIcon />
               </Box>
@@ -140,7 +150,9 @@ const UserProfile = () => {
 
               {imageSrc && !uploadData && (
                 <p>
-                  <button>Upload Files</button>
+                  <button className="profile-button-upload">
+                    Upload Picture
+                  </button>
                 </p>
               )}
 
