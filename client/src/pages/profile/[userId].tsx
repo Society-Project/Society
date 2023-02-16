@@ -113,6 +113,46 @@ const UserProfile = () => {
             Add friend
           </button>
         </Box>
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box className="profile-picture-box">
+            <form
+              method="post"
+              onChange={handleOnChange}
+              onSubmit={handleOnSubmit}
+            >
+              <p>
+                <input type="file" name="file" />
+              </p>
+
+              <Image
+                src={imageSrc !== "" ? imageSrc : defaultUserPicture}
+                alt="User photo"
+                width={400}
+                height={400}
+                className="user-photo-container"
+              />
+
+              {imageSrc && !uploadData && (
+                <p>
+                  <button>Upload Files</button>
+                </p>
+              )}
+
+              {uploadData && (
+                <code>
+                  <pre>{JSON.stringify(uploadData, null, 2)}</pre>
+                </code>
+              )}
+            </form>
+          </Box>
+        </Modal>
+
         <Grid container spacing={2} className="profile-content">
           <Grid item xs={4} className="profile-information">
             <List
