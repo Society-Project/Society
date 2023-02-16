@@ -67,6 +67,10 @@ export const logInSecIconHelper = {
     position: 'absolute',
     left: '51.5vw',
     top: '51.7vh',
-    rotate: '167deg',
+    rotate: '165deg',
     color: 'white',
+}
+
+export const disabled = {
+    color: 'white'
 }

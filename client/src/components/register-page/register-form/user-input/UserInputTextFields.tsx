@@ -51,7 +51,7 @@ export const BirthDate = () => {
         <LocalizationProvider dateAdapter={AdapterDayjs} >
           <DesktopDatePicker
             value={value}
-            minDate={dayjs('11-02-2016')}
+            minDate={dayjs('11-02-1920')}
             onChange={(newValue) => {
               setValue(newValue);
             }}

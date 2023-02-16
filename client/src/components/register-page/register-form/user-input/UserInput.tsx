@@ -29,6 +29,7 @@ export const userInputSx = {
   justifyContent: 'center',
   '&:hover': {
     backgroundColor: 'rgba(74, 122, 99, 0.09)',
+    border: 'none'
   }
 }
 

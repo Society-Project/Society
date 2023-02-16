@@ -1,20 +1,20 @@
 import React from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import laptopPicture from "/src/images/laptopPicture.jpg";
 import headerLogo from "/src/images/headerLogo.png";
-import styled from "styled-components";
 import "../../src/components/Styles/LoginRegisterStyles.scss";
-import { SignUpLogInBtn } from "@/components/register-page/sign-in__sign-up-Btns/SignUp-LogIn-Btn";
+import { SignUpLogInBtn } from "@/components/sign-in__sign-up-Btns/SignUp-LogIn-Btn";
+import laptopPicture from '../images/laptopPicture.jpg'
+import { LaptopImg } from "@/components/register-page/laptop-img/LaptopImg";
  
-export const Login = () => {
+const Login = () => {
   return (
     <Box className="wrapper" margin="-8px">
-      <img className="Image" src={laptopPicture.src} alt="Picture" />
+      <LaptopImg />
       <Box
         className="Form"
         display="flex"
         flexDirection={"column"}
-        maxWidth={560}
+        maxWidth={'44vw'}
         alignItems="center"
         justifyContent={"center"}
         margin="auto"
@@ -92,3 +92,4 @@ export const Login = () => {
   );
 };
  
+export default Login
