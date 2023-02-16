@@ -11,9 +11,5 @@ const LaptopPicture = styled.img`
 
   opacity: 0.9;
 
-  :hover {
-    cursor: pointer;
-    opacity: 1;
-  }
 }
 `;

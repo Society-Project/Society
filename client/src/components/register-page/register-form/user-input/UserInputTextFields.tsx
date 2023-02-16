@@ -1,6 +1,6 @@
 import { Icon, TextField } from '@mui/material'
 import "../../../Styles/LoginRegisterStyles.scss"
-import { userInputSx, userTextFieldIcon } from './UserInput'
+import { datePickerSx, userInputSx, userTextFieldIcon } from './UserInput'
 import HttpsOutlinedIcon from '@mui/icons-material/HttpsOutlined';
 import dayjs, { Dayjs } from 'dayjs';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -55,7 +55,7 @@ export const BirthDate = () => {
             onChange={(newValue) => {
               setValue(newValue);
             }}
-            renderInput={(params) => <TextField margin='dense' sx={ userInputSx } {...params} />}
+            renderInput={(params) => <TextField margin='dense' sx={ datePickerSx } {...params} />}
           />
         </LocalizationProvider>
       </>
