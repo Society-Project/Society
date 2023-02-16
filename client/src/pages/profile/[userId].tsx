@@ -192,8 +192,9 @@ const UserProfile = () => {
               </Typography>
             </List>
 
+            {/* TODO: Add mapping here: */}
             <Grid container spacing={2} className="album-grid">
-              <Grid>
+              <Grid className="album-grid-content">
                 <ListItem className="album-grid-item">
                   <Image
                     src={albumPicture}
@@ -202,7 +203,7 @@ const UserProfile = () => {
                   />
                 </ListItem>
               </Grid>
-              <Grid>
+              <Grid className="album-grid-content">
                 <ListItem className="album-grid-item">
                   <Image
                     src={albumPicture}
@@ -211,7 +212,7 @@ const UserProfile = () => {
                   />
                 </ListItem>
               </Grid>
-              <Grid>
+              <Grid className="album-grid-content">
                 <ListItem className="album-grid-item">
                   <Image
                     src={albumPicture}
@@ -220,7 +221,7 @@ const UserProfile = () => {
                   />
                 </ListItem>
               </Grid>
-              <Grid>
+              <Grid className="album-grid-content">
                 <ListItem className="album-grid-item">
                   <Image
                     src={albumPicture}
@@ -228,6 +229,9 @@ const UserProfile = () => {
                     className="user-picture-item"
                   />
                 </ListItem>
+                <Box className="photos-plus">
+                  <span className="photos-plus-name">+ photos</span>
+                </Box>
               </Grid>
             </Grid>
           </Grid>
