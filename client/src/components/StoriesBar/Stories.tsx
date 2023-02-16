@@ -6,18 +6,19 @@ export const Stories = () => {
     const repeatParagraphElements: Array<object> = [];
     const predefinedLengthOfElements: number = 5;
 
-    for(let i = 0; i < predefinedLengthOfElements; i++) {
+    for (let i = 0; i < predefinedLengthOfElements; i++) {
         repeatParagraphElements.push(
             //This property should be replaced with person's profile picture
             <Button className='person-story'>.</Button>
         );
     }
 
-    return(
+    return (
         <Box className='stories-root-box'>
-           <p className='stories-paragraph'>Stories</p>
 
-           <Box className='story-data-box'>
+            <p className='stories-paragraph'>Stories</p>
+
+            <Box className='story-data-box'>
                 <Box className='add-story-box'>
                     <Button className='add-story-button'>+ add story</Button>
                     <Box className='break-line' />
@@ -30,7 +31,7 @@ export const Stories = () => {
                     }
                     <Box className='expand-icon'><MoreHorizIcon /></Box>
                 </Box>
-           </Box>
+            </Box>
         </Box>
     );
 }

@@ -1,66 +1,75 @@
-.navigation-root-element{
+.navigation-root-element {
     width: 10.7%;
-    display: flex;
-    
-    justify-content: center;
-    background-color: white;
     height: 100vh;
-
-    .icon-buttons{
-        cursor: pointer;
-        width: 100%;
-        margin-left: 1rem;
-
-        .moon-class-1{
-            color: rgb(233, 235, 235);
-            background-color: rgb(233, 235, 235);
-            width: 10%; 
-            margin-top: .2rem;
-            border-top-left-radius: 20%;
-            border-bottom-left-radius: 40%;
-            position: relative;
-            top: 4rem;
-            left: 8rem;
-            padding: .5rem;
-        }
-        .moon-class-2 {
-            color: rgb(233, 235, 235);
-            background-color: rgb(233, 235, 235);
-            width: 10%; 
-            margin-top: .2rem;
-            border-bottom-left-radius: 40%;
-        }
-    }
+    background: linear-gradient(rgb(255, 255, 255), white);
+    font-size: 20px;
+    float: left;
+    position: sticky;
+    left: -1rem;
+    margin: 0.25% 0 0 5px;
+    
+    
     .css-i4bv87-MuiSvgIcon-root {
         font-size: 2.2rem;
-        margin: 20px;
         
     }
-    .css-1s4ffru-MuiListItem-root{
-        padding-top: 0;
-        padding-bottom: 0;
-        border-top-left-radius: 15%;
-        border-bottom-left-radius: 15%;
-       
-        margin-top: 20px;
-        box-shadow: 0 5px 10px 0 #aaaaaa;
-        clip-path: inset(-5px 0px -5px -5px);
-    }
-    .css-m1z76u-MuiListItem-root{
-        margin-top: .9rem;
-    }
-    .log-out-icon {
-        margin-left: 1.4rem;
-        
-    }
-    
-}
-@media only screen and (min-width: 1836px) and (max-width: 2136px){
-   .navigation-root-element {
 
-        .css-i4bv87-MuiSvgIcon-root{
-            font-size: 2.8rem;
-            margin-top: 3rem;
-        }
-   }
+    .icon-buttons{
+        height: 70.4%;
+        display: flex;
+        flex-direction: column;
+        
+        justify-content: space-between;
+    }
+
+    .css-1s4ffru-MuiListItem-root {
+        display: block;
+        width: 76%;
+         height: 50px;
+        float: right;
+        border-radius: 10px 0 0 10px;
+        line-height: 0;
+        
+        
+    }
+
+    .list-item-element {
+        width: 76%;
+        margin-left: auto;
+        
+        cursor: pointer;
+    }
+
+    .css-1s4ffru-MuiListItem-root:link {
+        background-color: rgb(235, 233, 233);
+        
+    }
+
+    .css-1s4ffru-MuiListItem-root::after {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: 0;
+        width: 20px;
+        height: 50px;
+        z-index: -1;
+        border-radius: 0 0 25px 0;
+        box-shadow: 0 25px 0 0 rgb(235, 233, 233);
+    }
+
+    // This code is not going to work if I put it like this
+    // .css-1s4ffru-MuiListItem-root::after, .css-1s4ffru-MuiListItem-root::before
+    .css-1s4ffru-MuiListItem-root::before {
+        content: '';
+        position: absolute;
+        top: 50px;
+        right: 0;
+        width: 20px;
+        height: 50px;
+        z-index: -1;
+
+        border-radius: 0 25px 0 0;
+        box-shadow: 0 -25px 0 0 rgb(235, 233, 233);
+
+    }
 }
