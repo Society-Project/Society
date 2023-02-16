@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import headerLogo from "/src/images/headerLogo.png";
 import "../../src/components/Styles/LoginRegisterStyles.scss";
-import { SignUpLogInBtn } from "@/components/sign-in__sign-up-Btns/SignUp-LogIn-Btn";
+import { SignUpLogInBtn } from "@/components/logIn-signUp-btns/SignUp-LogIn-Btn";
 import laptopPicture from '../images/laptopPicture.jpg'
 import { LaptopImg } from "@/components/register-page/laptop-img/LaptopImg";
  

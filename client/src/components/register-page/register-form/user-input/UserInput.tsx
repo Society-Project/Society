@@ -3,7 +3,7 @@ import "../../../Styles/LoginRegisterStyles.scss"
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { BirthDate, PasswordInput, UserInputTextField } from './UserInputTextFields';
 
-export const UserInput = ({ }: object) => {
+export const UserInput = () => {
 
   const placeholdersArr = [
     'First name',
@@ -24,19 +24,29 @@ export const UserInput = ({ }: object) => {
 }
 
 export const userInputSx = {
-  borderRadius: 1,
+  borderRadius: 4,
   backgroundColor: 'rgba(74, 122, 99, 0.09)',
-  fontFamily: 'Robotto',
+  fontFamily: 'Roboto',
   fontSize: 22,
   letterSpacing: 0.5,
   width: 300,
   height: 55,
   display: 'flex',
   justifyContent: 'center',
-  '&:hover': {
-    backgroundColor: 'rgba(74, 122, 99, 0.09)',
-    border: 'none'
-  }
+  border: 'none',
+  
+}
+
+export const datePickerSx = {
+  borderRadius: 1,
+  backgroundColor: 'rgba(74, 122, 99, 0.09)',
+  fontFamily: 'Roboto',
+  fontSize: 22,
+  letterSpacing: 0.5,
+  width: 300,
+  height: 55,
+  display: 'flex',
+  justifyContent: 'center',
 }
 
 export const userTextFieldIcon = {

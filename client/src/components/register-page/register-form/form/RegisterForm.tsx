@@ -1,5 +1,5 @@
 import "../../../Styles/LoginRegisterStyles.scss"
-import { BoxElement } from '../form/BoxElement'
+import { BoxElement } from './BoxElement'
 import { LaptopImg } from '../../laptop-img/LaptopImg'
 
 const RegisterForm = () => {
