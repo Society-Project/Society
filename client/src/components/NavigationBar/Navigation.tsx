@@ -25,7 +25,7 @@ export const NavigationBar = () => {
         <TextsmsOutlinedIcon />,
         <PeopleIcon />,
         <SettingsOutlinedIcon />,
-        <LogoutOutlinedIcon />,
+        <LogoutOutlinedIcon className='log-out-icon'/>,
     ]
 
     function onButtonClick(index: number) {
@@ -44,6 +44,7 @@ export const NavigationBar = () => {
                             }}>{item}</ListItem>
                         })
                     }
+                    
                 </Box>
             </Box>
             );
