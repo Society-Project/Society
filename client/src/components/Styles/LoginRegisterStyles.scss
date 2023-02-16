@@ -1,0 +1,25 @@
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: -8px;
+  .Image {
+    width: 50vw;
+    height: 100vh;
+    border-radius: 0% 3% 3% 0%;
+  }
+  .Form {
+    width: 90vw;
+    height: 85vh;
+  }
+}
+
+.clickedBtn {
+  width: 9vw;
+  height: 6.5vh;
+}
+
+
+
