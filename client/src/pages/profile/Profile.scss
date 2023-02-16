@@ -1,7 +1,6 @@
 .profile-wrapper {
   background-color: #f5f5f5;
   box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.25);
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
 
   border-radius: 1.875rem;
 
@@ -162,9 +161,42 @@
 
   .album-grid-item {
     padding: 0;
+  }
+}
 
-    &:nth-child(1) {
-      padding-bottom: 0.875rem;
+.album-grid-content {
+  &:nth-child(1) {
+    padding-bottom: 1.688rem;
+  }
+
+  &:nth-child(4) {
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      display: block;
+      background: white;
+
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0.6;
+    }
+
+    .photos-plus-name {
+      position: absolute;
+      background-color: white;
+
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      width: 66%;
+      text-align: center;
+      padding: 0.625rem 0.2rem;
+      border-radius: 1.875rem;
     }
   }
 }
