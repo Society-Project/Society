@@ -1,21 +1,17 @@
 import {
   Box,
   Button,
-  TextField,
   Typography,
-  Avatar,
   Container,
+  Modal,
   Grid,
   List,
   ListItem,
-  ListItemText,
-  IconButton,
 } from "@mui/material";
-import styled from "styled-components";
+import { useState } from "react";
 import Image from "next/image";
 import { CreatePost } from "@/components/posts/createPost/CreatePost";
 
-import { Colors } from "../../colors/Colors";
 import profileThumbnail from "../../../public/profileThumbnail.png";
 import defaultUserPicture from "../../../public/defaultUserPicture.png";
 import albumPicture from "../../../public/albumPicture.png";
@@ -31,6 +27,63 @@ import { Post } from "../../components/posts/Post";
 import "./Profile.scss";
 
 const UserProfile = () => {
+  const [open, setOpen] = useState<Boolean>(false);
+  const [imageSrc, setImageSrc] = useState<
+    String | ArrayBuffer | StaticImport | null
+  >("");
+  const [uploadData, setUploadData] = useState<Object>();
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOnChange = (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+    const reader = new FileReader();
+
+    reader.onload = function (onLoadEvent) {
+      if (onLoadEvent.target) {
+        setImageSrc(onLoadEvent.target.result);
+      }
+      setUploadData(undefined);
+    };
+
+    if (changeEvent.target.files) {
+      reader.readAsDataURL(changeEvent.target.files[0]);
+    }
+  };
+
+  const handleOnSubmit = async (event: any) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+    const fileInput: File[] | undefined = Array.from(form.elements).find(
+      ({ name }) => name === "file"
+    );
+
+    const formData = new FormData();
+
+    for (const file of fileInput.files) {
+      formData.append("file", file);
+    }
+
+    formData.append(
+      "upload_preset",
+      `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}`
+    );
+
+    const data = await fetch(`${process.env.NEXT_PUBLIC_CLOUDINARY_LINK}`, {
+      method: "POST",
+      body: formData,
+    }).then((res) => res.json());
+
+    setImageSrc(data.secure_url);
+    setUploadData(data);
+  };
+
   return (
     <main className="profile-wrapper">
       <Container>
@@ -40,7 +93,7 @@ const UserProfile = () => {
             alt="Profile photo"
             className="profile-banner"
           />
-          <Box className="profile-picture-box">
+          <Box className="profile-picture-box" onClick={handleOpen}>
             <Box className="profile-image-content">
               <Image
                 src={defaultUserPicture}
@@ -138,11 +191,5 @@ const UserProfile = () => {
     </main>
   );
 };
-
-const ProfileWrapper = styled.div`
-  height: 300px;
-  width: 200px;
-  background-color: "#F5F5F5";
-`;
 
 export default UserProfile;
