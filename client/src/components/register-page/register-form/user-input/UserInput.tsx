@@ -5,12 +5,19 @@ import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined
 import { BirthDate, PasswordInput, UserInputTextField } from './UserInputTextFields';
 
 export const UserInput = ({ }: object) => {
+
+  const placeholdersArr = [
+    'First name',
+    'Last name',
+    'Email address',
+    'Username'
+  ]
+
   return (
     <>
-      {UserInputTextField('First name')}
-      {UserInputTextField('Last name')}
-      {UserInputTextField('Email address')}
-      {UserInputTextField('Username')}
+      {placeholdersArr.map((a)=>{
+        return UserInputTextField(a)
+      })}
       <PasswordInput />
       <BirthDate />
     </>
