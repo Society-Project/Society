@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { CreatePost } from "@/components/posts/createPost/CreatePost";
 
 import profileThumbnail from "../../../public/profileThumbnail.png";
@@ -187,7 +188,7 @@ const UserProfile = () => {
                 Birthday
               </ListItem>
               <Typography className="profile-edit-link">
-                <a href="#">Edit</a>
+                <Link href="#">Edit</Link>
               </Typography>
             </List>
             <Grid container spacing={2} className="album-grid">
