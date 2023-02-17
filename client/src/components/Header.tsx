@@ -3,13 +3,12 @@ import Link from "next/link";
 import { useState } from "react";
 import styled from "styled-components";
 import { Colors } from "../colors/Colors";
-import { TextField } from "@mui/material";
 import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
 import headerLogo from '/src/images/logo-mark.svg'
 
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-import { Box } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 
 import "./Styles/Header.scss";
 
