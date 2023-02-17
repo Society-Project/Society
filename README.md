@@ -1,6 +1,7 @@
 # Society Project
 
 This is an all purpose social network practice project, maintain by a group of highly motivated young developers.
+Communication is leaded with Agile Methodology with Daily Standups and Sprint of tasks.
 
 ## Tech stack
 The client app is a NextJS TypeScript project, using MUI React components. 
