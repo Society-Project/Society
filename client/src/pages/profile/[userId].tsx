@@ -191,48 +191,25 @@ const UserProfile = () => {
                 <a href="#">Edit</a>
               </Typography>
             </List>
-
-            {/* TODO: Add mapping here: */}
             <Grid container spacing={2} className="album-grid">
-              <Grid className="album-grid-content">
-                <ListItem className="album-grid-item">
-                  <Image
-                    src={albumPicture}
-                    alt="Profile photo"
-                    className="user-picture-item"
-                  />
-                </ListItem>
-              </Grid>
-              <Grid className="album-grid-content">
-                <ListItem className="album-grid-item">
-                  <Image
-                    src={albumPicture}
-                    alt="Profile photo"
-                    className="user-picture-item"
-                  />
-                </ListItem>
-              </Grid>
-              <Grid className="album-grid-content">
-                <ListItem className="album-grid-item">
-                  <Image
-                    src={albumPicture}
-                    alt="Profile photo"
-                    className="user-picture-item"
-                  />
-                </ListItem>
-              </Grid>
-              <Grid className="album-grid-content">
-                <ListItem className="album-grid-item">
-                  <Image
-                    src={albumPicture}
-                    alt="Profile photo"
-                    className="user-picture-item"
-                  />
-                </ListItem>
-                <Box className="photos-plus">
-                  <span className="photos-plus-name">+ photos</span>
-                </Box>
-              </Grid>
+              {[1, 2, 3, 4].map((_, index) => {
+                return (
+                  <Grid className="album-grid-content" key={index}>
+                    <ListItem className="album-grid-item">
+                      <Image
+                        src={albumPicture}
+                        alt="Profile photo"
+                        className="user-picture-item"
+                      />
+                    </ListItem>
+                    {index === 3 && (
+                      <Box className="photos-plus">
+                        <span className="photos-plus-name">+ photos</span>
+                      </Box>
+                    )}
+                  </Grid>
+                );
+              })}
             </Grid>
           </Grid>
           <Grid className="profile-action" item xs={8}>
