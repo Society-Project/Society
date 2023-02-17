@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Typography,
   Container,
   Modal,
@@ -56,7 +55,7 @@ const UserProfile = () => {
     }
   };
 
-  const handleOnSubmit = async (event: any) => {
+  const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const form = event.currentTarget;
