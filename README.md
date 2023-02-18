@@ -19,5 +19,5 @@ The server application is a Java application with Spring Boot framework, Postgre
 2.2 Start client in development mode folder /client -> npm run dev
 ```
 
-Figma designs
+Figma designs by <span style="background-color:magenta; opacity: 0.6">[di-yordanova](https://github.com/di-yordanova)</span>
 https://www.figma.com/file/QarG3zw9NTJUzreI9kCbG2/Society-project?node-id=0%3A1&t=aNj436JqIzFJv3sQ-0 
