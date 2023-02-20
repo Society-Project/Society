@@ -14,7 +14,6 @@ const Login = () => {
       <Box className="Form"
         display="flex"
         flexDirection={"column"}
-        maxWidth={'45vw'}
         alignItems="center"
         justifyContent={"center"}
         marginTop={'7vh'}

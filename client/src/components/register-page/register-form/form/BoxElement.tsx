@@ -11,7 +11,6 @@ export const BoxElement = () => {
     <Box className="Form"
       display="flex"
       flexDirection={"column"}
-      maxWidth={'45vw'}
       alignItems="center"
       justifyContent={"center"}
       marginTop={'7vh'}
@@ -30,7 +29,7 @@ export const BoxElement = () => {
 
       <UserInput />
 
-      <Button sx={{
+      <Button  sx={{
         marginTop: 3,
         marginBottom: 3,
         borderRadius: 4,

@@ -26,7 +26,7 @@ export const SignUpLogInBtn = () => {
         <>
             <Button
                 className={router.asPath == '/login' ? 'clickedBtn' : ''}
-                id='li-su-btns' onClick={logOnClick}
+                id='LoginPanel' onClick={logOnClick}
                 sx={logInBtnSx}
                  >
                 Log In
@@ -34,7 +34,7 @@ export const SignUpLogInBtn = () => {
 
             <Button
                 className={router.asPath == '/register' ? 'clickedBtn' : ''}
-                id='li-su-btns' onClick={signOnClick}
+                id='SignPanel' onClick={signOnClick}
                 sx={signUpBtnSx} >
                 Sign Up
             </Button>
