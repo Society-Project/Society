@@ -13,7 +13,6 @@
   .Form {
     width: 90vw;
     height: 85vh;
-    
   }
 }
 
@@ -22,7 +21,7 @@
   height: 6.5vh;
 }
 
-.clickedBtn.css-sdfeve-MuiButtonBase-root-MuiButton-root::after {
+.clickedBtn.css-1l2ixb5-MuiButtonBase-root-MuiButton-root::after {
   content: "";
   position: absolute;
   background-color: transparent;
@@ -31,10 +30,10 @@
   width: 25px;
   border-bottom-right-radius: 25px;
   box-shadow: 0 25px 0 0 white;
-  margin-left: 8vw;
+  margin-left: 6.8vw;
 }
 
-.clickedBtn.css-sdfeve-MuiButtonBase-root-MuiButton-root::before {
+.clickedBtn.css-1l2ixb5-MuiButtonBase-root-MuiButton-root::before {
   content: "";
   position: absolute;
   background-color: transparent;
@@ -43,10 +42,10 @@
   width: 25px;
   border-top-right-radius: 25px;
   box-shadow: 0 -25px 0 0 white;
-  margin-left: 8vw;
+  margin-left: 6.8vw;
 }
 
-.clickedBtn.css-kvoopg-MuiButtonBase-root-MuiButton-root::after {
+.clickedBtn.css-1uy5mng-MuiButtonBase-root-MuiButton-root::after {
   content: "";
   position: absolute;
   background-color: transparent;
@@ -55,10 +54,10 @@
   width: 25px;
   border-bottom-right-radius: 25px;
   box-shadow: 0 25px 0 0 white;
-  margin-left: 8vw;
+  margin-left: 6.8vw;
 }
 
-.clickedBtn.css-kvoopg-MuiButtonBase-root-MuiButton-root::before {
+.clickedBtn.css-1uy5mng-MuiButtonBase-root-MuiButton-root::before {
   content: "";
   position: absolute;
   background-color: transparent;
@@ -67,10 +66,10 @@
   width: 25px;
   border-top-right-radius: 25px;
   box-shadow: 0 -25px 0 0 white;
-  margin-left: 8vw;
+  margin-left: 6.8vw;
 }
 
 .headerLogoLogin {
-  margin-top: -13.7vh;
-  margin-bottom: 22vh;
+  margin-top: 1vh;
+  margin-bottom: 10vh;
 }

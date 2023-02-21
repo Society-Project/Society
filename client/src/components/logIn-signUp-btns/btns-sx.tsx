@@ -9,7 +9,7 @@ export const signUpBtnSx = {
     border: 'none',
     borderRadius: '0.5rem',
     position: 'absolute',
-    left: '45vw',
+    left: '44vw',
     '&:hover': {
         backgroundColor: 'white',
         borderColor: '#0062cc',
@@ -30,47 +30,11 @@ export const logInBtnSx = {
      fontSize: '1.2rem',
     border: 'none',
     position: 'absolute',
-    left: '45vw',
+    left: '44vw',
     borderRadius: '0.5rem',
     '&:hover': {
         backgroundColor: 'white',
         borderColor: '#0062cc',
         boxShadow: 'none',
       }
-}
-
-export const signUpIconHelper = {
-    position: 'absolute',
-    left: '51.5vw',
-    top: '51.3vh',
-    rotate: '255deg',
-    color: 'white'
-}
-
-export const signUpSecIconHelper = {
-    position: 'absolute',
-    left: '51.5vw',
-    top: '58.4vh',
-    rotate: '157deg',
-    color: 'white',
-}
-
-export const logInIconHelper = {
-    position: 'absolute',
-    left: '51.5vw',
-    top: '44.5vh',
-    rotate: '255deg',
-    color: 'white'
-}
-
-export const logInSecIconHelper = {
-    position: 'absolute',
-    left: '51.5vw',
-    top: '51.7vh',
-    rotate: '165deg',
-    color: 'white',
-}
-
-export const disabled = {
-    color: 'white'
 }
