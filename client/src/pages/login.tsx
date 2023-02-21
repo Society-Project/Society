@@ -3,92 +3,54 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import headerLogo from "/src/images/headerLogo.png";
 import "../../src/components/Styles/LoginRegisterStyles.scss";
 import { SignUpLogInBtn } from "@/components/logIn-signUp-btns/SignUp-LogIn-Btn";
-import laptopPicture from '../images/laptopPicture.jpg'
 import { LaptopImg } from "@/components/register-page/laptop-img/LaptopImg";
+import { darkGreen } from "@/components/register-page/register-form/form/BoxElement";
+import { UserInput } from "@/components/register-page/register-form/user-input/UserInput";
+import { PasswordInput, UserInputTextField } from "@/components/register-page/register-form/user-input/UserInputTextFields";
  
 const Login = () => {
   return (
-    <Box className="wrapper" margin="-8px">
+    <div className='wrapper'>
       <LaptopImg />
-      <Box
-        className="Form"
-        display="flex"
-        flexDirection={"column"}
-        maxWidth={'44vw'}
-        alignItems="center"
-        justifyContent={"center"}
-        margin="auto"
-        borderRadius={5}
-        boxShadow={"3px 13px 80px rgba(0, 0, 0, 0.25);"}
-        color={"red"}
-      >
-        {/* <img src='https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80' width="500" height="600" alt=''/> */}
-        <Typography variant="h2" padding={5} width="245px" height="290px">
-          <img
-            src={headerLogo.src}
-            width="245px"
-            height="130px"
-            alt="HeaderLogo"
-          />
-        </Typography>
-        <TextField className="UsernameField"
-          variant="standard"
-          InputProps={{
-            disableUnderline: true,
-          }}
-          margin="dense"
-          type={"text"}
-          placeholder="username"
-          sx={{
-            borderRadius: 3,
-            backgroundColor: "rgba(74, 122, 99, 0.09)",
-            fontFamily: "Robotto",
-            fontSize: 22,
-            letterSpacing: 0.5,
-            width: 300,
-            height: 55,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        />
-        <TextField
-          variant="standard"
-          InputProps={{
-            disableUnderline: true,
-          }}
-          margin="dense"
-          type={"password"}
-          placeholder="password"
-          sx={{
-            borderRadius: 3,
-            backgroundColor: "rgba(74, 122, 99, 0.09)",
-            fontFamily: "Robotto",
-            fontSize: 22,
-            letterSpacing: 0.5,
-            width: 300,
-            height: 55,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        />
-        <Button className="LoginButton">Log In</Button>
-        <Button
-          sx={{
-            marginTop: 3,
-            borderRadius: 10,
-            backgroundColor: "white",
-            color: "black",
-          }}
-          variant="contained"
-          color="success"
-        >
-          Sign Up
-        </Button>
-        <SignUpLogInBtn />
-      </Box>
+      <Box className="Form"
+      display="flex"
+      flexDirection={"column"}
+      maxWidth={'45vw'}
+      alignItems="center"
+      justifyContent={"center"}
+      marginTop={'7vh'}
+      marginLeft={'5vh'}
+      
+      borderRadius={5}
+      boxShadow={'3px 13px 80px rgba(0, 0, 0, 0.25);'}
+    >
+      
+        <img src={headerLogo.src} alt="HeaderLogo" className="headerLogoLogin" />
+
+{
+  UserInputTextField('Username')
+}
+  <PasswordInput />
+      <Button sx={{
+        marginTop: 3,
+        marginBottom: 3,
+        borderRadius: 4,
+        backgroundColor: darkGreen,
+        boxShadow: '2px 4px 4px rgba(74, 122, 99, 0.54)',
+        color: "white",
+        fontFamily: 'Roboto',
+        fontSize: 20,
+        letterSpacing: 0.5,
+        width: 130,
+        height: 50,
+      }}
+        variant='contained'
+        color='success'>
+        Log In
+      </Button>
+      <SignUpLogInBtn />
     </Box>
+    </div>
   );
 };
  

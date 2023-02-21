@@ -13,6 +13,7 @@
   .Form {
     width: 90vw;
     height: 85vh;
+    
   }
 }
 
@@ -21,5 +22,55 @@
   height: 6.5vh;
 }
 
+.clickedBtn.css-sdfeve-MuiButtonBase-root-MuiButton-root::after {
+  content: "";
+  position: absolute;
+  background-color: transparent;
+  bottom: 6.5vh;
+  height: 50px;
+  width: 25px;
+  border-bottom-right-radius: 25px;
+  box-shadow: 0 25px 0 0 white;
+  margin-left: 8vw;
+}
 
+.clickedBtn.css-sdfeve-MuiButtonBase-root-MuiButton-root::before {
+  content: "";
+  position: absolute;
+  background-color: transparent;
+  bottom: -50px;
+  height: 50px;
+  width: 25px;
+  border-top-right-radius: 25px;
+  box-shadow: 0 -25px 0 0 white;
+  margin-left: 8vw;
+}
 
+.clickedBtn.css-kvoopg-MuiButtonBase-root-MuiButton-root::after {
+  content: "";
+  position: absolute;
+  background-color: transparent;
+  bottom: 6.5vh;
+  height: 50px;
+  width: 25px;
+  border-bottom-right-radius: 25px;
+  box-shadow: 0 25px 0 0 white;
+  margin-left: 8vw;
+}
+
+.clickedBtn.css-kvoopg-MuiButtonBase-root-MuiButton-root::before {
+  content: "";
+  position: absolute;
+  background-color: transparent;
+  bottom: -50px;
+  height: 50px;
+  width: 25px;
+  border-top-right-radius: 25px;
+  box-shadow: 0 -25px 0 0 white;
+  margin-left: 8vw;
+}
+
+.headerLogoLogin {
+  margin-top: -13.7vh;
+  margin-bottom: 22vh;
+}

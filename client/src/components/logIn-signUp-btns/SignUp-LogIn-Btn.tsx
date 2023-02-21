@@ -40,13 +40,12 @@ export const SignUpLogInBtn = () => {
                 Sign Up
             </Button>
 
-            <Icon sx={router.asPath == '/login' ? logInIconHelper : disabled}><BedtimeIcon /></Icon>
-            <Icon sx={router.asPath == '/login' ? logInSecIconHelper : disabled}><BedtimeIcon /></Icon>
-            <Icon sx={router.asPath == '/register' ? signUpIconHelper : disabled}><BedtimeIcon /></Icon>
-            <Icon sx={router.asPath == '/register' ? signUpSecIconHelper : disabled}><BedtimeIcon /></Icon>
         </>
     )
 }
+
+
+
 
 
 
