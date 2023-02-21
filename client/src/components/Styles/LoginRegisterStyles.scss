@@ -29,6 +29,7 @@
     width: 90vw;
     height: 85vh;
     max-width: 44vw;
+    margin-left: 2rem;
     @media (max-width: $max-tablet-width) {
       background-color: rgba(255, 255, 255, 0.5);
       max-width: 60vw;
@@ -48,6 +49,9 @@
 .clickedBtn {
   width: 9vw;
   height: 6.5vh;
+}
+.inactiveTab {
+  width: 6.5rem;
 }
 
 .clickedBtn.css-1l2ixb5-MuiButtonBase-root-MuiButton-root::after {

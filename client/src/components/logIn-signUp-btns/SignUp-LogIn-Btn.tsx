@@ -25,7 +25,7 @@ export const SignUpLogInBtn = () => {
     return (
         <>
             <Button
-                className={router.asPath == '/login' ? 'clickedBtn' : ''}
+                className={router.asPath == '/login' ? 'clickedBtn' : 'inactiveTab'}
                 id='LoginPanel' onClick={logOnClick}
                 sx={logInBtnSx}
                  >
@@ -33,7 +33,7 @@ export const SignUpLogInBtn = () => {
             </Button>
 
             <Button
-                className={router.asPath == '/register' ? 'clickedBtn' : ''}
+                className={router.asPath == '/register' ? 'clickedBtn' : 'inactiveTab'}
                 id='SignPanel' onClick={signOnClick}
                 sx={signUpBtnSx} >
                 Sign Up

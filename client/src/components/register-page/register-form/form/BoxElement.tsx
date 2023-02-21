@@ -14,7 +14,6 @@ export const BoxElement = () => {
       alignItems="center"
       justifyContent={"center"}
       marginTop={'7vh'}
-      marginLeft={'5vh'}
       
       borderRadius={5}
       boxShadow={'3px 13px 80px rgba(0, 0, 0, 0.25);'}
