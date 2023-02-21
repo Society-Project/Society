@@ -178,19 +178,19 @@ const UserProfile = () => {
                 }}
                 className="profile-information-data information-data"
               >
-                <ListItem>
+                <ListItem className="profile-information-item">
                   <LocationOnIcon />
                   Location
                 </ListItem>
-                <ListItem>
+                <ListItem className="profile-information-item">
                   <WorkIcon />
                   Work
                 </ListItem>
-                <ListItem>
+                <ListItem className="profile-information-item">
                   <SchoolIcon />
                   Education
                 </ListItem>
-                <ListItem>
+                <ListItem className="profile-information-item">
                   <TodayIcon />
                   Birthday
                 </ListItem>
