@@ -1,4 +1,4 @@
-.profile-container{
+.profile-container {
   display: flex;
 }
 
@@ -173,7 +173,7 @@
     padding-bottom: 1.688rem;
   }
 
-  &:nth-child(4) {
+  &:last-child {
     position: relative;
 
     &::after {
@@ -239,4 +239,95 @@
   box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.25);
   overflow: auto;
   height: 450px;
+}
+
+// TODO: Refactor scss
+@media (max-width: 854px) {
+  .navigation-root-element,
+  .stories-root-box {
+    display: none;
+  }
+
+  .profile-wrapper {
+    overflow: auto;
+    max-height: unset;
+    margin: 0;
+    background-color: unset;
+  }
+
+  .profile-images .profile-picture-box {
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .profile-user-name {
+    margin-left: 0;
+  }
+
+  .album-grid {
+    width: 50%;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 1.125rem;
+
+    .album-grid-content {
+      &:nth-child(1) {
+        display: none;
+      }
+
+      .user-picture-item {
+        border-radius: 1.125rem;
+      }
+    }
+  }
+
+  .profile-information {
+    margin-bottom: 1.625rem;
+  }
+
+  .profile-content .profile-information .information-data {
+    display: flex;
+    flex-wrap: wrap;
+    box-shadow: none;
+    height: unset;
+    border-radius: 1.125rem;
+    background: rgba(0, 0, 0, 0.12);
+
+    .profile-information-item {
+      flex-basis: 50%;
+      font-size: 1.125rem;
+    }
+  }
+
+  .profile-content .profile-information,
+  .profile-content .profile-action {
+    flex-basis: unset;
+    max-width: unset;
+    width: 100%;
+  }
+
+  .profile-publiations {
+    margin-top: 3.5rem;
+    background-color: unset;
+    box-shadow: none;
+    overflow: auto;
+    height: unset;
+  }
+
+  .profile-content .profile-information .information-data {
+    position: relative;
+  }
+
+  .information-data .profile-edit-link {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .css-v6bqgn-MuiGrid-root {
+    max-width: unset;
+  }
+
+  .css-1mcnwpj-MuiList-root {
+    max-width: unset;
+  }
 }
