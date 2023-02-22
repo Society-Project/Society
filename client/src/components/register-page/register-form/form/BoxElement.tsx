@@ -18,13 +18,7 @@ export const BoxElement = () => {
       borderRadius={5}
       boxShadow={'3px 13px 80px rgba(0, 0, 0, 0.25);'}
     >
-      <Typography
-        variant="h2"
-        padding={'2vh'}
-        textAlign='center'
-      >
-        <img src={headerLogo.src} alt="HeaderLogo" />
-      </Typography>
+        <img className='HeaderLogo' src={headerLogo.src} alt="HeaderLogo" />
 
       <UserInput />
 

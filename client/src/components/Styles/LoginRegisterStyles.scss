@@ -9,7 +9,7 @@
   @media (max-width: $max-tablet-width) {
     width: 100vw;
     height: 100vh;
-    background-image: url('../../../src/images/loginRegisterTablet.png');
+    background-image: url("../../../src/images/loginRegisterTablet.png");
     background-size: 100% 100%;
     background-blend-mode: multiply;
     display: flex;
@@ -32,15 +32,28 @@
     margin-left: 2rem;
     @media (max-width: $max-tablet-width) {
       background-color: rgba(255, 255, 255, 0.5);
-      max-width: 60vw;
+      max-width: 53rem;
       width: 100%;
     }
-   
+    @media (max-width: $max-mobile-width) {
+      width: 45rem;
+    }
+    .textField,
+    .css-1yw4e71-MuiFormControl-root-MuiTextField-root {
+      width: 24rem;
+      @media (max-width: $max-tablet-width) {
+        width: 27rem;
+      }
+      @media (max-width: $max-mobile-width) {
+        width: 16rem;
+      }
+    }
   }
-  
 }
 
-#LoginPanel, #SignPanel, .moon {
+#LoginPanel,
+#SignPanel,
+.moon {
   @media (max-width: $max-tablet-width) {
     display: none;
   }
@@ -102,7 +115,7 @@
   margin-left: 6.8vw;
 }
 
-.headerLogoLogin {
-  margin-top: 1vh;
-  margin-bottom: 10vh;
+.HeaderLogo {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
 }

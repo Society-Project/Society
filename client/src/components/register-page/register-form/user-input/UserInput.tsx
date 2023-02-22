@@ -1,4 +1,4 @@
-import { Icon, TextField } from '@mui/material'
+import { Icon } from '@mui/material'
 import "../../../Styles/LoginRegisterStyles.scss"
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { BirthDate, PasswordInput, UserInputTextField } from './UserInputTextFields';
@@ -18,7 +18,7 @@ export const UserInput = () => {
         return UserInputTextField(a)
       })}
       <PasswordInput />
-      <BirthDate />
+      <BirthDate  />
     </>
   )
 }
@@ -29,7 +29,6 @@ export const userInputSx = {
   fontFamily: 'Roboto',
   fontSize: 22,
   letterSpacing: 0.5,
-  width: 300,
   height: 55,
   display: 'flex',
   justifyContent: 'center',
@@ -43,7 +42,6 @@ export const datePickerSx = {
   fontFamily: 'Roboto',
   fontSize: 22,
   letterSpacing: 0.5,
-  width: 300,
   height: 55,
   display: 'flex',
   justifyContent: 'center',
