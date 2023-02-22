@@ -6,8 +6,6 @@ import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 import PeopleIcon from '@mui/icons-material/People';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import Link from "next/link";
-import headerLogo from '/src/images/logo-mark.svg'
 
 //File will execute automatically
 import '../Styles/NavigationBar.scss';
@@ -25,7 +23,7 @@ export const NavigationBar = () => {
         <TextsmsOutlinedIcon />,
         <PeopleIcon />,
         <SettingsOutlinedIcon />,
-        <LogoutOutlinedIcon className='log-out-icon'/>,
+        <LogoutOutlinedIcon className='log-out-icon' />,
     ]
 
     function onButtonClick(index: number) {
@@ -36,16 +34,16 @@ export const NavigationBar = () => {
 
     return (
         <Box className='navigation-root-element'>
-                <Box className='icon-buttons'>
-                    {
-                        IconArray.map((item: any, index: number) => {
-                            return <ListItem key={index} className='list-item-element' sx={{ background: mapState?.get(index) ? 'rgb(235, 233, 233)' : 'white' }} onClick={() => {
-                                return onButtonClick(index)
-                            }}>{item}</ListItem>
-                        })
-                    }
-                    
-                </Box>
+            <Box className='icon-buttons'>
+                {
+                    IconArray.map((item: any, index: number) => {
+                        return <ListItem key={index} className='list-item-element' sx={{ background: mapState?.get(index) ? 'rgb(235, 233, 233)' : 'white' }} onClick={() => {
+                            return onButtonClick(index)
+                        }}>{item}</ListItem>
+                    })
+                }
+
             </Box>
-            );
+        </Box>
+    );
 }

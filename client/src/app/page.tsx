@@ -6,7 +6,6 @@ import { NavigationBar } from "@/components/NavigationBar/Navigation";
 import { Stories } from "@/components/StoriesBar/Stories";
 
 import { Box } from '@mui/material'
-import "../components/Styles/MainPage.scss";
 
 const Home = () => (
   <>
@@ -14,11 +13,9 @@ const Home = () => (
     <Header />
   </Wrapper>
   <Main>
-    <Box className='main-page'>
       <NavigationBar />
       <CreatePost />
       <Stories />
-    </Box>
   </Main>
   </>
 );
