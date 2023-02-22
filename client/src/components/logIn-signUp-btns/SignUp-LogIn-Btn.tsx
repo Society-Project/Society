@@ -1,8 +1,7 @@
-import { Button, Icon } from '@mui/material'
+import { Button } from '@mui/material'
 import { useState } from 'react'
 import '../Styles/LoginRegisterStyles.scss'
-import BedtimeIcon from '@mui/icons-material/Bedtime';
-import { disabled, logInBtnSx, logInIconHelper, logInSecIconHelper, signUpBtnSx, signUpIconHelper, signUpSecIconHelper } from './btns-sx';
+import { logInBtnSx, signUpBtnSx } from './btns-sx';
 import { useRouter } from 'next/router';
 
 export const SignUpLogInBtn = () => {
@@ -40,13 +39,12 @@ export const SignUpLogInBtn = () => {
                 Sign Up
             </Button>
 
-            <Icon sx={router.asPath == '/login' ? logInIconHelper : disabled}><BedtimeIcon /></Icon>
-            <Icon sx={router.asPath == '/login' ? logInSecIconHelper : disabled}><BedtimeIcon /></Icon>
-            <Icon sx={router.asPath == '/register' ? signUpIconHelper : disabled}><BedtimeIcon /></Icon>
-            <Icon sx={router.asPath == '/register' ? signUpSecIconHelper : disabled}><BedtimeIcon /></Icon>
         </>
     )
 }
+
+
+
 
 
 

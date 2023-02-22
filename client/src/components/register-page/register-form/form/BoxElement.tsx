@@ -4,7 +4,7 @@ import "../../../Styles/LoginRegisterStyles.scss"
 import { UserInput } from '../user-input/UserInput'
 import { SignUpLogInBtn } from '../../../logIn-signUp-btns/SignUp-LogIn-Btn'
 
-const darkGreen = "#206F4F";
+export const darkGreen = "#206F4F";
 
 export const BoxElement = () => {
   return (
