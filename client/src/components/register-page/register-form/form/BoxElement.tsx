@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import headerLogo from "/src/images/headerLogo.png"
 import "../../../Styles/LoginRegisterStyles.scss"
 import { UserInput } from '../user-input/UserInput'

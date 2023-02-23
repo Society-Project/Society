@@ -14,8 +14,8 @@ export const UserInput = () => {
 
   return (
     <>
-      {placeholdersArr.map((a)=>{
-        return UserInputTextField(a)
+      {placeholdersArr.map((a, index: number)=>{
+        return <div key={index}>{UserInputTextField(a)}</div>
       })}
       <PasswordInput />
       <BirthDate  />
