@@ -9,7 +9,7 @@ export const signUpBtnSx = {
     border: 'none',
     borderRadius: '0.5rem',
     position: 'absolute',
-    left: '44vw',
+    left: '43.5vw',
     '&:hover': {
         backgroundColor: 'white',
         borderColor: '#0062cc',
@@ -30,7 +30,7 @@ export const logInBtnSx = {
      fontSize: '1.2rem',
     border: 'none',
     position: 'absolute',
-    left: '44vw',
+    left: '43.5vw',
     borderRadius: '0.5rem',
     '&:hover': {
         backgroundColor: 'white',
