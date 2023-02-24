@@ -32,19 +32,7 @@ export const userInputSx = {
   height: 55,
   display: 'flex',
   justifyContent: 'center',
-  border: 'none',
   
-}
-
-export const datePickerSx = {
-  borderRadius: 1,
-  backgroundColor: 'rgba(74, 122, 99, 0.09)',
-  fontFamily: 'Roboto',
-  fontSize: 22,
-  letterSpacing: 0.5,
-  height: 55,
-  display: 'flex',
-  justifyContent: 'center',
 }
 
 export const userTextFieldIcon = {

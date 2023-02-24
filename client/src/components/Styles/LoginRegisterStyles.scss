@@ -41,14 +41,18 @@
       width: 45rem;
     }
     .textField,
-    .css-1yw4e71-MuiFormControl-root-MuiTextField-root {
+    .css-u6xcb0-MuiFormControl-root-MuiTextField-root {
       width: 24rem;
+      border-radius: 12px;
       @media (max-width: $max-tablet-width) {
         width: 27rem;
       }
       @media (max-width: $max-mobile-width) {
         width: 16rem;
       }
+    }
+    .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+      border: 0;
     }
   }
 }
