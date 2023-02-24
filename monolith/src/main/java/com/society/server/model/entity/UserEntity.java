@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class UserEntity extends BaseEntity {
     @UserUsernameValidator
     private String username;
@@ -36,9 +36,14 @@ public class UserEntity extends BaseEntity {
 
     @NotNull
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="users_roles",
+    @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles;
 
+    @ManyToMany
+    @JoinTable(name = "users_rooms",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "room_id"))
+    private Set<RoomEntity> rooms;
 }
