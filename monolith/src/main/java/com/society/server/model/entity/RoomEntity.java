@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,17 +19,17 @@ import java.util.stream.Collectors;
 @Table(name = "rooms")
 public class RoomEntity extends BaseEntity {
 
-    @NotNull
+    @NotEmpty
     private String name;
 
     @NotEmpty
-    @ManyToMany(mappedBy = "rooms", targetEntity = UserEntity.class,
-            fetch = FetchType.EAGER)
-    private Set<UserEntity> users;
-
-    @NotNull
     @Enumerated(EnumType.STRING)
     private RoomEnum roomEnum;
 
+    @NotEmpty
+    @ManyToMany(mappedBy = "rooms", targetEntity = UserEntity.class)
+    private Set<UserEntity> users;
 
+    @OneToMany(mappedBy = "room", targetEntity = MessageEntity.class)
+    private List<MessageEntity> messages;
 }
