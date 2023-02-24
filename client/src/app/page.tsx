@@ -3,9 +3,7 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import { CreatePost } from "@/components/posts/createPost/CreatePost";
 import { NavigationBar } from "@/components/NavigationBar/Navigation";
-import { Stories } from "@/components/StoriesBar/Stories";
-
-import { Box } from '@mui/material'
+import Stories from '../components/StoriesBar/Stories'
 
 const Home = () => (
   <>
@@ -14,8 +12,8 @@ const Home = () => (
   </Wrapper>
   <Main>
       <NavigationBar />
-      <CreatePost />
       <Stories />
+      <CreatePost />
   </Main>
   </>
 );

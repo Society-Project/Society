@@ -9,6 +9,7 @@ import headerLogo from '/src/images/logo-mark.svg'
 
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import { Box, TextField } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 
 import "./Styles/Header.scss";
 
@@ -54,10 +55,12 @@ const Header = () => {
              /> : null
             }
         </Box>
+        
         <Box className="user-profile">
             <AccountCircleRoundedIcon className='user-account-icon' fontSize='large'/>
         </Box>
       </Box>
+      
     </HeaderWrapper>
   );
 };

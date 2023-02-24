@@ -45,6 +45,22 @@
     }
 }
 
+@media only screen and (min-width: 600px) and (max-width: 900px) {
+    .header-main-class {
+        
+        .header-logo {
+            background-color: #ebebeb;
+            .header-logo-image {
+                max-width: 60px;
+                margin-left: 1rem;
+                
+            }
+        }
+        .user-profile {
+            display: none;
+        }
+    }
+}
 @media only screen and (min-width: 1836px) and (max-width: 2136px) {
     .header-main-class {
         .header-logo {
