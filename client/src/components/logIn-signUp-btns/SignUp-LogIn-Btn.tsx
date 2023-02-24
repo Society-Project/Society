@@ -25,16 +25,16 @@ export const SignUpLogInBtn = () => {
     return (
         <>
             <Button
-                className={router.asPath == '/login' ? 'clickedBtn' : ''}
-                id='li-su-btns' onClick={logOnClick}
+                className={router.asPath == '/login' ? 'clickedBtn' : 'inactiveTab'}
+                id='LoginPanel' onClick={logOnClick}
                 sx={logInBtnSx}
                  >
                 Log In
             </Button>
 
             <Button
-                className={router.asPath == '/register' ? 'clickedBtn' : ''}
-                id='li-su-btns' onClick={signOnClick}
+                className={router.asPath == '/register' ? 'clickedBtn' : 'inactiveTab'}
+                id='SignPanel' onClick={signOnClick}
                 sx={signUpBtnSx} >
                 Sign Up
             </Button>
