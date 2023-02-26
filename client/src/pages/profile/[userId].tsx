@@ -13,6 +13,7 @@ import Link from "next/link";
 import { CreatePost } from "@/components/posts/createPost/CreatePost";
 
 import profileThumbnail from "../../../public/profileThumbnail.png";
+import friendPicture from "../../../public/friendPicture.png";
 import defaultUserPicture from "../../../public/defaultUserPicture.png";
 import albumPicture from "../../../public/albumPicture.png";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
@@ -212,6 +213,28 @@ const UserProfile = () => {
                       {index === 3 && (
                         <Box className="photos-plus">
                           <span className="photos-plus-name">+ photos</span>
+                        </Box>
+                      )}
+                    </Grid>
+                  );
+                })}
+              </Grid>
+              <Grid container spacing={2} className="album-grid">
+                {[1, 2, 3, 4].map((_, index) => {
+                  return (
+                    <Grid className="album-grid-content" key={index}>
+                      <ListItem className="album-grid-item">
+                        <Image
+                          src={friendPicture}
+                          alt="Profile photo"
+                          className="user-picture-item friend"
+                          width={110}
+                          height={110}
+                        />
+                      </ListItem>
+                      {index === 3 && (
+                        <Box className="photos-plus">
+                          <span className="photos-plus-name">All friends</span>
                         </Box>
                       )}
                     </Grid>
