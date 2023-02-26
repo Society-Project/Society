@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -46,4 +48,11 @@ public class UserEntity extends BaseEntity {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "room_id"))
     private Set<RoomEntity> rooms;
+
+    public void addRoom(RoomEntity entity) {
+        if (this.rooms.size() == 0) {
+            this.rooms = new HashSet<>();
+        }
+        this.rooms.add(entity);
+    }
 }

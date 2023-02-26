@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -32,4 +33,11 @@ public class RoomEntity extends BaseEntity {
 
     @OneToMany(mappedBy = "room", targetEntity = MessageEntity.class)
     private List<MessageEntity> messages;
+
+    public void addMessage(MessageEntity entity) {
+        if (this.messages.size() == 0) {
+            this.messages = new ArrayList<>();
+        }
+        this.messages.add(entity);
+    }
 }
