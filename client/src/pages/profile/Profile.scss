@@ -1,3 +1,5 @@
+@import "../../components/Styles/definitions.scss";
+
 .profile-container {
   display: flex;
 }
@@ -292,17 +294,21 @@
     margin-bottom: 1.625rem;
   }
 
-  .profile-content .profile-information .information-data {
-    display: flex;
-    flex-wrap: wrap;
-    box-shadow: none;
+  .profile-content .profile-information {
     height: unset;
-    border-radius: 1.125rem;
-    background: rgba(0, 0, 0, 0.12);
 
-    .profile-information-item {
-      flex-basis: 50%;
-      font-size: 1.125rem;
+    .information-data {
+      display: flex;
+      flex-wrap: wrap;
+      box-shadow: none;
+      height: unset;
+      border-radius: 1.125rem;
+      background: rgba(0, 0, 0, 0.12);
+
+      .profile-information-item {
+        flex-basis: 50%;
+        font-size: 1.125rem;
+      }
     }
   }
 
