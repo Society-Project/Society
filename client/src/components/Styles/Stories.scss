@@ -4,11 +4,11 @@
 
 
     .stories-paragraph {
-        margin-left: 2rem;
+        margin-left: 1.5rem;
         font-size: 1.2rem;
         font-weight: bold;
         letter-spacing: 1px;
-        
+
     }
 
     .stories-data-box {
@@ -18,21 +18,22 @@
         padding: .5rem;
         width: 100%;
         border-radius: 1rem;
-        
-        
+
+
         .add-story-box {
-            border: 4px solid rgba(74, 122, 99, 0.66);
             border-radius: 50%;
             display: flex;
-            
+
             .add-story-button {
+                border: 4px solid rgba(74, 122, 99, 0.66);
                 background-color: white;
                 text-transform: lowercase;
                 border-radius: 50%;
                 color: black;
-                
+
             }
-            .straight-line{
+
+            .straight-line {
                 background-color: black;
                 height: 10vh;
                 width: 2px;
@@ -45,17 +46,18 @@
             display: flex;
             justify-content: space-between;
             margin-top: .5rem;
-            
+
             .stories-of-followed-people {
                 position: relative;
                 left: -1rem;
+
                 .person-story {
                     box-shadow: 0 5px 10px 0 #aaaaaa;
                     background-color: white;
                     color: white;
                     padding: 1rem;
-                    height: 10vh;    
-                    width: 60%;   
+                    height: 10vh;
+                    width: 60%;
                     border-radius: 50%;
                 }
             }
@@ -65,6 +67,7 @@
             margin-top: auto;
             margin-bottom: auto;
             margin-left: .5rem;
+
             .css-i4bv87-MuiSvgIcon-root {
                 font-size: 2rem;
                 cursor: pointer;
@@ -74,59 +77,138 @@
 
 }
 
-@media only screen and (min-width: 700px) and (max-width: 900px) {
+@media only screen and (min-width: 0px) and (max-width: 399px) {
     .stories-main-box {
-        
+        width: 90%;
         .stories-data-box {
             .add-story-box {
-                border: 4px solid rgba(74, 122, 99, 0.66);
-                border-radius: 50%;
-                width: 11%;
-
                 .add-story-button {
-                    background-color: white;
-                    text-transform: lowercase;
-                    border-radius: 50%;
-                    width: auto;
-                    color: black;
-
+                    width: 10%;
+                    height: 10vh;
+                    
                 }
             }
-            .stories-of-followed-people {
-                position: relative;
-                left: -1rem;
-                .person-story {
-                    box-shadow: 0 5px 10px 0 #aaaaaa;
-                    background-color: white;
-                    color: white;
-                    margin-top: -.5rem;
-                    margin-left: 3rem;
-                    padding: 1rem;
-                    height: 10vh;    
-                    width: 60%;   
-                    border-radius: 50%;
+            .other-people-stories{
+                .stories-of-followed-people {
+                    position: relative;
+                    top: -.2rem;
+                    .person-story {
+                        height: 9vh;
+                        margin-left: 2rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 400px) and (max-width: 599px) {
+    .stories-main-box {
+        width: 93%;
+
+        .stories-data-box {
+            .add-story-box {
+                .add-story-button {
+                    width: 80%;
+                }
+
+                .straight-line {
+                    position: relative;
+                    left: .4rem;
+                    width: 1px;
+                }
+            }
+
+            .other-people-stories {
+                .stories-of-followed-people {
+                    position: relative;
+                    left: -3rem;
+                    top: -.4rem;
+
+                    .person-story {
+                        height: 10vh;
+                        width: 8%;
+                        margin-left: 4rem;
+
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 699px) {
+    .stories-main-box {
+        .stories-data-box {
+
+            .add-story-box {
+                .add-story-button {
+                    width: 70%;
+                }
+
+                .straight-line {
+                    position: relative;
+                    left: 10px;
+                    width: 1px;
                 }
             }
 
         }
-    }
-}
-@media only screen and (min-width: 600px) and (max-width: 699px){
-    .stories-main-box {
-        .stories-data-box {
-            .add-story-box {
-                border: 4px solid rgba(74, 122, 99, 0.66);
-                border-radius: 50%;
-                width: 12%;
 
-            }
+        .other-people-stories {
             .stories-of-followed-people {
                 .person-story {
-                    margin-left: 1.2rem;
+                    margin-left: 2rem;
                     margin-top: -.5rem;
                 }
             }
+        }
+    }
+}
 
+@media only screen and (min-width: 700px) and (max-width: 799px) {
+    .stories-main-box {
+        .stories-data-box {
+            .add-story-box {
+                .add-story-button {
+                    width: 75%;
+                }
+            }
+        }
+
+        .other-people-stories {
+            .stories-of-followed-people {
+                .person-story {
+                    margin-top: -.5rem;
+                    margin-left: 2.8rem;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 800px) and (max-width: 900px) {
+    .stories-main-box {
+
+        .stories-data-box {
+            .add-story-box {
+                .add-story-button {
+                    width: 75%;
+                }
+            }
+
+            .other-people-stories {
+                .stories-of-followed-people {
+                    position: relative;
+                    left: -2rem;
+
+                    .person-story {
+                        margin-top: -.5rem;
+                        margin-left: 4rem;
+                    }
+                }
+            }
         }
     }
 }
