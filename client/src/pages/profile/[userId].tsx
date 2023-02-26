@@ -1,3 +1,7 @@
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+
 import {
   Box,
   Typography,
@@ -7,30 +11,28 @@ import {
   List,
   ListItem,
 } from "@mui/material";
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import WorkIcon from "@mui/icons-material/Work";
+import SchoolIcon from "@mui/icons-material/School";
+import TodayIcon from "@mui/icons-material/Today";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
+
+import { Post } from "../../components/posts/Post";
 import { CreatePost } from "@/components/posts/createPost/CreatePost";
+import { Stories } from "@/components/StoriesBar/Stories";
+import { NavigationBar } from "@/components/NavigationBar/Navigation";
+import { uploadImage } from "@/services/uploadImage";
 
 import profileThumbnail from "../../../public/profileThumbnail.png";
 import friendPicture from "../../../public/friendPicture.png";
 import defaultUserPicture from "../../../public/defaultUserPicture.png";
 import albumPicture from "../../../public/albumPicture.png";
-import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
-
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import WorkIcon from "@mui/icons-material/Work";
-import SchoolIcon from "@mui/icons-material/School";
-import TodayIcon from "@mui/icons-material/Today";
-import { Post } from "../../components/posts/Post";
-import { NavigationBar } from "@/components/NavigationBar/Navigation";
-import { Stories } from "@/components/StoriesBar/Stories";
 
 import "./Profile.scss";
 
 const UserProfile = () => {
-  const [open, setOpen] = useState<Boolean>(false);
+  const [open, setOpen] = useState(false);
   const [imageSrc, setImageSrc] = useState<
     String | ArrayBuffer | StaticImport | null
   >("");
@@ -44,7 +46,7 @@ const UserProfile = () => {
     setOpen(false);
   };
 
-  const handleOnChange = (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnChange = (changeEvent: React.ChangeEvent<HTMLFormElement>) => {
     const reader = new FileReader();
 
     reader.onload = function (onLoadEvent) {
@@ -62,30 +64,11 @@ const UserProfile = () => {
   const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const form = event.currentTarget;
-    const fileInput: File[] | undefined = Array.from(form.elements).find(
-      ({ name }) => name === "file"
-    );
-
-    const formData = new FormData();
-
-    for (const file of fileInput.files) {
-      formData.append("file", file);
-    }
-
-    formData.append(
-      "upload_preset",
-      `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}`
-    );
-
-    const data = await fetch(`${process.env.NEXT_PUBLIC_CLOUDINARY_LINK}`, {
-      method: "POST",
-      body: formData,
-    }).then((res) => res.json());
+    const image = await uploadImage(event);
 
     handleClose();
-    setImageSrc(data.secure_url);
-    setUploadData(data);
+    setImageSrc(image.imageUrl);
+    setUploadData(image.data);
   };
 
   return (
