@@ -133,9 +133,17 @@
   justify-content: space-between;
 
   .profile-information {
+    margin-bottom: 1.625rem;
     padding: 0;
+    height: 570px;
+
     flex-basis: 30%;
     border-radius: 0.625rem;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     .information-data {
       border-radius: 0.625rem;
