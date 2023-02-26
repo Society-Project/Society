@@ -212,7 +212,7 @@ const UserProfile = () => {
                           alt="Profile photo"
                           className="user-picture-item friend"
                           width={110}
-                          height={110}
+                          height={95}
                         />
                       </ListItem>
                       {index === 3 && (
