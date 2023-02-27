@@ -27,14 +27,8 @@ const Header = () => {
   }
 
   return (
-    <HeaderWrapper>
-      <Box className='top-line'>d</Box>
       <Box className="header-main-class">
-        <Box className="header-logo">
-          <Link href="/">
-            <Logo src={headerLogo.src} className='header-logo-image' alt="Header logo" />
-          </Link>
-        </Box>
+        
         <Box className="search-bar">
             <SearchIcon onClick={onSeachButtonClick} className='search-button' />
             {
@@ -54,11 +48,8 @@ const Header = () => {
              /> : null
             }
         </Box>
-        <Box className="user-profile">
-            <AccountCircleRoundedIcon className='user-account-icon' fontSize='large'/>
-        </Box>
+  
       </Box>
-    </HeaderWrapper>
   );
 };
 
@@ -72,7 +63,7 @@ const HeaderWrapper = styled.div`
   left: 0;
 `;
 
-const Logo = styled.img`
+export const Logo = styled.img`
   height: ${HEADER_LOGO_HEIGHT};
   width: ${HEADER_LOGO_WIDTH};
   opacity: 0.9;

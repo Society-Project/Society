@@ -15,11 +15,9 @@
   background-color: white;
 }
 
-
-
 .editTextArea {
   width: 80%;
-  height: 1px;
+  height: 1rem;
   padding: 15px;
   outline: none;
   resize: none;
@@ -68,14 +66,13 @@
 }
 
 .createPostTxtArea {
-  width: 88%;
-  height: 1px;
-  padding: 15px;
+  width: 76.5vw;
+  padding: 2rem;
   outline: none;
   resize: none;
   font-size: 1rem;
   margin-top: 3px;
-  margin-left: 15px;
+  margin-left: 1rem;
   background-color: rgba(255, 255, 255, 1);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
@@ -88,27 +85,33 @@
   background-color: rgba(74, 122, 99, 0.2);
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
-  height: 100px;
-  width: 500px;
-  margin: auto;
-  border-radius: 5px;
-  margin-top: 50px;
+  height: 19vh;
+  width: 83vw;
+  margin-left: 3rem;
+  top: 36vh;
+  position: absolute;
 }
 
 #createPostDivBtn {
-  margin-left: 240px;
+  margin-left: 40rem;
 }
 
 #createPostBtn {
-  border-radius: 5px;
   border: none;
-  padding-left: 10px;
-  padding-right: 10px;
   margin-left: 38px;
+  background-color: #206f4f;
+  color: white;
+  height: 2rem;
+  width: 7vw;
+  box-shadow: 2px 4px 4px rgba(74, 122, 99, 0.54);
+  border-radius: 13px;
+  font-size: 20px;
+  margin-top: 0.7vh;
+  margin-left: 16.5rem;
 }
 
-.CreatePostIconBtn {
-  margin-left: 10px;
+.createPostIconBtn {
+  margin-left: 35px;
 }
 
 #tag {

@@ -35,7 +35,6 @@ export const Post = () => {
                 maxHeight: 3000,
                 backgroundColor: 'white',
             }}>
-               
                     
                         <CardHeader
                             avatar={

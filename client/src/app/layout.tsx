@@ -15,6 +15,4 @@ export default function RootLayout({
 
 const Body = styled.body`
   margin: 0;
-  background-color: #ebebeb;
-
 `;

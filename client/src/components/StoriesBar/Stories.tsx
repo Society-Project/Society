@@ -4,7 +4,7 @@ import "../Styles/Stories.scss";
 
 export const Stories = () => {
     const repeatParagraphElements: Array<object> = [];
-    const predefinedLengthOfElements: number = 5;
+    const predefinedLengthOfElements: number = 10;
 
     for (let i = 0; i < predefinedLengthOfElements; i++) {
         repeatParagraphElements.push(
@@ -14,10 +14,10 @@ export const Stories = () => {
     }
 
     return (
-        <Box className='stories-root-box'>
-
-            <p className='stories-paragraph'>Stories</p>
-
+        <>
+        <p className='stories-p'>
+        Stories
+        </p>
             <Box className='story-data-box'>
                 <Box className='add-story-box'>
                     <Button className='add-story-button'>+ add story</Button>
@@ -29,9 +29,9 @@ export const Stories = () => {
                             </Box>
                         })
                     }
-                    <Box className='expand-icon'><MoreHorizIcon /></Box>
+                    <Box className='expand-icon' ><MoreHorizIcon /></Box>
                 </Box>
             </Box>
-        </Box>
+            </>
     );
 }

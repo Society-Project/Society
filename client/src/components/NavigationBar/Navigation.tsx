@@ -1,16 +1,17 @@
 import { useState } from 'react';
-import { Box, ListItem } from '@mui/material'
+import { Box, ListItem, styled } from '@mui/material'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 import PeopleIcon from '@mui/icons-material/People';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-import Link from "next/link";
-import headerLogo from '/src/images/logo-mark.svg'
+import headerLogo from 'src/images/logo-mark.svg'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
-//File will execute automatically
 import '../Styles/NavigationBar.scss';
+import '../Styles/Header.scss'
+import { Logo } from '../Header';
 
 export const NavigationBar = () => {
     let tokenMap: Map<number, boolean> = new Map();
@@ -20,32 +21,37 @@ export const NavigationBar = () => {
 
 
     const IconArray: any = [
+        <AccountCircleRoundedIcon />,
         <HomeOutlinedIcon />,
         <NotificationsIcon />,
         <TextsmsOutlinedIcon />,
         <PeopleIcon />,
         <SettingsOutlinedIcon />,
-        <LogoutOutlinedIcon className='log-out-icon'/>,
+        <LogoutOutlinedIcon className='log-out-icon' />,
     ]
 
-    function onButtonClick(index: number) {
+    const onButtonClick = (index: number) => {
         tokenMap.set(index, true);
         setMapState(tokenMap);
     }
 
-
     return (
         <Box className='navigation-root-element'>
-                <Box className='icon-buttons'>
-                    {
-                        IconArray.map((item: any, index: number) => {
-                            return <ListItem key={index} className='list-item-element' sx={{ background: mapState?.get(index) ? 'rgb(235, 233, 233)' : 'white' }} onClick={() => {
-                                return onButtonClick(index)
-                            }}>{item}</ListItem>
-                        })
-                    }
-                    
+            <Box className='icon-buttons'>
+                <Box className="header-logo">
+                    <Logo src={headerLogo.src} className='header-logo-image' alt="Header logo" />
                 </Box>
+                {
+                    IconArray.map((item: any, index: number) => {
+                        return <ListItem key={index} className='list-item-element' sx={{ background: mapState?.get(index) ? 'rgb(235, 233, 233)' : 'white' }} onClick={() => {
+                            return onButtonClick(index)
+                        }}>{item}</ListItem>
+                    })
+                }
+
             </Box>
-            );
+        </Box>
+    );
 }
+
+
