@@ -254,6 +254,10 @@
 
 // TODO: Refactor scss
 @media (max-width: 854px) {
+  .profile-wrapper {
+    border-radius: 0;
+  }
+
   .navigation-root-element,
   .stories-root-box {
     display: none;
@@ -280,6 +284,8 @@
     border-radius: 1.125rem;
 
     .album-grid-content {
+      padding-bottom: 0;
+
       .user-picture-item {
         width: 6rem;
         height: 6rem;
