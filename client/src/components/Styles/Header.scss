@@ -29,16 +29,17 @@
 
         .search-button{
             margin-top: 1rem;
+            margin-right: 2rem;
         }
        
     }
     .hamburger-menu {
         cursor: pointer;
         width: 10%;
-        .css-i4bv87-MuiSvgIcon-root{
-            
-            font-size: 2rem;
-            margin-top: 1.2rem;
+        
+        .hamburger-menu-logo{
+            max-width: 2rem;
+            margin-top: 1.5rem;
         }
     }
     .user-profile{
@@ -68,9 +69,8 @@
         .search-bar {
             margin-left: 4rem;
             .search-button {
-                
-                margin-top: 5px;
-                font-size: 2rem;
+                margin-top: 1px;
+                font-size: 2.5rem;
             }
         }
         .user-profile {

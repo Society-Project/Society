@@ -9,7 +9,7 @@ import headerLogo from '/src/images/logo-mark.svg'
 
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import { Box, TextField } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import Vector from '../images/Vector.png'
 
 import "./Styles/Header.scss";
 
@@ -71,7 +71,7 @@ const Header = () => {
         </Box>
         <Box className='hamburger-menu'>
             {
-              windowSize.width < 900 ? <MenuIcon /> : null
+              windowSize.width < 900 ? <img src={Vector.src} alt="Hamburger menu icon" className='hamburger-menu-logo' /> : null
             }
         </Box>
         <Box className="user-profile">

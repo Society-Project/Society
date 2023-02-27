@@ -14,10 +14,11 @@ const Stories = () => {
     let storyBubbles: number = 5;
 
     //Screen is less than 600px(phone) it will show 3 story bubbles
-    if (windowSize.width < 600) storyBubbles = 3
+    if (windowSize.width < 600) storyBubbles = 4
 
-    if(windowSize.width < 500) storyBubbles = 2
+    if(windowSize.width < 500) storyBubbles = 3
 
+    if(windowSize.width < 400) storyBubbles = 2
     for (let i = 0; i < storyBubbles; i++) {
         //Should replace the . with user's profile picture
         arrayOfStoryBubbles.push(

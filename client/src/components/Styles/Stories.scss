@@ -109,7 +109,8 @@
         .stories-data-box {
             .add-story-box {
                 .add-story-button {
-                    width: 80%;
+                    width: 75%;
+                    height: 10.5vh;
                 }
 
                 .straight-line {
@@ -121,14 +122,13 @@
 
             .other-people-stories {
                 .stories-of-followed-people {
-                    position: relative;
-                    left: -3rem;
+                    position: relative;     
                     top: -.4rem;
 
                     .person-story {
-                        height: 10vh;
-                        width: 8%;
-                        margin-left: 4rem;
+                        height: 9vh;
+                        width: 45%;
+                        margin-left: 1.6rem;
 
                     }
                 }
@@ -144,7 +144,7 @@
 
             .add-story-box {
                 .add-story-button {
-                    width: 70%;
+                    width: 75%;
                 }
 
                 .straight-line {
