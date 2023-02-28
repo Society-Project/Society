@@ -20,7 +20,6 @@ import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 
 import { Post } from "../../components/posts/Post";
 import { CreatePost } from "@/components/posts/createPost/CreatePost";
-import { Stories } from "@/components/StoriesBar/Stories";
 import { NavigationBar } from "@/components/NavigationBar/Navigation";
 import { uploadImage } from "@/services/uploadImage";
 
@@ -108,7 +107,7 @@ const UserProfile = () => {
             <Typography className="profile-name name">Name Name</Typography>
             <button className="profile-add-button add-button">
               <PersonAddAltRoundedIcon />
-              Add friend
+              <span className="profile-span-friend">Add friend</span>
             </button>
           </Box>
 
@@ -235,7 +234,6 @@ const UserProfile = () => {
           </Grid>
         </Container>
       </main>
-      <Stories />
     </div>
   );
 };
