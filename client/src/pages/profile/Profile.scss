@@ -10,7 +10,7 @@
 
   border-radius: 1.875rem;
 
-  max-width: 1058px;
+  width: 1250px;
   max-height: 960px;
   overflow: hidden;
 
@@ -277,6 +277,7 @@
 
   .profile-user-name {
     margin-left: 0;
+    margin-top: 4.4rem;
   }
 
   .album-grid {
@@ -299,24 +300,6 @@
     margin-bottom: 1.625rem;
   }
 
-  .profile-content .profile-information {
-    height: unset;
-    overflow: visible;
-
-    .information-data {
-      display: flex;
-      flex-wrap: wrap;
-      box-shadow: none;
-      height: unset;
-      border-radius: 1.125rem;
-      background: rgba(0, 0, 0, 0.12);
-
-      .profile-information-item {
-        flex-basis: 50%;
-        font-size: 1.125rem;
-      }
-    }
-  }
 
   .profile-content .profile-information,
   .profile-content .profile-action {
@@ -343,11 +326,39 @@
     bottom: 1rem;
   }
 
-  .css-v6bqgn-MuiGrid-root {
-    max-width: unset;
-  }
-
+  .css-v6bqgn-MuiGrid-root,
   .css-1mcnwpj-MuiList-root {
     max-width: unset;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-wrapper {
+    padding: 0.75rem 1rem;
+  }
+
+  .profile-name {
+    display: flex;
+  }
+
+  .profile-span-friend,
+  .album-grid-content:nth-child(1) {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .album-grid-content:nth-child(1) {
+    display: none;
+  }
+
+  .album-grid .album-grid-content .user-picture-item {
+    width: 4.2rem;
+    height: 4.2rem;
+  }
+
+  .information-data .profile-edit-link {
+    position: unset;
+    margin-left: 1.2rem;
   }
 }
