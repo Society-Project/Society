@@ -1,4 +1,5 @@
 @import "../../components/Styles/definitions.scss";
+@import "../../components/Styles/definitions.scss";
 
 .profile-container {
   display: flex;
@@ -166,6 +167,7 @@
 
   width: 100%;
   justify-content: space-between;
+  gap: 1rem;
 
   margin: 0;
   margin-top: 1.94rem;
@@ -179,10 +181,6 @@
 }
 
 .album-grid-content {
-  &:nth-child(1) {
-    padding-bottom: 1.688rem;
-  }
-
   &:last-child {
     position: relative;
 
@@ -253,7 +251,7 @@
 }
 
 // TODO: Refactor scss
-@media (max-width: 854px) {
+@media (max-width: $max-profile-page) {
   .profile-wrapper {
     border-radius: 0;
   }
@@ -355,7 +353,7 @@
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: $max-profile-page-small) {
   .profile-wrapper {
     padding: 0.75rem 1rem;
   }
@@ -370,7 +368,7 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: $max-profile-page-smaller) {
   .album-grid-content:nth-child(1) {
     display: none;
   }
