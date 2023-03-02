@@ -14,11 +14,12 @@ const Stories = () => {
     let storyBubbles: number = 5;
 
     //Screen is less than 600px(phone) it will show 3 story bubbles
+
     if (windowSize.width < 600) storyBubbles = 4
 
-    if(windowSize.width < 500) storyBubbles = 3
+    if (windowSize.width < 500) storyBubbles = 3
 
-    if(windowSize.width < 400) storyBubbles = 2
+    if (windowSize.width < 400) storyBubbles = 2
     for (let i = 0; i < storyBubbles; i++) {
         //Should replace the . with user's profile picture
         arrayOfStoryBubbles.push(
@@ -39,28 +40,28 @@ const Stories = () => {
 
     return (
         <Box>
-            {
-                windowSize.width > 900 ? null : <Box className='stories-main-box'>
-                    <p className='stories-paragraph'>Stories</p>
 
-                    <Box className='stories-data-box'>
-                        <Box className='add-story-box'>
-                            <Button className='add-story-button'>+ add story</Button>
-                            <Box className='straight-line'></Box>
-                        </Box>
-                        <Box className='other-people-stories'>
-                            {
-                                arrayOfStoryBubbles.map((item: any, index: number) => {
-                                    return <Box className='stories-of-followed-people' key={index}>
-                                        {item}
-                                    </Box>
-                                })
-                            }
-                        </Box>
-                        <Box className='more-options'><MoreHorizIcon /></Box>
+            <Box className='stories-main-box'>
+                <p className='stories-paragraph'>Stories</p>
+
+                <Box className='stories-data-box'>
+                    <Box className='add-story-box'>
+                        <Button className='add-story-button'>+ add story</Button>
+                        <Box className='straight-line'></Box>
                     </Box>
+                    <Box className='other-people-stories'>
+                        {
+                            arrayOfStoryBubbles.map((item: any, index: number) => {
+                                return <Box className='stories-of-followed-people' key={index}>
+                                    {item}
+                                </Box>
+                            })
+                        }
+                    </Box>
+                    <Box className='more-options'><MoreHorizIcon /></Box>
                 </Box>
-            }
+            </Box>
+
         </Box>
 
     )
