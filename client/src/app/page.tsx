@@ -10,8 +10,8 @@ import { useState, useEffect } from 'react';
 
 const Home = () => {
   const [currentWindowScreen, setCurrentWindowScreen]: any = useState({
-    width: undefined,
-    height: undefined
+    width: window.innerWidth,
+    height: window.innerHeight
   });
 
   useEffect(() => {
