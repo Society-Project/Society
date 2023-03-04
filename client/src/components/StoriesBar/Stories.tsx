@@ -1,37 +1,66 @@
-import { Box, Button } from '@mui/material';
+import { useState, useEffect } from 'react';
+import { Box, Button, Grid } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import "../Styles/Stories.scss";
+import '../Styles/Stories.scss';
 
-export const Stories = () => {
-    const repeatParagraphElements: Array<object> = [];
-    const predefinedLengthOfElements: number = 5;
+const Stories = () => {
+    const [windowSize, setWindowSize]: any = useState({
+        width: window.innerWidth,
+        heigth: window.innerHeight
+    })
 
-    for (let i = 0; i < predefinedLengthOfElements; i++) {
-        repeatParagraphElements.push(
-            //This property should be replaced with person's profile picture
+
+    const arrayOfStoryBubbles: Array<object> = [];
+    let storyBubbles: number = 5;
+
+    if (windowSize.width < 600) storyBubbles = 4
+
+    if (windowSize.width < 500) storyBubbles = 2
+
+    for (let i = 0; i < storyBubbles; i++) {
+        //Should replace the . with user's profile picture
+        arrayOfStoryBubbles.push(
             <Button className='person-story'>.</Button>
         );
     }
+    useEffect(() => {
+
+        window.addEventListener('resize', () => {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight
+            })
+        })
+
+
+    }, [])
 
     return (
-        <Box className='stories-root-box'>
+        <Box>
+            <Box className={windowSize.width > 900 ? 'stories-main-box' : 'stories-main-box-for-mobile'}>
+                <p className='stories-paragraph'>Stories</p>
 
-            <p className='stories-paragraph'>Stories</p>
-
-            <Box className='story-data-box'>
-                <Box className='add-story-box'>
-                    <Button className='add-story-button'>+ add story</Button>
-                    <Box className='break-line' />
-                    {
-                        repeatParagraphElements.map((item: any, index: number) => {
-                            return <Box className='stories-of-followed-people' key={index}>
-                                {item}
-                            </Box>
-                        })
-                    }
-                    <Box className='expand-icon'><MoreHorizIcon /></Box>
+                <Box className='stories-data-box'>
+                    <Box className='add-story-box'>
+                        <Button className='add-story-button'>+ add story</Button>
+                        <Box className='straight-line'></Box>
+                    </Box>
+                    <Box className='other-people-stories'>
+                        {
+                            arrayOfStoryBubbles.map((item: any, index: number) => {
+                                return <Box className='stories-of-followed-people' key={index}>
+                                    {item}
+                                </Box>
+                            })
+                        }
+                    </Box>
+                    <Box className='more-options'><MoreHorizIcon /></Box>
                 </Box>
             </Box>
+
         </Box>
-    );
+
+    )
 }
+
+export default Stories

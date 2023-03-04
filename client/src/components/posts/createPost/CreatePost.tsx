@@ -5,8 +5,6 @@ import { Grid, IconButton, TextareaAutosize } from '@mui/material';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import PinDropIcon from '@mui/icons-material/PinDrop';
-import Card from '@mui/material/Card';
-
 
 export const CreatePost = (post: any) => {
 
