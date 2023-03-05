@@ -2,7 +2,7 @@ package com.society.server.api.v1;
 
 import com.society.server.dto.message.MessageDTO;
 import com.society.server.dto.message.RoomDTO;
-import com.society.server.model.entity.RoomEntity;
+import com.society.server.security.UserPrincipal;
 import com.society.server.service.MessageService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +10,12 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
+import java.util.List;
 
 import static com.society.server.config.AppConstants.API_BASE;
 import static java.lang.String.format;
@@ -38,11 +39,19 @@ public class ChatController {
             return ResponseEntity.badRequest().build();
         }
 
-        chatService.saveMessage(messageDTO, roomId);
-
         simpMessagingTemplate.convertAndSend(format("/channel/%s", roomId), messageDTO);
 
+        chatService.saveMessage(messageDTO, roomId);
+
         return ResponseEntity.ok(messageDTO);
+    }
+
+    @GetMapping("/app/chat")
+    public ResponseEntity<List<RoomDTO>> getChatRooms(
+            @AuthenticationPrincipal UserPrincipal userPrincipal) {
+
+        List<RoomDTO> roomsByUser = chatService.getRoomsByUser(userPrincipal);
+        return ResponseEntity.ok(roomsByUser);
     }
 
     @PostMapping("/app/chat")
@@ -55,4 +64,11 @@ public class ChatController {
 
         return ResponseEntity.ok(roomDTO);
     }
+
+    @GetMapping("/app/chat/{roomId}")
+    public ResponseEntity<RoomDTO> getRoom(@PathVariable Long roomId){
+        RoomDTO roomDTO = chatService.getRoomById(roomId);
+        return ResponseEntity.ok(roomDTO);
+    }
+
 }
