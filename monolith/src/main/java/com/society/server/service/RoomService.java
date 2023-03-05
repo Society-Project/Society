@@ -17,6 +17,8 @@ public class RoomService {
     }
 
     public void save(RoomEntity room) {
-        roomRepository.save(room);
+        this.roomRepository.save(room);
     }
+
+
 }

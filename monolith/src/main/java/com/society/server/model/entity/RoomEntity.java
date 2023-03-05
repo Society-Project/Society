@@ -3,13 +3,11 @@ package com.society.server.model.entity;
 import com.society.server.model.enums.RoomEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -23,12 +21,13 @@ public class RoomEntity extends BaseEntity {
     @NotEmpty
     private String name;
 
-    @NotEmpty
+    @NonNull
     @Enumerated(EnumType.STRING)
     private RoomEnum roomEnum;
 
     @NotEmpty
-    @ManyToMany(mappedBy = "rooms", targetEntity = UserEntity.class)
+    @ManyToMany(fetch = FetchType.LAZY,
+            mappedBy = "rooms", targetEntity = UserEntity.class)
     private Set<UserEntity> users;
 
     @OneToMany(mappedBy = "room", targetEntity = MessageEntity.class)

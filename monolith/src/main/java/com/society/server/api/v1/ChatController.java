@@ -14,7 +14,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 import static com.society.server.config.AppConstants.API_BASE;
@@ -55,12 +54,13 @@ public class ChatController {
     }
 
     @PostMapping("/app/chat")
-    public ResponseEntity<RoomDTO> createRoom(@Valid RoomDTO roomDTO,
-                                              BindingResult bindingResult) {
+    public ResponseEntity<RoomDTO> createRoom(@Valid @RequestBody RoomDTO roomDTO,
+                                              BindingResult bindingResult,
+                                              @AuthenticationPrincipal UserPrincipal userPrincipal) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().build();
         }
-        chatService.createRoom(roomDTO);
+        chatService.createRoom(roomDTO, userPrincipal);
 
         return ResponseEntity.ok(roomDTO);
     }

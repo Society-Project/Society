@@ -10,12 +10,10 @@ import com.society.server.model.entity.UserEntity;
 import com.society.server.repository.MessageRepository;
 import com.society.server.repository.UserRepository;
 import com.society.server.security.UserPrincipal;
-import org.hibernate.ObjectNotFoundException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -55,26 +53,38 @@ public class MessageService {
         roomService.save(room);
     }
 
-    public void createRoom(RoomDTO roomDTO) {
+    public void createRoom(RoomDTO roomDTO, UserPrincipal userPrincipal) {
 
-        Set<UserEntity> users = roomDTO.getParticipantsIds()
-                .stream()
-                .map(p -> userRepository.findById(p)
-                        .orElseThrow(() ->
-                                new UserNotFoundException(format("User with id %d is not found!", p)
-                                )))
-                .collect(Collectors.toSet());
+        UserEntity creator = userRepository.findByUsername(userPrincipal.getUsername())
+                .orElseThrow(() -> new UserNotFoundException(
+                        format("User with username %s is not found!", userPrincipal.getUsername()))
+                );
 
-        RoomEntity room = RoomEntity.builder()
-                .roomEnum(roomDTO.getRoomEnum())
-                .name(roomDTO.getName())
-                .messages(new ArrayList<>())
-                .users(users)
-                .build();
+        Set<UserEntity> users = new HashSet<>();
+        if (roomDTO.getParticipantsIds().size() > 0) {
+            users = roomDTO.getParticipantsIds()
+                    .stream()
+                    .map(p -> userRepository.findById(p)
+                            .orElseThrow(() ->
+                                    new UserNotFoundException(format("User with id %d is not found!", p)
+                                    )))
+                    .collect(Collectors.toSet());
+        }
+        users.add(creator);
 
-        users.forEach(userEntity -> userEntity.addRoom(room));
-
+        RoomEntity room = new RoomEntity(
+                roomDTO.getName(),
+                roomDTO.getRoomEnum(),
+                users,
+                new ArrayList<>()
+        );
         roomService.save(room);
+
+        users.forEach(userEntity ->
+                userEntity.addRoom(
+                        roomService.getRoomById(room.getId())
+                ));
+
         userRepository.saveAll(users);
     }
 
@@ -106,5 +116,8 @@ public class MessageService {
                         .stream()
                         .map(BaseEntity::getId)
                         .collect(Collectors.toList()));
+
+        // TODO to get this method work properly,
+        //  we should do fetch type eager for users in our room entity but this may cause problem
     }
 }

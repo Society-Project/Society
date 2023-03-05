@@ -1,8 +1,12 @@
 package com.society.server.dto.message;
 
 import com.society.server.model.enums.RoomEnum;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +16,9 @@ public class RoomDTO {
     @NotEmpty
     private String name;
 
-    @NotEmpty
+    @NotNull
     private RoomEnum roomEnum;
-    @Min(1)
+//    @Min(1)
     private List<Long> participantsIds;
 
     public RoomDTO(String name, RoomEnum roomEnum, List<Long> participantsIds) {
