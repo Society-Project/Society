@@ -2,6 +2,7 @@ package com.society.server.service;
 
 import com.society.server.dto.message.MessageDTO;
 import com.society.server.dto.message.RoomDTO;
+import com.society.server.exception.UserNotFoundException;
 import com.society.server.model.entity.BaseEntity;
 import com.society.server.model.entity.MessageEntity;
 import com.society.server.model.entity.RoomEntity;
@@ -9,12 +10,17 @@ import com.society.server.model.entity.UserEntity;
 import com.society.server.repository.MessageRepository;
 import com.society.server.repository.UserRepository;
 import com.society.server.security.UserPrincipal;
+import org.hibernate.ObjectNotFoundException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.webjars.NotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static java.lang.String.format;
 
 @Service
 public class MessageService {
@@ -34,8 +40,8 @@ public class MessageService {
         RoomEntity room = roomService.getRoomById(roomId);
 
         UserEntity user = userRepository.findByUsername(messageDTO.getSenderName())
-                .orElseThrow();
-
+                .orElseThrow(() -> new UserNotFoundException(
+                        format("User with username %s is not found!", messageDTO.getSenderName())));
 
         MessageEntity message = MessageEntity.builder()
                 .content(messageDTO.getMessage())
@@ -53,7 +59,10 @@ public class MessageService {
 
         Set<UserEntity> users = roomDTO.getParticipantsIds()
                 .stream()
-                .map(p -> userRepository.findById(p).orElseThrow())
+                .map(p -> userRepository.findById(p)
+                        .orElseThrow(() ->
+                                new UserNotFoundException(format("User with id %d is not found!", p)
+                                )))
                 .collect(Collectors.toSet());
 
         RoomEntity room = RoomEntity.builder()
@@ -71,7 +80,9 @@ public class MessageService {
 
     public List<RoomDTO> getRoomsByUser(UserPrincipal userPrincipal) {
         UserEntity user = userRepository.findByUsername(userPrincipal.getUsername())
-                .orElseThrow();
+                .orElseThrow(() -> new UserNotFoundException(
+                        format("User with username %s is not found!", userPrincipal.getUsername())));
+
 
         return user.getRooms()
                 .stream()
