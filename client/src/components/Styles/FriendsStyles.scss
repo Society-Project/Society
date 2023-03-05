@@ -1,0 +1,31 @@
+.Container {
+  .AllFriendsText {
+    font-family: Roboto;
+    font-size: 26px;
+    font-weight: bold;
+    margin: 25px 25px 25px;
+  }
+
+  #box {
+    width: 1050px;
+    background-color: rgb(230, 230, 230);
+    border-radius: 18px;
+    
+    .Avatar{
+        margin-left: 30px;
+    }
+  }
+  
+  .MutualFriendsButton {
+    font-family: Roboto;
+    font-size: 20px;
+    color: white;
+    border-radius: 18px;
+    width: 180px;
+    height: 40px;
+    background-color: rgba(146, 145, 145, 1);
+    text-decoration: none;
+    text-transform: lowercase;
+    margin-right: 30px;
+  }
+}
