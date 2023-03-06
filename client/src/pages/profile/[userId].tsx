@@ -1,3 +1,7 @@
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+
 import {
   Box,
   Typography,
@@ -7,29 +11,27 @@ import {
   List,
   ListItem,
 } from "@mui/material";
-import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { CreatePost } from "@/components/posts/createPost/CreatePost";
-
-import profileThumbnail from "../../../public/profileThumbnail.png";
-import defaultUserPicture from "../../../public/defaultUserPicture.png";
-import albumPicture from "../../../public/albumPicture.png";
-import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
-import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
-
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import WorkIcon from "@mui/icons-material/Work";
 import SchoolIcon from "@mui/icons-material/School";
 import TodayIcon from "@mui/icons-material/Today";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
+
 import { Post } from "../../components/posts/Post";
+import { CreatePost } from "@/components/posts/createPost/CreatePost";
 import { NavigationBar } from "@/components/NavigationBar/Navigation";
-import { Stories } from "@/components/StoriesBar/Stories";
+import { uploadImage } from "@/services/uploadImage";
+
+import profileThumbnail from "../../../public/profileThumbnail.png";
+import friendPicture from "../../../public/friendPicture.png";
+import defaultUserPicture from "../../../public/defaultUserPicture.png";
+import albumPicture from "../../../public/albumPicture.png";
 
 import "./Profile.scss";
 
 const UserProfile = () => {
-  const [open, setOpen] = useState<Boolean>(false);
+  const [open, setOpen] = useState(false);
   const [imageSrc, setImageSrc] = useState<
     String | ArrayBuffer | StaticImport | null
   >("");
@@ -43,7 +45,7 @@ const UserProfile = () => {
     setOpen(false);
   };
 
-  const handleOnChange = (changeEvent: React.ChangeEvent<HTMLInputElement>) => {
+  const handleOnChange = (changeEvent: React.ChangeEvent<HTMLFormElement>) => {
     const reader = new FileReader();
 
     reader.onload = function (onLoadEvent) {
@@ -61,30 +63,11 @@ const UserProfile = () => {
   const handleOnSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const form = event.currentTarget;
-    const fileInput: File[] | undefined = Array.from(form.elements).find(
-      ({ name }) => name === "file"
-    );
-
-    const formData = new FormData();
-
-    for (const file of fileInput.files) {
-      formData.append("file", file);
-    }
-
-    formData.append(
-      "upload_preset",
-      `${process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}`
-    );
-
-    const data = await fetch(`${process.env.NEXT_PUBLIC_CLOUDINARY_LINK}`, {
-      method: "POST",
-      body: formData,
-    }).then((res) => res.json());
+    const image = await uploadImage(event);
 
     handleClose();
-    setImageSrc(data.secure_url);
-    setUploadData(data);
+    setImageSrc(image.imageUrl);
+    setUploadData(image.data);
   };
 
   return (
@@ -124,7 +107,7 @@ const UserProfile = () => {
             <Typography className="profile-name name">Name Name</Typography>
             <button className="profile-add-button add-button">
               <PersonAddAltRoundedIcon />
-              Add friend
+              <span className="profile-span-friend">Add friend</span>
             </button>
           </Box>
 
@@ -178,19 +161,19 @@ const UserProfile = () => {
                 }}
                 className="profile-information-data information-data"
               >
-                <ListItem>
+                <ListItem className="profile-information-item">
                   <LocationOnIcon />
                   Location
                 </ListItem>
-                <ListItem>
+                <ListItem className="profile-information-item">
                   <WorkIcon />
                   Work
                 </ListItem>
-                <ListItem>
+                <ListItem className="profile-information-item">
                   <SchoolIcon />
                   Education
                 </ListItem>
-                <ListItem>
+                <ListItem className="profile-information-item">
                   <TodayIcon />
                   Birthday
                 </ListItem>
@@ -218,6 +201,28 @@ const UserProfile = () => {
                   );
                 })}
               </Grid>
+              <Grid container spacing={2} className="album-grid">
+                {[1, 2, 3, 4].map((_, index) => {
+                  return (
+                    <Grid className="album-grid-content" key={index}>
+                      <ListItem className="album-grid-item">
+                        <Image
+                          src={friendPicture}
+                          alt="Profile photo"
+                          className="user-picture-item friend"
+                          width={110}
+                          height={95}
+                        />
+                      </ListItem>
+                      {index === 3 && (
+                        <Box className="photos-plus">
+                          <span className="photos-plus-name">All friends</span>
+                        </Box>
+                      )}
+                    </Grid>
+                  );
+                })}
+              </Grid>
             </Grid>
             <Grid className="profile-action" item xs={8}>
               <CreatePost className="profile-create-post" />
@@ -229,7 +234,6 @@ const UserProfile = () => {
           </Grid>
         </Container>
       </main>
-      <Stories />
     </div>
   );
 };
