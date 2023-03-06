@@ -26,7 +26,7 @@ public class RoomEntity extends BaseEntity {
     private RoomEnum roomEnum;
 
     @NotEmpty
-    @ManyToMany(fetch = FetchType.LAZY,
+    @ManyToMany(fetch = FetchType.EAGER,
             mappedBy = "rooms", targetEntity = UserEntity.class)
     private Set<UserEntity> users;
 

@@ -1,10 +1,7 @@
 package com.society.server.dto.message;
 
 import com.society.server.model.enums.RoomEnum;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
+import com.society.server.utils.validators.IdUnique;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -13,15 +10,19 @@ import java.util.List;
 
 public class RoomDTO {
 
+    @NotNull
+    @IdUnique
+    private Long id;
     @NotEmpty
     private String name;
 
     @NotNull
     private RoomEnum roomEnum;
-//    @Min(1)
+    //    @Min(1)
     private List<Long> participantsIds;
 
-    public RoomDTO(String name, RoomEnum roomEnum, List<Long> participantsIds) {
+    public RoomDTO(Long id, String name, RoomEnum roomEnum, List<Long> participantsIds) {
+        this.id = id;
         this.name = name;
         this.roomEnum = roomEnum;
         this.participantsIds = participantsIds;
@@ -55,6 +56,15 @@ public class RoomDTO {
 
     public RoomDTO setParticipantsIds(List<Long> participantsIds) {
         this.participantsIds = participantsIds;
+        return this;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public RoomDTO setId(Long id) {
+        this.id = id;
         return this;
     }
 }
