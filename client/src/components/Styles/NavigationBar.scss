@@ -1,43 +1,45 @@
 .navigation-root-element {
     width: 10.7%;
-    height: 100vh;
+    height: 84vh;
     background: linear-gradient(rgb(255, 255, 255), white);
     font-size: 20px;
     float: left;
-    position: sticky;
+    position: relative;
+    top: -3.2rem;
+    
 
     .css-i4bv87-MuiSvgIcon-root {
         font-size: 2.2rem;
-
     }
 
     .icon-buttons {
         height: 70.4%;
         display: flex;
         flex-direction: column;
-
         justify-content: space-between;
+        margin-top: 1rem;
     }
 
     .css-1s4ffru-MuiListItem-root {
         display: block;
-        width: 76%;
+        width: 80%;
         height: 50px;
         float: right;
         border-radius: 10px 0 0 10px;
         line-height: 0;
-
-
+        margin-top: 3rem;
     }
 
     .list-item-element {
         width: 76%;
         margin-left: auto;
-        margin-top: 2rem;
+        margin-top: 3rem;
         cursor: pointer;
 
-        .log-out-icon{
+
+        .log-out-icon {
             margin-left: .2rem;
+            
         }
     }
 
@@ -47,30 +49,33 @@
     }
 
     .css-1s4ffru-MuiListItem-root::after {
-        content: '';
+        content: "";
         position: absolute;
-        top: -50px;
-        right: 0;
-        width: 20px;
+        background-color: transparent;
+        bottom: 50px;
         height: 50px;
-        z-index: -1;
-        border-radius: 0 0 25px 0;
+        width: 25px;
+        border-bottom-right-radius: 25px;
         box-shadow: 0 25px 0 0 rgb(235, 233, 233);
+        right: 0;
     }
 
     // This code is not going to work if I put it like this
     // .css-1s4ffru-MuiListItem-root::after, .css-1s4ffru-MuiListItem-root::before
     .css-1s4ffru-MuiListItem-root::before {
-        content: '';
+        content: "";
         position: absolute;
-        top: 50px;
-        right: 0;
-        width: 20px;
+        background-color: transparent;
+        bottom: -50px;
         height: 50px;
-        z-index: -1;
-
-        border-radius: 0 25px 0 0;
+        width: 25px;
+        border-top-right-radius: 25px;
         box-shadow: 0 -25px 0 0 rgb(235, 233, 233);
-
+        right: 0;
+    }
+}
+@media only screen and (min-width: 0) and (max-width: 900px) {
+    .navigation-root-element {
+        display: none;
     }
 }

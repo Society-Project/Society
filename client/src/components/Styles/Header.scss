@@ -8,13 +8,12 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
-    background-color: rgb(235, 233, 233);
+    background-color: #ebebeb;
     box-shadow: none;
 
     .header-logo{
         background-color: white;  
         width: 10.7%;
-        
 
         .header-logo-image{
             max-width: 60px;
@@ -30,8 +29,18 @@
 
         .search-button{
             margin-top: 1rem;
+            margin-right: 2rem;
         }
        
+    }
+    .hamburger-menu {
+        cursor: pointer;
+        width: 10%;
+        
+        .hamburger-menu-logo{
+            max-width: 2rem;
+            margin-top: 1.5rem;
+        }
     }
     .user-profile{
         width: 10%;
@@ -42,6 +51,30 @@
             top: 23%;
             right: 2.5%;
             font-size: 5rem;
+        }
+    }
+}
+
+@media only screen and (min-width: 0) and (max-width: 900px) {
+    .header-main-class {
+        background-color: white;
+        .header-logo {
+            background-color: white;
+            .header-logo-image {
+                max-width: 60px;
+                margin-left: 1rem;
+                
+            }
+        }
+        .search-bar {
+            margin-left: 4rem;
+            .search-button {
+                margin-top: 1px;
+                font-size: 2.5rem;
+            }
+        }
+        .user-profile {
+            display: none;
         }
     }
 }
@@ -65,7 +98,7 @@
             
             .user-account-icon {
                 position: absolute;
-                right: 4.5rem;
+                right: 3.5rem;
                 font-size: 5rem;
             }
         }
