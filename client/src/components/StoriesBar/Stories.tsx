@@ -5,8 +5,8 @@ import '../Styles/Stories.scss';
 
 const Stories = () => {
     const [windowSize, setWindowSize]: any = useState({
-        width: window.innerWidth,
-        heigth: window.innerHeight
+        width: '100%',
+    height: '100%'
     })
 
 

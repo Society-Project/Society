@@ -23,8 +23,8 @@ const Header = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [isSearchButtonClicked, setIsSearchButtonClicked] = useState(false);
   const [windowSize, setWindowSize]: any = useState({
-    width: undefined, 
-    height: undefined
+    width: '100%',
+    height: '100%'
   })
 
 

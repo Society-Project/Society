@@ -10,15 +10,15 @@ import { useState, useEffect } from 'react';
 
 export const Form = () => {
   const [currentWindowScreen, setCurrentWindowScreen]: any = useState({
-    width: window.innerWidth,
-    height: window.innerHeight
+    width: '100%',
+    height: '100%'
   });
 
   useEffect(() => {
     window.addEventListener('resize', () => {
       setCurrentWindowScreen({
-        width: window.innerWidth,
-        height: window.innerHeight
+        width: window.screen.width,
+    height: window.screen.height
       })
     })
   }, [])
