@@ -7,11 +7,11 @@ import Stories from '../components/StoriesBar/Stories'
 
 //Code below is temporary
 import { useState, useEffect } from 'react';
+import { Test } from "@/components/test";
 
 const Home = () => {
   const [currentWindowScreen, setCurrentWindowScreen]: any = useState({
-    width: '100%',
-    height: '100%'
+    // const [width, height] = Test()
   });
 
   useEffect(() => {
