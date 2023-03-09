@@ -39,7 +39,7 @@ public class ChatController {
             return ResponseEntity.badRequest().build();
         }
 
-        simpMessagingTemplate.convertAndSend(format("/channel/%s", roomId), messageDTO);
+        simpMessagingTemplate.convertAndSend(format("/channel/%d", roomId), messageDTO);
 
         chatService.saveMessage(messageDTO, roomId);
 

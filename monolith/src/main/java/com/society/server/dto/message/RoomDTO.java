@@ -21,11 +21,14 @@ public class RoomDTO {
     //    @Min(1)
     private List<Long> participantsIds;
 
-    public RoomDTO(Long id, String name, RoomEnum roomEnum, List<Long> participantsIds) {
+    private List<MessageDTO> messages;
+
+    public RoomDTO(Long id, String name, RoomEnum roomEnum, List<Long> participantsIds, List<MessageDTO> messages) {
         this.id = id;
         this.name = name;
         this.roomEnum = roomEnum;
         this.participantsIds = participantsIds;
+        this.messages = messages;
     }
 
     public RoomDTO() {
@@ -65,6 +68,15 @@ public class RoomDTO {
 
     public RoomDTO setId(Long id) {
         this.id = id;
+        return this;
+    }
+
+    public List<MessageDTO> getMessages() {
+        return messages;
+    }
+
+    public RoomDTO setMessages(List<MessageDTO> messages) {
+        this.messages = messages;
         return this;
     }
 }

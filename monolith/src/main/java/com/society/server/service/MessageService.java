@@ -7,6 +7,7 @@ import com.society.server.model.entity.BaseEntity;
 import com.society.server.model.entity.MessageEntity;
 import com.society.server.model.entity.RoomEntity;
 import com.society.server.model.entity.UserEntity;
+import com.society.server.model.mapper.MessageMapper;
 import com.society.server.repository.MessageRepository;
 import com.society.server.repository.UserRepository;
 import com.society.server.security.UserPrincipal;
@@ -22,13 +23,16 @@ public class MessageService {
     private final RoomService roomService;
     private final UserRepository userRepository;
     private final MessageRepository messageRepository;
+    private final MessageMapper messageMapper;
 
     public MessageService(RoomService roomService,
                           UserRepository userRepository,
-                          MessageRepository messageRepository) {
+                          MessageRepository messageRepository,
+                          MessageMapper messageMapper) {
         this.roomService = roomService;
         this.userRepository = userRepository;
         this.messageRepository = messageRepository;
+        this.messageMapper = messageMapper;
     }
 
     public void saveMessage(MessageDTO messageDTO, Long roomId) {
@@ -102,6 +106,10 @@ public class MessageService {
                                 r.getUsers()
                                         .stream()
                                         .map(BaseEntity::getId)
+                                        .collect(Collectors.toList()),
+                                r.getMessages()
+                                        .stream()
+                                        .map(messageMapper::messageEntityToMessageDTO)
                                         .collect(Collectors.toList()))
                 )
                 .toList();
@@ -117,7 +125,12 @@ public class MessageService {
                 room.getUsers()
                         .stream()
                         .map(BaseEntity::getId)
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList()),
+                room.getMessages()
+                        .stream()
+                        .map(messageMapper::messageEntityToMessageDTO)
+                        .collect(Collectors.toList())
+        );
 
     }
 }
