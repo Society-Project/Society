@@ -30,7 +30,8 @@ public class RoomEntity extends BaseEntity {
             mappedBy = "rooms", targetEntity = UserEntity.class)
     private Set<UserEntity> users;
 
-    @OneToMany(mappedBy = "room", targetEntity = MessageEntity.class)
+    @OneToMany(fetch = FetchType.EAGER,
+            mappedBy = "room", targetEntity = MessageEntity.class)
     private List<MessageEntity> messages;
 
     public void addMessage(MessageEntity entity) {

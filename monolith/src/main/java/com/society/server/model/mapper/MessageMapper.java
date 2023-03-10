@@ -2,14 +2,17 @@ package com.society.server.model.mapper;
 
 import com.society.server.dto.message.MessageDTO;
 import com.society.server.model.entity.MessageEntity;
+import com.society.server.model.enums.MessageType;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
-public interface MessageMapper {
+public abstract class MessageMapper {
 
-    @Mapping(target = "senderName", source = "sender.username")
-    @Mapping(target = "message", source = "content")
-    MessageDTO messageEntityToMessageDTO(MessageEntity messageEntity);
+    public MessageDTO messageEntityToMessageDTO(MessageEntity messageEntity) {
+        return new MessageDTO(messageEntity.getSender().getUsername(),
+                messageEntity.getContent(),
+                MessageType.MESSAGE);
+    }
+
 
 }

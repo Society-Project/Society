@@ -2,16 +2,16 @@ package com.society.server.dto.message;
 
 import com.society.server.model.enums.MessageType;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 public class MessageDTO {
-
     @NotEmpty
     private String senderName;
 
     @NotEmpty
     private String message;
 
-    @NotEmpty
+    @NotNull
     private MessageType status;
 
     public MessageDTO(String senderName, String message, MessageType status) {

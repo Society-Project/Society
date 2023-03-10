@@ -7,9 +7,6 @@ import com.society.server.service.MessageService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.DestinationVariable;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
@@ -21,32 +18,34 @@ import static com.society.server.config.AppConstants.API_BASE;
 import static java.lang.String.format;
 
 @RestController
-@RequestMapping(path = API_BASE)
+@RequestMapping(path = API_BASE + "/chat")
 public class ChatController {
     private final MessageService chatService;
     private final SimpMessagingTemplate simpMessagingTemplate;
-
-    public ChatController(MessageService chatService, SimpMessagingTemplate simpMessagingTemplate) {
+    public ChatController(MessageService chatService,
+                          SimpMessagingTemplate simpMessagingTemplate) {
         this.chatService = chatService;
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
-    @MessageMapping("/chat/{roomId}/sendMessage")
-    public ResponseEntity<MessageDTO> sendMessage(@DestinationVariable Long roomId,
-                                                  @Valid @Payload MessageDTO messageDTO,
+    @PostMapping("/{roomId}/sendMessage")
+    public ResponseEntity<MessageDTO> sendMessage(@PathVariable Long roomId,
+                                                  @Valid @RequestBody MessageDTO messageDTO,
                                                   BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
+
+        if (chatService.getRoomById(roomId) == null || bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().build();
         }
 
-        simpMessagingTemplate.convertAndSend(format("/channel/%d", roomId), messageDTO);
+            simpMessagingTemplate.convertAndSend(format("/channel/%d", roomId), messageDTO);
 
-        chatService.saveMessage(messageDTO, roomId);
+            chatService.saveMessage(messageDTO, roomId);
+
 
         return ResponseEntity.ok(messageDTO);
     }
 
-    @GetMapping("/app/chat")
+    @GetMapping
     public ResponseEntity<List<RoomDTO>> getChatRooms(
             @AuthenticationPrincipal UserPrincipal userPrincipal) {
 
@@ -54,7 +53,7 @@ public class ChatController {
         return ResponseEntity.ok(roomsByUser);
     }
 
-    @PostMapping("/app/chat")
+    @PostMapping
     public ResponseEntity<Long> createRoom(@Valid @RequestBody RoomDTO roomDTO,
                                            BindingResult bindingResult,
                                            @AuthenticationPrincipal UserPrincipal userPrincipal) {
@@ -66,7 +65,7 @@ public class ChatController {
         return new ResponseEntity<>(roomId, HttpStatus.CREATED);
     }
 
-    @GetMapping("/app/chat/{roomId}")
+    @GetMapping("/{roomId}")
     public ResponseEntity<RoomDTO> getRoom(@PathVariable Long roomId) {
         RoomDTO roomDTO = chatService.getRoomById(roomId);
         return ResponseEntity.ok(roomDTO);

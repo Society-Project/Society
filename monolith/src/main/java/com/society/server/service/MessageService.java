@@ -11,6 +11,7 @@ import com.society.server.model.mapper.MessageMapper;
 import com.society.server.repository.MessageRepository;
 import com.society.server.repository.UserRepository;
 import com.society.server.security.UserPrincipal;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -25,6 +26,7 @@ public class MessageService {
     private final MessageRepository messageRepository;
     private final MessageMapper messageMapper;
 
+  @Autowired
     public MessageService(RoomService roomService,
                           UserRepository userRepository,
                           MessageRepository messageRepository,
