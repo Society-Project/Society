@@ -1,139 +1,137 @@
-.reactions {
-  justify-content: space-evenly;
-}
+body {
+  display: block;
 
-#likesCounter {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 5px 0px 0px 5px;
-  color: "#6495ED";
-}
+  .createPostGrid {
+    background-color: rgba(74, 122, 99, 0.2);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
 
-.comTextArea {
-  resize: none;
-  border-style: none;
-  font-size: 1rem;
-  background-color: white;
-}
+    border-radius: 10px;
+    height: 15vh;
+    width: 75vw;
+    margin: auto;
+    border-radius: 5px;
+    margin-top: 10vh;
+    .createPostTxtArea {
+      width: 71.8vw;
+      height: 20vh;
+      padding: 15px;
+      outline: none;
+      resize: none;
+      font-size: 1rem;
+      margin-top: 3px;
+      margin-left: 15px;
+      background-color: rgba(255, 255, 255, 1);
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+      margin-top: 10px;
+    }
+    #createPostDivBtn {
+      margin-left: 47vw;
+    }
+    #createPostBtn {
+      font-size: 1.2rem;
+      border-radius: 10px;
+      border: none;
+      margin-left: 8vw;
+      height: 4vh;
+      width: 5vw;
+      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
+      margin-top: 1vh;
+    }
 
-.editTextArea {
-  width: 80%;
-  height: 1rem;
-  padding: 15px;
-  outline: none;
-  resize: none;
-  font-size: 1rem;
-  margin-top: 3px;
-  border-radius: 5px;
-  background-color: white;
-}
-.editTextArea:is(:focus, :valid) {
-  border-width: 2px;
-  padding: 10px;
-  border-color: #4671ea;
-}
-.editTextArea::-webkit-scrollbar {
-  width: 0%;
-}
+    #tag {
+      color: rgba(21, 104, 41, 1);
+      margin-right: 2vw;
+    }
 
-.commentsBox {
-  border: none;
-  border-radius: 13px;
-  margin-left: 7px;
-  font-family: Arial, Helvetica, sans-serif;
-}
+    #addPhoto {
+      color: rgba(204, 144, 28, 1);
+      margin-right: 2vw;
+    }
 
-.editBox {
-  justify-content: center;
-}
+    #location {
+      color: rgba(124, 13, 107, 1);
+    }
+  }
 
-#saveBtn {
-  padding-top: 40px;
-  margin-right: 50px;
-}
+  .comments-box {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    margin-left: 2.65rem;
 
-.editBtnsDiv > button {
-  margin: 1px;
-  font-family: Arial, Helvetica, sans-serif;
-}
+    .editTextArea {
+      width: 80%;
+      height: 1px;
+      padding: 15px;
+      outline: none;
+      resize: none;
+      font-size: 1rem;
+      margin-top: 3px;
+      border-radius: 5px;
+      background-color: white;
+      
 
-#likeCmntBtn {
-  justify-content: right;
-}
+      #saveBtn {
+        padding-top: 40px;
+        margin-right: 50px;
+      }
+    }
+    .editTextArea:is(:focus, :valid) {
+      border-width: 2px;
+      padding: 10px;
+      border-color: #4671ea;
+    }
+    .editTextArea::-webkit-scrollbar {
+      width: 0%;
+    }
+  }
 
-.test {
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  margin-left: 2.65rem;
-}
+  .commentsBox {
+    border: none;
+    border-radius: 13px;
+    margin-left: 7px;
+    font-family: Arial, Helvetica, sans-serif;
 
-.createPostTxtArea {
-  width: 76.5vw;
-  padding: 2rem;
-  outline: none;
-  resize: none;
-  font-size: 1rem;
-  margin-top: 3px;
-  margin-left: 1rem;
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  border: none;
-  font-size: 1rem;
-  margin-top: 10px;
-}
+    .cmnt {
+      display: inline-flex;
 
-.createPostGrid {
-  background-color: rgba(74, 122, 99, 0.2);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  height: 19vh;
-  width: 83vw;
-  margin-left: 3rem;
-  top: 36vh;
-  position: absolute;
-}
+      
+    }
+    .editBtnsDiv > button {
+      margin: 1px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .popover {
+      margin-left: 9rem;
+    }
+    .comTextArea {
+      resize: none;
+      border-style: none;
+      font-size: 1rem;
+      background-color: white;
+    }
+  }
 
-#createPostDivBtn {
-  margin-left: 40rem;
-}
+  .reactions {
+    justify-content: space-evenly;
+  }
 
-#createPostBtn {
-  border: none;
-  margin-left: 38px;
-  background-color: #206f4f;
-  color: white;
-  height: 2rem;
-  width: 7vw;
-  box-shadow: 2px 4px 4px rgba(74, 122, 99, 0.54);
-  border-radius: 13px;
-  font-size: 20px;
-  margin-top: 0.7vh;
-  margin-left: 16.5rem;
-}
+  #likesCounter {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 5px 0px 0px 5px;
+    color: "#6495ED";
+  }
 
-.createPostIconBtn {
-  margin-left: 35px;
-}
+  .editBox {
+    justify-content: center;
+  }
 
-#tag {
-  color: rgba(21, 104, 41, 1);
-}
+  #likeCmntBtn {
+    justify-content: right;
+  }
 
-#addPhoto {
-  color: rgba(204, 144, 28, 1);
-}
-
-#location {
-  color: rgba(124, 13, 107, 1);
-}
-
-.cmnt {
-  display: inline-flex;
-}
-
-.popover {
-  margin-left: 9rem;
-}
-
-#cmntReactions {
-  margin-left: 290px;
+  #cmntReactions {
+    margin-left: 290px;
+  }
 }

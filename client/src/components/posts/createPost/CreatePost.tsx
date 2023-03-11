@@ -5,7 +5,6 @@ import { Grid, IconButton, TextareaAutosize } from '@mui/material';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import PinDropIcon from '@mui/icons-material/PinDrop';
-import Card from '@mui/material/Card';
 
 
 export const CreatePost = (post: any) => {
@@ -29,7 +28,7 @@ export const CreatePost = (post: any) => {
                     <IconButton className='createPostIconBtn' id='location'>
                     <PinDropIcon />
                     </IconButton>
-                    <button id='createPostBtn' onClick={onClickHandler}>POST</button>
+                    <button id='createPostBtn' onClick={onClickHandler}>Post</button>
                 </div>
             </Grid>
             {

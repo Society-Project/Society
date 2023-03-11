@@ -55,14 +55,6 @@ const Header = () => {
 
 export default Header;
 
-const HeaderWrapper = styled.div`
-  width: ${FULL_WIDTH};
-  background-color: ${Colors.white};
-  position: relative;
-  top: 0;
-  left: 0;
-`;
-
 export const Logo = styled.img`
   height: ${HEADER_LOGO_HEIGHT};
   width: ${HEADER_LOGO_WIDTH};

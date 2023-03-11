@@ -11,7 +11,6 @@ export const SignUpLogInBtn = () => {
     const [logclick, setLogClick] = useState(false);
     const [signclick, setSignClick] = useState(false);
 
-
     const logOnClick = () => {
         router.push('/login');
         setLogClick(true);
@@ -19,7 +18,6 @@ export const SignUpLogInBtn = () => {
     const signOnClick = () => {
         router.push('/register');
         setSignClick(true);
-
     }
 
     return (
