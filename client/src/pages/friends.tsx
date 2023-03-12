@@ -3,10 +3,8 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import { FriendsList } from "@/components/friends/FriendsList";
 import { NavigationBar } from "@/components/NavigationBar/Navigation";
-import { Stories } from "@/components/StoriesBar/Stories";
 
 import { Box } from "@mui/material";
-import "../components/Styles/MainPage.scss";
 import "../../src/components/Styles/FriendsStyles.scss";
 
 const friends = () => (
@@ -23,7 +21,6 @@ const friends = () => (
       >
         <NavigationBar />
         <FriendsList />
-        <Stories />
       </Box>
     </Main>
   </>
