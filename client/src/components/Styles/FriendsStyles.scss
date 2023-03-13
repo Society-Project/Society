@@ -1,24 +1,54 @@
+.close-modal-button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;  
+}
+.ReactModal__Overlay {
+  width: 490px;
+  height: 250px;
+  border-radius: 18px;
+  border-width: 10px;
+
+  
+}
+.NumberOfMutualFriends {
+  color: rgba(74, 122, 99, 1);
+  font-family: Roboto;
+  font-size: 24px;
+}
+
 .Container {
   .AllFriendsText {
     font-family: Roboto;
     font-size: 26px;
-    font-weight: bold;
     margin: 25px 25px 25px;
   }
-
+  #box::-webkit-scrollbar {
+    width: 11px;
+    background-color: #F5F5F5;
+  }
+   
+  #box::-webkit-scrollbar-thumb {
+    border-radius: 18px;
+    background-color:rgba(74, 122, 99, 0.5);
+  }  
+  
   #box {
     width: 1050px;
     background-color: rgb(230, 230, 230);
     border-radius: 18px;
     margin-right: 140px;
-    overflow:auto;
+    overflow-y: auto;
     height: 400px;
-    
-    .Avatar{
-        margin-left: 25px;
+
+    .Avatar {
+      margin-left: 25px;
     }
   }
-  
+
   .MutualFriendsButton {
     font-family: Roboto;
     font-size: 20px;
