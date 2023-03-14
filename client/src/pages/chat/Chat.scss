@@ -1,0 +1,104 @@
+.main-chat-component {
+    display: flex;
+    justify-content: space-around;
+    font-family: sans-serif;
+    height: 100vh;
+    width: 100%;
+
+    .search-bar-component{
+        position: absolute;
+        right: 12rem;
+        top: 2rem;
+        display: flex;
+        justify-content: space-around;
+        background-color: white;
+        padding: .5rem;
+        border-radius: .5rem;
+        box-shadow: 0px 4px 10px 4px rgb(0 0 0 / 25%);
+
+        .search-icon {
+            margin-top: .1rem;
+            cursor: pointer;
+        }
+        .search-field{
+            border: none;
+            outline: none;
+            padding: .3rem;
+            font-size: 15px;
+        }
+        .close-icon{
+            font-size: 15px;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-right: .3rem;
+            border: 2px solid gray;
+            color: gray;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    }
+    .main-chat-box {
+        background: rgba(217, 217, 217, 0.3);;
+        height: 100vh;
+        width: 80%;
+        border-radius: 1rem;
+        display: block;
+        
+
+        .chat-box-subtitle {
+            position: absolute;
+            width: 139px;
+            height: 35px;
+            left: 200px;
+            top: 139px;
+        }
+
+        .chat-box-body {
+            position: absolute;
+            width: 1185px;
+            height: 793px;
+            left: 200px;
+            top: 200px;
+        }
+    }
+}
+
+.main-chat-mobile-version {
+    display: flex;
+    justify-content: space-around;
+    font-family: sans-serif;
+    width: 20%;
+
+    .search-bar-component {
+        position: absolute;
+        right: 3rem;
+        top: 2rem;
+        display: flex;
+        justify-content: space-around;
+        background-color: white;
+        padding: .5rem;
+        border-radius: .5rem;
+       
+
+        .search-icon {
+            margin-top: .5rem;
+            cursor: pointer;
+            
+        }
+        .search-field{
+            border: none;
+            outline: none;
+            padding: .3rem;
+            font-size: 15px;
+        }
+        .close-icon{
+            font-size: 15px;
+            margin-top: .5rem;
+            margin-right: .3rem;
+            border: 2px solid gray;
+            color: gray;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+    }
+}

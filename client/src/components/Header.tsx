@@ -94,7 +94,7 @@ const HeaderWrapper = styled.div`
   left: 0;
 `;
 
-const Logo = styled.img`
+export const Logo = styled.img`
   height: ${HEADER_LOGO_HEIGHT};
   width: ${HEADER_LOGO_WIDTH};
   opacity: 0.9;

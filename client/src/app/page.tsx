@@ -3,7 +3,9 @@ import styled from "styled-components";
 import Header from "../components/Header";
 import { CreatePost } from "@/components/posts/createPost/CreatePost";
 import { NavigationBar } from "@/components/NavigationBar/Navigation";
-import Stories from '../components/StoriesBar/Stories'
+import Stories from '../components/StoriesBar/Stories';
+import Chat from '../components/Chat/Chat';
+//import { Routes, Route, Link } from 'react-router-dom';
 
 //Code below is temporary
 import { useState, useEffect } from 'react';
@@ -34,6 +36,10 @@ const Home = () => {
 
         {/* @dev This creates some problems with the responsive so we should make it responsive first */}
         { currentWindowScreen.width > 900 ? <CreatePost /> : null }
+
+        {/* <Routes>
+          <Route path='/chat' element={<Chat />} />
+        </Routes> */}
       </Main>
     </>
   )

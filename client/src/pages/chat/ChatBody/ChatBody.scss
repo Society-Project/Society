@@ -1,0 +1,47 @@
+.chat-body-main-component{
+    background-color: white;
+    height: 70vh;
+    border-radius: 1rem;
+    font-family: sans-serif;
+    width: 95%;
+    display: flex;
+    justify-content: space-between;
+
+    .header-component {
+        
+
+        .sub-title{
+            width: 100%;
+            border-right: 1px solid lightgray;
+            border-bottom: 1px solid lightgray;
+            margin-left: .5rem;           
+            padding: .5rem;
+
+        }
+
+        .mapped-info{
+            width: 120%;
+            margin-left: .5rem;
+            .friend-profile {
+                display: flex;
+                justify-content: space-around;
+
+                .username-and-last-message{
+                    margin-top: -1rem;
+                }
+            }
+        }
+    }
+
+    .person-chat{
+        background-color: rgba(0, 0, 0, 0.05);
+        margin-right: auto;
+        margin-left: 3rem;
+        width: 90%;
+        height: 70vh;
+        border-left: 1px solid gray;
+        border-radius: 1rem;
+    }
+}
+
+
