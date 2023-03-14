@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import headerLogo from "/src/images/headerLogo.png"
 import "../../../Styles/LoginRegisterStyles.scss"
 import { UserInput } from '../user-input/UserInput'
@@ -11,26 +11,18 @@ export const BoxElement = () => {
     <Box className="Form"
       display="flex"
       flexDirection={"column"}
-      maxWidth={'45vw'}
       alignItems="center"
       justifyContent={"center"}
       marginTop={'7vh'}
-      marginLeft={'5vh'}
       
       borderRadius={5}
       boxShadow={'3px 13px 80px rgba(0, 0, 0, 0.25);'}
     >
-      <Typography
-        variant="h2"
-        padding={'2vh'}
-        textAlign='center'
-      >
-        <img src={headerLogo.src} alt="HeaderLogo" />
-      </Typography>
+        <img className='HeaderLogo' src={headerLogo.src} alt="HeaderLogo" />
 
       <UserInput />
 
-      <Button sx={{
+      <Button  sx={{
         marginTop: 3,
         marginBottom: 3,
         borderRadius: 4,

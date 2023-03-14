@@ -1,3 +1,4 @@
+@import "./definitions.scss";
 .wrapper {
   width: 100vw;
   height: 100vh;
@@ -5,23 +6,75 @@
   display: flex;
   flex-direction: row;
   margin: -8px;
+
+  @media (max-width: $max-tablet-width) {
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../../../src/images/loginRegisterTablet.png");
+    background-size: 100% 100%;
+    background-blend-mode: multiply;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .Image {
     width: 50vw;
     height: 100vh;
     border-radius: 0% 3% 3% 0%;
+
+    @media (max-width: $max-tablet-width) {
+      display: none;
+    }
   }
   .Form {
     width: 90vw;
     height: 85vh;
+    max-width: 44vw;
+    margin-left: 2rem;
+    margin: 2rem;
+    @media (max-width: $max-tablet-width) {
+      background-color: rgba(255, 255, 255, 0.5);
+      max-width: 53rem;
+      width: 100%;
+    }
+    @media (max-width: $max-mobile-width) {
+      width: 45rem;
+    }
+    .textField,
+    .css-u6xcb0-MuiFormControl-root-MuiTextField-root {
+      width: 24rem;
+      border-radius: 12px;
+      @media (max-width: $max-tablet-width) {
+        width: 27rem;
+      }
+      @media (max-width: $max-mobile-width) {
+        width: 16rem;
+      }
+    }
+    .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
+      border: 0;
+    }
+  }
+}
+
+#LoginPanel,
+#SignPanel,
+.moon {
+  @media (max-width: $max-tablet-width) {
+    display: none;
   }
 }
 
 .clickedBtn {
   width: 9vw;
   height: 6.5vh;
+  margin-bottom: -4rem;
+}
+.inactiveTab {
+  width: 6.5rem;
 }
 
-.clickedBtn.css-1l2ixb5-MuiButtonBase-root-MuiButton-root::after {
+.clickedBtn.css-1v4yuk3-MuiButtonBase-root-MuiButton-root::after {
   content: "";
   position: absolute;
   background-color: transparent;
@@ -33,7 +86,7 @@
   margin-left: 6.8vw;
 }
 
-.clickedBtn.css-1l2ixb5-MuiButtonBase-root-MuiButton-root::before {
+.clickedBtn.css-1v4yuk3-MuiButtonBase-root-MuiButton-root::before {
   content: "";
   position: absolute;
   background-color: transparent;
@@ -45,7 +98,7 @@
   margin-left: 6.8vw;
 }
 
-.clickedBtn.css-1uy5mng-MuiButtonBase-root-MuiButton-root::after {
+.clickedBtn.css-11xx6bk-MuiButtonBase-root-MuiButton-root::after {
   content: "";
   position: absolute;
   background-color: transparent;
@@ -57,7 +110,7 @@
   margin-left: 6.8vw;
 }
 
-.clickedBtn.css-1uy5mng-MuiButtonBase-root-MuiButton-root::before {
+.clickedBtn.css-11xx6bk-MuiButtonBase-root-MuiButton-root::before {
   content: "";
   position: absolute;
   background-color: transparent;
@@ -69,7 +122,7 @@
   margin-left: 6.8vw;
 }
 
-.headerLogoLogin {
-  margin-top: 1vh;
-  margin-bottom: 10vh;
+.HeaderLogo {
+  margin-top: 2rem;
+  margin-bottom: 3rem;
 }

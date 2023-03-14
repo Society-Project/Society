@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Colors } from "../colors/Colors";
 import ClearIcon from "@mui/icons-material/Clear";
@@ -9,6 +9,7 @@ import headerLogo from '/src/images/logo-mark.svg'
 
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import { Box, TextField } from '@mui/material';
+import Vector from '../images/Vector.png'
 
 import "./Styles/Header.scss";
 
@@ -21,31 +22,50 @@ import {
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [isSearchButtonClicked, setIsSearchButtonClicked] = useState(false);
+  const [windowSize, setWindowSize]: any = useState({
+    width: undefined, 
+    height: undefined
+  })
+
 
   function onSeachButtonClick() {
     setIsSearchButtonClicked(isSearchButtonClicked => !isSearchButtonClicked);
   }
 
+  useEffect(() => {
+    window.addEventListener('resize', () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight
+      })
+    })
+  }, [])
+
   return (
       <Box className="header-main-class">
         
         <Box className="search-bar">
-            <SearchIcon onClick={onSeachButtonClick} className='search-button' />
+          <SearchIcon onClick={onSeachButtonClick} className='search-button' />
+          {
+            isSearchButtonClicked ? <TextField
+              label="Search"
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              InputProps={{
+                endAdornment: searchValue && (
+                  <CloseIconWrapper onClick={() => setSearchValue("")}>
+                    <ClearIcon />
+                  </CloseIconWrapper>
+                ),
+                color: "success",
+              }}
+              InputLabelProps={{ color: "success" }}
+            /> : null
+          }
+        </Box>
+        <Box className='hamburger-menu'>
             {
-               isSearchButtonClicked ? <TextField
-               label="Search"
-               value={searchValue}
-               onChange={(e) => setSearchValue(e.target.value)}
-               InputProps={{
-                 endAdornment: searchValue && (
-                   <CloseIconWrapper onClick={() => setSearchValue("")}>
-                     <ClearIcon />
-                   </CloseIconWrapper>
-                 ),
-                 color: "success",
-               }}
-               InputLabelProps={{ color: "success" }}
-             /> : null
+              windowSize.width < 900 ? <img src={Vector.src} alt="Hamburger menu icon" className='hamburger-menu-logo' /> : null
             }
         </Box>
   

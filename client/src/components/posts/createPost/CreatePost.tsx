@@ -6,7 +6,6 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import PinDropIcon from '@mui/icons-material/PinDrop';
 
-
 export const CreatePost = (post: any) => {
 
     const [clicked, setClicked] = useState(false);

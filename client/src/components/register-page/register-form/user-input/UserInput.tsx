@@ -1,4 +1,4 @@
-import { Icon, TextField } from '@mui/material'
+import { Icon } from '@mui/material'
 import "../../../Styles/LoginRegisterStyles.scss"
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import { BirthDate, PasswordInput, UserInputTextField } from './UserInputTextFields';
@@ -14,11 +14,11 @@ export const UserInput = () => {
 
   return (
     <>
-      {placeholdersArr.map((a)=>{
-        return UserInputTextField(a)
+      {placeholdersArr.map((a, index: number)=>{
+        return <div key={index}>{UserInputTextField(a)}</div>
       })}
       <PasswordInput />
-      <BirthDate />
+      <BirthDate  />
     </>
   )
 }
@@ -29,24 +29,10 @@ export const userInputSx = {
   fontFamily: 'Roboto',
   fontSize: 22,
   letterSpacing: 0.5,
-  width: 300,
   height: 55,
   display: 'flex',
   justifyContent: 'center',
-  border: 'none',
   
-}
-
-export const datePickerSx = {
-  borderRadius: 1,
-  backgroundColor: 'rgba(74, 122, 99, 0.09)',
-  fontFamily: 'Roboto',
-  fontSize: 22,
-  letterSpacing: 0.5,
-  width: 300,
-  height: 55,
-  display: 'flex',
-  justifyContent: 'center',
 }
 
 export const userTextFieldIcon = {
