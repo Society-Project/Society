@@ -131,7 +131,7 @@ export const FriendsList = () => {
   );
 };
 
-const modalStyle = {
+const modalStyle : any = {
   content: {
     border: "2px solid rgba(74, 122, 99, 1)",
     borderRadius: "18px",
