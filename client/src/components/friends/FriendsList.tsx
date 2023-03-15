@@ -145,5 +145,6 @@ const modalStyle = {
     transform: "translate(-50%,-100px)", // adjust top "up" based on height
     width: "40%",
     maxWidth: "40rem",
+    boxShadow:"0px 0px 10px 0px rgba(74, 122, 99, 1)",
   },
 };
