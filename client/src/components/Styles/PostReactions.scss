@@ -1,129 +1,140 @@
-body{
+body {
   display: block;
-}
-.reactions {
-  justify-content: space-evenly;
-}
 
-#likesCounter {
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 5px 0px 0px 5px;
-  color: "#6495ED";
-}
+  .createPostGrid {
+    background-color: rgba(74, 122, 99, 0.2);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    height: 15vh;
+    width: 72vw;
+    margin: auto;
+    margin-top: 10vh;
+    padding-top: 1.7vh;
+    .createPostTxtArea {
+      width: 64vw;
+      padding: 3vh;
+      outline: none;
+      resize: none;
+      font-size: 1rem;
+      margin-left: 2.45vw;
+      background-color: rgba(255, 255, 255, 1);
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+    }
+    #createPostDivBtn {
+      margin-left: 45vw;
+    }
+    #createPostBtn {
+      font-size: 1.1rem;
+      border-radius: 10px;
+      border: none;
+      margin-left: 8vw;
+      height: 3.5vh;
+      width: 5vw;
+      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
+      margin-top: 0.2vh;
+    }
 
-.comTextArea {
-  resize: none;
-  border-style: none;
-  font-size: 1rem;
-  background-color: white;
-}
+    #tag {
+      color: rgba(21, 104, 41, 1);
+      margin-right: 2vw;
+    }
 
+    #addPhoto {
+      color: rgba(204, 144, 28, 1);
+      margin-right: 2vw;
+    }
 
+    #location {
+      color: rgba(124, 13, 107, 1);
+    }
+  }
 
-.editTextArea {
-  width: 80%;
-  height: 1px;
-  padding: 15px;
-  outline: none;
-  resize: none;
-  font-size: 1rem;
-  margin-top: 3px;
-  border-radius: 5px;
-  background-color: white;
-}
-.editTextArea:is(:focus, :valid) {
-  border-width: 2px;
-  padding: 10px;
-  border-color: #4671ea;
-}
-.editTextArea::-webkit-scrollbar {
-  width: 0%;
-}
+  .comments-box {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    margin-left: 2.65rem;
 
-.commentsBox {
-  border: none;
-  border-radius: 13px;
-  margin-left: 7px;
-  font-family: Arial, Helvetica, sans-serif;
-}
+    .editTextArea {
+      width: 80%;
+      height: 1px;
+      padding: 15px;
+      outline: none;
+      resize: none;
+      font-size: 1rem;
+      margin-top: 3px;
+      border-radius: 5px;
+      background-color: white;
 
-.editBox {
-  justify-content: center;
-}
+      #saveBtn {
+        padding-top: 40px;
+        margin-right: 50px;
+      }
+    }
+    .editTextArea:is(:focus, :valid) {
+      border-width: 2px;
+      padding: 10px;
+      border-color: #4671ea;
+    }
+    .editTextArea::-webkit-scrollbar {
+      width: 0%;
+    }
+  }
 
-#saveBtn {
-  padding-top: 40px;
-  margin-right: 50px;
-}
+  .commentsBox {
+    border: none;
+    border-radius: 13px;
+    margin-left: 7px;
+    font-family: Arial, Helvetica, sans-serif;
 
-.editBtnsDiv > button {
-  margin: 1px;
-  font-family: Arial, Helvetica, sans-serif;
-}
+    .cmnt {
+      display: inline-flex;
+    }
+    .editBtnsDiv > button {
+      margin: 1px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .popover {
+      margin-left: 9rem;
+    }
+    .comTextArea {
+      resize: none;
+      border-style: none;
+      font-size: 1rem;
+      background-color: white;
+    }
+  }
 
-#likeCmntBtn {
-  justify-content: right;
-}
+  .reactions {
+    justify-content: center;
 
-.test {
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  margin-left: 2.65rem;
-}
+    .comment {
+      margin-right: 10vw;
+    }
 
-.createPostTxtArea {
-  width: 88%;
-  height: 1px;
-  padding: 15px;
-  outline: none;
-  resize: none;
-  font-size: 1rem;
-  margin-top: 3px;
-  margin-left: 15px;
-  background-color: rgba(255, 255, 255, 1);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  border: none;
-  font-size: 1rem;
-  margin-top: 10px;
-}
+    .span-divider {
+      height: 5vh;
+    }
+  }
 
-.createPostGrid {
-  background-color: rgba(74, 122, 99, 0.2);
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
-  height: 100px;
-  width: 500px;
-  margin: auto;
-  border-radius: 5px;
-  margin-top: 50px;
-}
+  #likesCounter {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 5px 0px 0px 5px;
+    color: "#6495ED";
+  }
 
-#createPostDivBtn {
-  margin-left: 240px;
-}
+  .editBox {
+    justify-content: center;
+  }
 
-#createPostBtn {
-  border-radius: 5px;
-  border: none;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-left: 38px;
-}
+  #likeCmntBtn {
+    justify-content: right;
+  }
 
-.CreatePostIconBtn {
-  margin-left: 10px;
-}
-
-#tag {
-  color: rgba(21, 104, 41, 1);
-}
-
-#addPhoto {
-  color: rgba(204, 144, 28, 1);
-}
-
-#location {
-  color: rgba(124, 13, 107, 1);
+  #cmntReactions {
+    margin-left: 290px;
+  }
 }
 
 .cmnt {
@@ -137,3 +148,44 @@ body{
 #cmntReactions {
   margin-left: 290px;
 }
+
+.news-feed-p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  margin-left: 9vw;
+  margin-top: 5vh;
+}
+
+.post-grid {
+  margin-left: 3.5vw;
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+
+  .post-paper {
+    border-radius: 15px;
+    width: 72.2vw;
+
+    .divider {
+      margin-top: 2.5vh;
+      width: 60vw;
+      margin-left: 6vw;
+    }
+
+    .user-post-icon {
+      margin-left: 2.5vw;
+      margin-top: 3vh;
+    }
+  }
+}
+
+.post-picture {
+  width: 60vw;
+  height: 40vh;
+  margin-left: 6vw;
+  border-radius: 18px;
+}
+
+.like-post {
+  margin-right: 10vw;
+}
+

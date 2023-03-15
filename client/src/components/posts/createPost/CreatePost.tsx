@@ -16,15 +16,15 @@ export const CreatePost = (post: any) => {
     return (
         <>
             <Grid className='createPostGrid'>
-                <TextareaAutosize className='createPostTxtArea' />
+                <TextareaAutosize className='createPostTxtArea' placeholder='Create post...'/>
                 <div id='createPostDivBtn'>
-                    <IconButton className='CreatePostIconBtn' id='tag'>
+                    <IconButton id='tag'>
                     <LocalOfferIcon />
                     </IconButton>
-                    <IconButton className='CreatePostIconBtn' id='addPhoto'>
+                    <IconButton id='addPhoto'>
                     <AddPhotoAlternateIcon />
                     </IconButton>
-                    <IconButton className='CreatePostIconBtn' id='location'>
+                    <IconButton id='location'>
                     <PinDropIcon />
                     </IconButton>
                     <button id='createPostBtn' onClick={onClickHandler}>Post</button>
