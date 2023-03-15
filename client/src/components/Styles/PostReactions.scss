@@ -4,41 +4,37 @@ body {
   .createPostGrid {
     background-color: rgba(74, 122, 99, 0.2);
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
-
     border-radius: 10px;
     height: 15vh;
-    width: 75vw;
+    width: 72vw;
     margin: auto;
-    border-radius: 5px;
     margin-top: 10vh;
+    padding-top: 1.7vh;
     .createPostTxtArea {
-      width: 71.8vw;
-      height: 20vh;
-      padding: 15px;
+      width: 64vw;
+      padding: 3vh;
       outline: none;
       resize: none;
       font-size: 1rem;
-      margin-top: 3px;
-      margin-left: 15px;
+      margin-left: 2.45vw;
       background-color: rgba(255, 255, 255, 1);
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
       border-radius: 10px;
       border: none;
       font-size: 1rem;
-      margin-top: 10px;
     }
     #createPostDivBtn {
-      margin-left: 47vw;
+      margin-left: 45vw;
     }
     #createPostBtn {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       border-radius: 10px;
       border: none;
       margin-left: 8vw;
-      height: 4vh;
+      height: 3.5vh;
       width: 5vw;
       box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
-      margin-top: 1vh;
+      margin-top: 0.2vh;
     }
 
     #tag {
@@ -70,7 +66,6 @@ body {
       margin-top: 3px;
       border-radius: 5px;
       background-color: white;
-      
 
       #saveBtn {
         padding-top: 40px;
@@ -95,8 +90,6 @@ body {
 
     .cmnt {
       display: inline-flex;
-
-      
     }
     .editBtnsDiv > button {
       margin: 1px;
@@ -114,7 +107,15 @@ body {
   }
 
   .reactions {
-    justify-content: space-evenly;
+    justify-content: center;
+
+    .comment {
+      margin-right: 10vw;
+    }
+
+    .span-divider {
+      height: 5vh;
+    }
   }
 
   #likesCounter {
@@ -135,21 +136,6 @@ body {
     margin-left: 290px;
   }
 }
-.CreatePostIconBtn {
-  margin-left: 10px;
-}
-
-#tag {
-  color: rgba(21, 104, 41, 1);
-}
-
-#addPhoto {
-  color: rgba(204, 144, 28, 1);
-}
-
-#location {
-  color: rgba(124, 13, 107, 1);
-}
 
 .cmnt {
   display: inline-flex;
@@ -162,3 +148,44 @@ body {
 #cmntReactions {
   margin-left: 290px;
 }
+
+.news-feed-p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  margin-left: 9vw;
+  margin-top: 5vh;
+}
+
+.post-grid {
+  margin-left: 3.5vw;
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+
+  .post-paper {
+    border-radius: 15px;
+    width: 72.2vw;
+
+    .divider {
+      margin-top: 2.5vh;
+      width: 60vw;
+      margin-left: 6vw;
+    }
+
+    .user-post-icon {
+      margin-left: 2.5vw;
+      margin-top: 3vh;
+    }
+  }
+}
+
+.post-picture {
+  width: 60vw;
+  height: 40vh;
+  margin-left: 6vw;
+  border-radius: 18px;
+}
+
+.like-post {
+  margin-right: 10vw;
+}
+
