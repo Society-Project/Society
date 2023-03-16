@@ -26,7 +26,7 @@ export const CommentInput: React.FC<CommentInputProps> = ({ onSubmit }) => {
     return (
         <>
             <Grid>
-                <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
+                <Box className='comments-box'>
                     <Avatar sx={{ marginLeft: 2, backgroundColor: 'green' }}>R</Avatar>
                     <TextField
                         sx={{ width: '55ch', size: 'small', marginLeft: 2 }}
