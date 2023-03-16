@@ -5,11 +5,12 @@ body {
     background-color: rgba(74, 122, 99, 0.2);
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
-    height: 15vh;
+    height: 16vh;
     width: 72vw;
     margin: auto;
     margin-top: 10vh;
     padding-top: 1.7vh;
+
     .createPostTxtArea {
       width: 64vw;
       padding: 3vh;
@@ -24,7 +25,7 @@ body {
       font-size: 1rem;
     }
     #createPostDivBtn {
-      margin-left: 45vw;
+      margin-left: 40vw;
     }
     #createPostBtn {
       font-size: 1.1rem;
@@ -34,7 +35,6 @@ body {
       height: 3.5vh;
       width: 5vw;
       box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
-      margin-top: 0.2vh;
     }
 
     #tag {
@@ -83,9 +83,9 @@ body {
   }
 
   .comments-box {
-    display: flex;
+    display: block;
     border: none;
-    margin-left: 21.5vw;
+    margin-left: 17vw;
 
     .cmnt {
       display: inline-flex;
@@ -155,9 +155,10 @@ body {
 .post-grid {
   margin-left: 3.5vw;
   margin-top: 4vh;
-  margin-bottom: 4vh;
-
+  margin-bottom: 1vh;
+  
   .post-paper {
+    padding-bottom: 2vh;
     border-radius: 15px;
     width: 72.2vw;
 

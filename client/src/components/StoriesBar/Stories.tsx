@@ -1,24 +1,18 @@
-import { useState, useEffect } from 'react';
 import { Box, Button } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../Styles/Stories.scss';
+import WindowScreenSize from '@/WindowScreenSize';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
-
 export const Stories = () => {
-
-    const [windowSize, setWindowSize]: any  = useState({
-        width: window.innerWidth,
-        heigth: window.innerHeight
-    })
-
+    const [width, height] = WindowScreenSize();
 
     const arrayOfStoryBubbles: Array<object> = [];
     let storyBubbles: number = 5;
 
-    if (windowSize.width < 600) storyBubbles = 4
+    if (width < 600) storyBubbles = 4
 
-    if (windowSize.width < 500) storyBubbles = 2
+    if (width < 500) storyBubbles = 2
 
     for (let i = 0; i < storyBubbles; i++) {
         //Should replace the . with user's profile picture
@@ -26,23 +20,10 @@ export const Stories = () => {
             <Button className='person-story'>.</Button>
         );
     }
-    useEffect(() => {
-
-        window.addEventListener('resize', () => {
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight
-            })
-        })
-
-
-    }, [])
-
     return (
         <Box>
-
-            <Box className={windowSize.width > 900 ? 'stories-main-box' : 'stories-main-box-for-mobile'}>
-                <AccountCircleRoundedIcon className='user-icon'/>
+            <Box className={width > 900 ? 'stories-main-box' : 'stories-main-box-for-mobile'}>
+            <AccountCircleRoundedIcon className='user-icon'/>
                 <p className='stories-paragraph'>Stories</p>
 
                 <Box className='stories-data-box'>
@@ -67,3 +48,4 @@ export const Stories = () => {
 
     )
 }
+
