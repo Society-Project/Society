@@ -3,6 +3,7 @@ import { Box, Button, Grid } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../Styles/Stories.scss';
 import WindowScreenSize from '@/WindowScreenSize';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 const Stories = () => {
     const [width, height] = WindowScreenSize();
@@ -24,6 +25,7 @@ const Stories = () => {
     return (
         <Box>
             <Box className={width > 900 ? 'stories-main-box' : 'stories-main-box-for-mobile'}>
+                { width > 900 ? <AccountCircleRoundedIcon className='profile-picture'/> : null }
                 <p className='stories-paragraph'>Stories</p>
 
                 <Box className='stories-data-box'>

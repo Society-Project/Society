@@ -10,6 +10,7 @@ import headerLogo from '/src/images/logo-mark.svg'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import { Box, TextField } from '@mui/material';
 import Vector from '../images/Vector.png'
+import WindowScreenSize from "@/WindowScreenSize";
 
 import "./Styles/Header.scss";
 
@@ -22,24 +23,12 @@ import {
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>("");
   const [isSearchButtonClicked, setIsSearchButtonClicked] = useState(false);
-  const [windowSize, setWindowSize]: any = useState({
-    width: undefined, 
-    height: undefined
-  })
+  const [width, height] = WindowScreenSize();
 
 
   function onSeachButtonClick() {
     setIsSearchButtonClicked(isSearchButtonClicked => !isSearchButtonClicked);
   }
-
-  useEffect(() => {
-    window.addEventListener('resize', () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight
-      })
-    })
-  }, [])
 
   return (
     <HeaderWrapper>
@@ -69,15 +58,15 @@ const Header = () => {
             /> : null
           }
         </Box>
-        <Box className='hamburger-menu'>
-            {
-              windowSize.width < 900 ? <img src={Vector.src} alt="Hamburger menu icon" className='hamburger-menu-logo' /> : null
-            }
-        </Box>
-        <Box className="user-profile">
+        {
+          width < 900 ? <Box className='hamburger-menu'>
+            <img src={Vector.src} alt="Hamburger menu icon" className='hamburger-menu-logo' />
+          </Box> : null
+        }
+        {/* <Box className="user-profile">
           <AccountCircleRoundedIcon className='user-account-icon' fontSize='large' />
 
-        </Box>
+        </Box> */}
       </Box>
 
     </HeaderWrapper>
