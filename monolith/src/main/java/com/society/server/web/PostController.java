@@ -37,7 +37,7 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(post);
     }
 
-    @PostMapping("/post")
+    @PostMapping()
     public ResponseEntity<PostDTO> createPost(@RequestHeader("X-username") String username,
                                               @Valid @RequestBody CreatePostDTO createPostDTO) {
         PostDTO postDto = postService.createPost(createPostDTO, username);
@@ -47,7 +47,6 @@ public class PostController {
 
     @PutMapping("/{postId}")
     public ResponseEntity<PostDTO> updatePost(@RequestHeader("X-username") String username,
-                                              //RequestParam instead PathVariable?
                                               @PathVariable(name = "postId") Long id,
                                               @Valid @RequestBody UpdatePostDTO updatePostDTO) {
 
@@ -55,7 +54,6 @@ public class PostController {
         PostDTO postDto = postService.updatePost(id, updatePostDTO);
 
         if (!userOwnThePost) {
-            // Not sure if this is correct response?
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(postDto);
         }
         return ResponseEntity.status(HttpStatus.OK).body(postDto);

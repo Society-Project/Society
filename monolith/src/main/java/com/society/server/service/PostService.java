@@ -73,7 +73,7 @@ public class PostService {
         return authorUsername.equals(username);
     }
 
-    private boolean isAdmin(UserEntity userEntity){
+    public boolean isAdmin(UserEntity userEntity){
         RoleEntity roleAdmin = userEntity.getRoles().stream().filter(r -> r.getRoleName().name().equals("ADMIN"))
                 .findFirst().orElse(null);
         return roleAdmin != null;

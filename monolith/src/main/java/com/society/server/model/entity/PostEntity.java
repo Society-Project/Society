@@ -29,7 +29,8 @@ public class PostEntity extends BaseEntity {
     @UpdateTimestamp
     private LocalDateTime updatedOn;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "post_id")
     private List<CommentEntity> comments = new ArrayList<>();
 
     public List<CommentEntity> getComments() {
