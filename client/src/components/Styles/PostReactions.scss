@@ -1,4 +1,5 @@
 body {
+body {
   display: block;
 
   .createPostGrid {
@@ -37,6 +38,46 @@ body {
       margin-top: 0.2vh;
     }
 
+  .createPostGrid {
+    background-color: rgba(74, 122, 99, 0.2);
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    height: 16vh;
+    width: 72vw;
+    margin: auto;
+    margin-top: 10vh;
+    padding-top: 1.7vh;
+
+    .createPostTxtArea {
+      width: 64vw;
+      padding: 3vh;
+      outline: none;
+      resize: none;
+      font-size: 1rem;
+      margin-left: 2.45vw;
+      background-color: rgba(255, 255, 255, 1);
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      border: none;
+      font-size: 1rem;
+    }
+    #createPostDivBtn {
+      margin-left: 40vw;
+    }
+    #createPostBtn {
+      font-size: 1.1rem;
+      border-radius: 10px;
+      border: none;
+      margin-left: 8vw;
+      height: 3.5vh;
+      width: 5vw;
+      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.25);
+    }
+
+    #tag {
+      color: rgba(21, 104, 41, 1);
+      margin-right: 2vw;
+    }
     #tag {
       color: rgba(21, 104, 41, 1);
       margin-right: 2vw;
@@ -46,7 +87,15 @@ body {
       color: rgba(204, 144, 28, 1);
       margin-right: 2vw;
     }
+    #addPhoto {
+      color: rgba(204, 144, 28, 1);
+      margin-right: 2vw;
+    }
 
+    #location {
+      color: rgba(124, 13, 107, 1);
+    }
+  }
     #location {
       color: rgba(124, 13, 107, 1);
     }
@@ -55,7 +104,35 @@ body {
   .comments-box {
     border: 1px solid rgba(0, 0, 0, 0.15);
     margin-left: 2.65rem;
+  .comments-box {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    margin-left: 2.65rem;
 
+    .editTextArea {
+      width: 80%;
+      height: 1px;
+      padding: 15px;
+      outline: none;
+      resize: none;
+      font-size: 1rem;
+      margin-top: 3px;
+      border-radius: 5px;
+      background-color: white;
+
+      #saveBtn {
+        padding-top: 40px;
+        margin-right: 50px;
+      }
+    }
+    .editTextArea:is(:focus, :valid) {
+      border-width: 2px;
+      padding: 10px;
+      border-color: #4671ea;
+    }
+    .editTextArea::-webkit-scrollbar {
+      width: 0%;
+    }
+  }
     .editTextArea {
       width: 80%;
       height: 1px;
@@ -124,6 +201,55 @@ body {
     color: "#6495ED";
   }
 
+  .comments-box {
+    display: block;
+    border: none;
+    margin-left: 17vw;
+
+    .cmnt {
+      display: inline-flex;
+    }
+    .editBtnsDiv > button {
+      margin: 1px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .popover {
+      margin-left: 9rem;
+    }
+    .comTextArea {
+      resize: none;
+      border-style: none;
+      font-size: 1rem;
+      background-color: white;
+    }
+  }
+
+  .reactions {
+    justify-content: center;
+
+    .comment {
+      margin-right: 10vw;
+    }
+
+    .span-divider {
+      height: 5vh;
+    }
+  }
+
+  #likesCounter {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 5px 0px 0px 5px;
+    color: "#6495ED";
+  }
+
+  .editBox {
+    justify-content: center;
+  }
+
+  #likeCmntBtn {
+    justify-content: right;
+  }
+
   .editBox {
     justify-content: center;
   }
@@ -148,6 +274,49 @@ body {
 #cmntReactions {
   margin-left: 290px;
 }
+
+.news-feed-p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  margin-left: 9vw;
+  margin-top: 5vh;
+}
+
+.post-grid {
+  margin-left: 3.5vw;
+  margin-top: 4vh;
+  margin-bottom: 1vh;
+  
+  .post-paper {
+    padding-bottom: 2vh;
+    border-radius: 15px;
+    width: 72.2vw;
+
+    .divider {
+      margin-top: 2.5vh;
+      width: 60vw;
+      margin-left: 6vw;
+    }
+
+    .user-post-icon {
+      margin-left: 2.5vw;
+      margin-top: 3vh;
+    }
+  }
+}
+
+.post-picture {
+  width: 60vw;
+  height: 40vh;
+  margin-left: 6vw;
+  border-radius: 18px;
+}
+
+.like-post {
+  margin-right: 10vw;
+}
+
+
 
 .news-feed-p {
   font-family: Arial, Helvetica, sans-serif;

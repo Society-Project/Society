@@ -31,14 +31,8 @@ const Header = () => {
   }
 
   return (
-    <HeaderWrapper>
-      <Box className='top-line'>d</Box>
       <Box className="header-main-class">
-        <Box className="header-logo">
-          <Link href="/">
-            <Logo src={headerLogo.src} className='header-logo-image' alt="Header logo" />
-          </Link>
-        </Box>
+        
         <Box className="search-bar">
           <SearchIcon onClick={onSeachButtonClick} className='search-button' />
           {
@@ -71,6 +65,7 @@ const Header = () => {
 
 export default Header;
 
+export const Logo = styled.img`
 const HeaderWrapper = styled.div`
   width: ${FULL_WIDTH};
   background-color: ${Colors.white};

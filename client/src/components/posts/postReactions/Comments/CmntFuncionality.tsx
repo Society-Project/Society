@@ -4,7 +4,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItem from '@mui/material/ListItem';
 import { Box, Divider, Grid, IconButton, ListItemText, Paper } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import TextareaAutosize from '@mui/base/TextareaAutosize';
+import { TextareaAutosize } from '@mui/base';
 import Popover from '@mui/material/Popover';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import '../../../Styles/PostReactions.scss';

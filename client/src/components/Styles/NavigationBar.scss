@@ -40,9 +40,21 @@
       cursor: pointer;
   }
 
-    .css-1s4ffru-MuiListItem-root:link {
-        background-color: rgba(217, 217, 217, 0.3);
-    }
+  .css-1s4ffru-MuiListItem-root:link {
+      background-color: rgb(235, 233, 233);
+  }
+
+  .css-1s4ffru-MuiListItem-root::after {
+      content: "";
+      position: absolute;
+      background-color: transparent;
+      bottom: 50px;
+      height: 50px;
+      width: 25px;
+      border-bottom-right-radius: 25px;
+      box-shadow: 0 25px 0 0 rgb(235, 233, 233);
+      right: 0;
+  }
 
   // This code is not going to work if I put it like this
   // .css-1s4ffru-MuiListItem-root::after, .css-1s4ffru-MuiListItem-root::before

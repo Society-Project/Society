@@ -4,6 +4,8 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../Styles/Stories.scss';
 import WindowScreenSize from '@/WindowScreenSize';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
+import WindowScreenSize from '@/WindowScreenSize';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 const Stories = () => {
     const [width, height] = WindowScreenSize();
@@ -13,7 +15,9 @@ const Stories = () => {
     let storyBubbles: number = 5;
 
     if (width < 600) storyBubbles = 4
+    if (width < 600) storyBubbles = 4
 
+    if (width < 500) storyBubbles = 2
     if (width < 500) storyBubbles = 2
 
     for (let i = 0; i < storyBubbles; i++) {

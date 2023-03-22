@@ -95,6 +95,10 @@
   height: 1vh;
   margin-top: 2rem;
   padding-bottom: 4rem;
+  width: auto;
+  height: 1vh;
+  margin-top: 2rem;
+  padding-bottom: 4rem;
 
 
   .stories-paragraph {
@@ -102,9 +106,20 @@
       font-size: 1.2rem;
       font-weight: bold;
       letter-spacing: 1px;
+  .stories-paragraph {
+      margin-left: 1.5rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      letter-spacing: 1px;
 
   }
+  }
 
+  .stories-data-box {
+      background-color: lightgray;
+      width: 95%;
+      display: flex;
+      margin-left: .5rem;
   .stories-data-box {
       background-color: lightgray;
       width: 95%;
@@ -116,7 +131,22 @@
           text-align: center;
           padding: 1rem;
           display: flex;
+      .add-story-box {
+          border-radius: 50%;
+          text-align: center;
+          padding: 1rem;
+          display: flex;
 
+          .add-story-button {
+              border: 4px solid rgba(74, 122, 99, 0.66);
+              background-color: white;
+              text-transform: lowercase;
+              border-radius: 50%;
+              color: black;
+              height: 9vh;
+              width: 9vh;
+              margin-left: -.2rem;
+          }
           .add-story-button {
               border: 4px solid rgba(74, 122, 99, 0.66);
               background-color: white;
@@ -136,7 +166,21 @@
               left: 5px;
           }
       }
+          .straight-line {
+              background-color: black;
+              height: 10vh;
+              width: 2%;
+              position: relative;
+              left: 5px;
+          }
+      }
 
+      .other-people-stories {
+          display: flex;
+          justify-content: space-around;
+          margin-top: auto;
+          margin-bottom: auto;
+          width: 100%;
       .other-people-stories {
           display: flex;
           justify-content: space-around;
@@ -156,11 +200,33 @@
               }
           }
       }
+          .stories-of-followed-people {
+               
+              .person-story {
+                  width: 9vh;
+                  height: 9vh;
+                  background: white;
+                  border-radius: 50%;
+                  box-sizing: 0 5px 10px 0 #aaaaaa;
+                  margin-left: .5rem;
+              }
+          }
+      }
 
       .more-options {
           margin-top: auto;
           margin-bottom: auto;
+      .more-options {
+          margin-top: auto;
+          margin-bottom: auto;
 
+          .css-i4bv87-MuiSvgIcon-root {
+              font-size: 2.3rem;
+              cursor: pointer;
+           
+          }
+      }
+  }
           .css-i4bv87-MuiSvgIcon-root {
               font-size: 2.3rem;
               cursor: pointer;
