@@ -8,7 +8,7 @@ const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 export const Like: React.FC = () => {
     return (
-        <Checkbox {...label} icon={<ThumbUpIcon />} checkedIcon={<Liked />} />
+        <Checkbox className='like-post' {...label} icon={<ThumbUpIcon />} checkedIcon={<Liked />} />
     )
 }
 
@@ -16,7 +16,7 @@ const Liked = () => {
     let [count, setCount] = useState(1);
     return (
         <>
-            <ThumbUpIcon onClick={() => setCount(count++)} sx={{ color: '#6495ED' }} />
+            <ThumbUpIcon  onClick={() => setCount(count++)} sx={{ color: '#6495ED' }} />
             <div id='likesCounter' >{ count }</div>
         </>
     )

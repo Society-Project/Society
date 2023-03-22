@@ -57,7 +57,7 @@ export const CmntFunctionality: React.FC<CmntFunctionalityProps> = ({
         <>
             {
                 comments.length > 0 ? (
-                    <Grid className='test' sx={{
+                    <Grid className='comments-box' sx={{
                         paddingTop: 1,
                         borderRadius: 5,
                         paddingBottom: 1,

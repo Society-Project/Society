@@ -63,10 +63,6 @@ const Header = () => {
             <img src={Vector.src} alt="Hamburger menu icon" className='hamburger-menu-logo' />
           </Box> : null
         }
-        {/* <Box className="user-profile">
-          <AccountCircleRoundedIcon className='user-account-icon' fontSize='large' />
-
-        </Box> */}
       </Box>
 
     </HeaderWrapper>

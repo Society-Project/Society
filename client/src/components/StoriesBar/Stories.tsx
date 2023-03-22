@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../Styles/Stories.scss';
 import WindowScreenSize from '@/WindowScreenSize';
@@ -50,5 +50,4 @@ const Stories = () => {
 
     )
 }
-
-export default Stories
+export default Stories;

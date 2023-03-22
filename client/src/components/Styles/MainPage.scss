@@ -1,0 +1,22 @@
+.page-box {
+  position: absolute;
+  background-color: rgb(235, 233, 233);
+  width: 80vw;
+  height: 90vh;
+  margin-left: 10.5vw;
+  margin-top: 2.5vh;
+  padding-top: 5vh;
+  border-radius: 1.13rem;
+  box-shadow: 15px 0px 10px 0px rgba(0, 0, 0, 0.25);
+  overflow: auto;
+}
+
+.main {
+    background-color: white;
+}
+
+.search-bar.MuiBox-root.css-0 {
+  float: right;
+  margin-right: 2rem;
+  cursor: pointer;
+}
