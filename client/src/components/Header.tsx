@@ -58,14 +58,11 @@ const Header = () => {
           </Box> : null
         }
       </Box>
-
-    </HeaderWrapper>
   );
 };
 
 export default Header;
 
-export const Logo = styled.img`
 const HeaderWrapper = styled.div`
   width: ${FULL_WIDTH};
   background-color: ${Colors.white};

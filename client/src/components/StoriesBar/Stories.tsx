@@ -4,8 +4,6 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../Styles/Stories.scss';
 import WindowScreenSize from '@/WindowScreenSize';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-import WindowScreenSize from '@/WindowScreenSize';
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 const Stories = () => {
     const [width, height] = WindowScreenSize();

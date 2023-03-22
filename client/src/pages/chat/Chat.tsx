@@ -13,10 +13,6 @@ const Chat = () => {
     return (
         <Box className={width > 1100 ? 'main-chat-component' : 'main-chat-mobile-version'}>
             <Box className='navigation-component'>
-                <img src={headerLogo.src}
-                    alt="Society logo"
-                    className='society-logo'
-                />
                 <NavigationBar />
             </Box>
             <Box className='chat-component'>
