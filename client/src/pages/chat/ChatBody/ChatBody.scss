@@ -1,0 +1,242 @@
+.main-chat-body-component {
+    width: 75%;
+    background: rgba(217, 217, 217, 0.3);
+    height: 100vh;
+    position: absolute;
+    left: 170px;
+    border-radius: 1rem;
+    box-shadow: 0px 4px 21px rgba(0, 0, 0, 0.25);
+
+
+    .messages-subtitle{
+        margin-top: 5rem;
+        margin-left: 1rem;
+    }
+    .search-part {
+        display: flex;
+        justify-content: space-around;
+        box-shadow: 0px 4px 21px rgba(0, 0, 0, 0.25);
+        padding: .5rem;
+        border-radius: .5rem;
+        position: absolute;
+        top: 1rem;
+        right: 4rem;
+        background-color: white;
+
+        .search-bar-on-desktop {
+            display: flex;
+        }
+        
+
+        .search-icon {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .user-input-and-close-button {
+            display: flex;
+
+            .user-input {
+                border: none;
+                outline: none;
+                padding: .5rem;
+                width: 100%;
+                font-size: 16px;
+            }
+
+            .close-button {
+                color: #616161;
+                border: 2px solid #616161;
+                font-size: 14px;
+                border-radius: 50%;
+                margin-top: auto;
+                margin-bottom: auto;
+                cursor: pointer;
+                margin-right: .5rem;
+            }
+        }
+    }
+
+    .chat-with-friends {
+        position: absolute;
+        left: 10px;
+        top: 8rem;
+        padding-bottom: 1rem;
+        display: flex;
+        width: 100%;
+        height: 80vh;
+
+        .person-chat {
+            width: 70%;
+            background-color: lightgray;
+            border-top-right-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+            border-left: 1px solid gray;
+
+            .user-data-and-options {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 3rem;
+                background-color: white;
+
+                .profile-picture-and-username {
+                    display: flex;
+                    margin-left: 1rem;
+
+                    .profile-picture img {
+                        margin-top: 1rem;
+                    }
+
+                    .user-data {
+                        margin-left: .5rem;
+                        margin-top: .5rem;
+
+                        .status {
+                            margin-top: -1rem;
+                        }
+                    }
+                }
+
+                .person-chat-options {
+                    .option-icon {
+                        margin-top: 2rem;
+                        margin-left: 2rem;
+                        margin-right: 1rem;
+                        color: #616161;
+                        font-size: 1.6rem;
+                        cursor: pointer;
+                    }
+                }
+            }
+            .user-chat-history {
+                height: 50vh;
+                .message-block {
+                    display: block;
+                    text-align: right;
+                    margin-right: 1rem;
+                    width: 90%;
+    
+                    .concrete-message {
+                        margin-top: .5rem;
+                        text-align: right;
+                        
+                    }
+                }
+            }
+            .user-text-and-emoji {
+                display: flex;
+                width: 67.2%;
+                position: absolute;
+                bottom: 20px;
+                background-color: white;
+                padding: 1rem;  
+                
+                border-bottom-right-radius: 1rem;
+                .attach-icon {
+                    margin-top: auto;
+                    margin-bottom: auto;
+                    margin-right: .5rem;
+                    cursor: pointer;
+                }
+                .input-field-and-emoji {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                    
+                    box-shadow: 0px 4px 21px rgba(0, 0, 0, 0.25);
+                    border-radius: 2rem;
+                    
+
+                    .user-input-message {
+                        outline: none;
+                        border: none;
+                        padding: 1rem;
+                        margin-left: .3rem;
+                        font-size: 17px;
+                        border-radius: 2rem;
+                        width: 100%;
+                    }
+
+                    .send-and-emoji-icon {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-top: auto;
+                        margin-bottom: auto;
+                        margin-right: 1rem;
+
+                        .send-message-icon {
+                            margin-right: 1rem;
+                            cursor: pointer;
+                        }
+                        .emoji-icon {
+                            cursor: pointer;
+                            color: #616161;
+                        }
+                    }
+                }
+            }
+        }
+
+        .friends-and-person-chat {
+            background-color: white;
+            padding-right: .5rem;
+            padding-left: .5rem;
+            border-radius: 1rem;
+            margin-left: .7rem;
+            width: 25%;
+
+            .all-messages-title {
+                border-bottom: 1px solid gray;
+                padding: .5rem;
+                margin-top: .3rem;
+            }
+
+            .friend-page-main-class {
+
+                .friend-page-and-unread-messages {
+                    display: flex;
+                    margin-top: .5rem;
+                    .friends-page {
+                        display: flex;
+                        width: 100%;
+                        justify-content: space-between;
+    
+                        .profile-image-class {
+                            .profile-image {
+                                margin-top: 1rem;
+                            }
+                        }
+    
+                        .username-and-last-message-class {
+                            font-size: 14px;
+                            margin-top: .5rem;
+                            position: absolute;
+                            left: 5.3rem;
+                            .last-message {
+                                margin-top: -1rem;
+                            }
+                        }
+
+                    }
+                    .last-sended-message-and-unread-messages {
+                        
+                        .last-sended-message {
+                            color: gray;
+                        }
+                        .unread-messages {
+                            margin-top: -1rem;
+                            text-align: center;
+                            border: 1px solid rgba(74, 122, 99, 0.85);
+                            background: rgba(74, 122, 99, 0.85);
+                            color: white;
+                            border-radius: 50%;
+                            width: 50%;
+                            margin-left: auto;
+                            margin-right: auto;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

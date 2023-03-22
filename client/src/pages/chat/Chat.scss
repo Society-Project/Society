@@ -1,0 +1,45 @@
+.main-chat-component {
+    display: flex;
+    justify-content: space-around;
+    font-family: sans-serif;
+    
+
+    .navigation-component {
+        display: grid;
+        margin-top: 4rem;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        width: 100%;
+        .society-logo {
+            max-width: 90px;
+            position: relative;
+            top: -4rem;
+            left: 2rem;
+        }
+
+    }
+
+    .story-component {
+        width: 100%;
+        
+        .stories-of-followed-people, .profile-picture {
+            position: absolute;
+            right: 0;
+        }
+
+    }
+}
+.main-chat-mobile-version {
+    height: 100vh;
+
+    .navigation-component {
+        display: none;
+    }
+
+    .story-component {
+        display: none;    
+    }
+}
+
+

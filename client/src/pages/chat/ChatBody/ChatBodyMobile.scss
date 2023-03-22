@@ -1,0 +1,182 @@
+.main-chat-component-mobile {
+    width: 100%;
+
+    .search-part {
+        display: flex;
+
+        .search-bar-on-tablet-and-mobile {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            .header-logo-on-tablet-and-mobile {
+                max-width: 60px;
+                margin-left: 1rem;
+            }
+
+            .search-components-on-mobile {
+                display: flex;
+                margin-top: auto;
+                margin-bottom: auto;
+
+                .search-icon {
+                    margin-right: 1rem;
+                    cursor: pointer;
+                    font-size: 2rem;
+                }
+
+                .user-input-and-close-button {
+                    display: flex;
+                    justify-content: space-around;
+                    border: 1px solid lightgray;
+                    margin-right: 1rem;
+                    border-radius: .5rem;
+
+                    .user-input {
+                        border: none;
+                        outline: none;
+                        padding: .5rem;
+                        font-size: 15px;
+                        padding: .5rem;
+                        font-size: 18px;
+                    }
+
+                    .close-button {
+                        margin-top: auto;
+                        margin-bottom: auto;
+                        cursor: pointer;
+
+                    }
+
+                    .user-input,
+                    .close-button {
+                        margin-right: 1rem;
+                    }
+                }
+
+                .expand-icon {
+                    max-width: 40px;
+                }
+            }
+        }
+
+        .search-bar-on-tablet-and-mobile img {
+            max-width: 120px;
+        }
+    }
+
+    .messages-subtitle {
+        display: none;
+    }
+
+    .chat-with-friends {
+        .friends-and-person-chat {
+            display: none;
+        }
+
+        .person-chat {
+            width: 100%;
+
+            .user-data-and-options {
+                margin-top: 1rem;
+                border: 1px solid lightgray;
+                border-radius: 1rem;
+                display: flex;
+                width: 100%;
+
+                .profile-picture-and-username {
+                    width: 100%;
+                    display: flex;
+
+                    .profile-picture img {
+                        margin-top: 1rem;
+                        margin-left: 1rem;
+                    }
+
+                    .user-data {
+                        margin-left: .5rem;
+
+                        .status {
+                            margin-top: -.5rem;
+                            color: lightgray;
+                        }
+                    }
+                }
+
+                .person-chat-options {
+                    display: flex;
+
+                    .option-icon {
+                        margin-top: auto;
+                        margin-bottom: auto;
+                        margin-left: 1rem;
+                        font-size: 1.7rem;
+                        cursor: pointer;
+                        color: lightgray;
+                    }
+                }
+            }
+
+            .user-chat-history{
+                
+                text-align: right;
+                .user-message {
+                    text-align: right;
+                    margin-right: 2rem;
+                    margin-top: 1rem;
+                    font-size: 18px;
+                    
+                }
+            }
+            .user-text-and-emoji {
+                display: flex;
+                justify-content: space-around;
+                position: absolute;
+                bottom: 10px;
+                width: 100%;
+                border-top: 1px solid lightgray;
+                padding-top: 1rem;
+
+                .attach-icon {
+                    margin-top: auto;
+                    margin-bottom: auto;
+                    font-size: 1.6rem;
+                    cursor: pointer;
+                }
+
+                .input-field-and-emoji {
+                    display: flex;
+                    width: 90%;
+                    border: 1px solid ligthgray;
+
+
+                    .user-input-message {
+                        width: 100%;
+                        border: none;
+                        outline: none;
+                        padding: .5rem;
+                        font-size: 18px;
+                    }
+
+                    .send-and-emoji-icon {
+                        display: flex;
+                        margin-top: auto;
+                        margin-bottom: auto;
+                        margin-left: 1rem;
+                        font-size: 18px;
+
+                        .send-message-icon {
+                            cursor: pointer;
+                            margin-right: 1rem;
+                        }
+
+                        .emoji-icon {
+                            cursor: pointer;
+                            margin-right: 1rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

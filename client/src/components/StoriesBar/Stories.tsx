@@ -1,17 +1,21 @@
+import { useState, useEffect } from 'react';
 import { Box, Button } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../Styles/Stories.scss';
 import WindowScreenSize from '@/WindowScreenSize';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
-export const Stories = () => {
+const Stories = () => {
     const [width, height] = WindowScreenSize();
+
 
     const arrayOfStoryBubbles: Array<object> = [];
     let storyBubbles: number = 5;
 
     if (width < 600) storyBubbles = 4
+    if (width < 600) storyBubbles = 4
 
+    if (width < 500) storyBubbles = 2
     if (width < 500) storyBubbles = 2
 
     for (let i = 0; i < storyBubbles; i++) {
@@ -23,7 +27,7 @@ export const Stories = () => {
     return (
         <Box>
             <Box className={width > 900 ? 'stories-main-box' : 'stories-main-box-for-mobile'}>
-            <AccountCircleRoundedIcon className='user-icon'/>
+                { width > 900 ? <AccountCircleRoundedIcon className='profile-picture'/> : null }
                 <p className='stories-paragraph'>Stories</p>
 
                 <Box className='stories-data-box'>
@@ -48,4 +52,4 @@ export const Stories = () => {
 
     )
 }
-
+export default Stories;
