@@ -173,5 +173,4 @@ const ChatBody = () => {
         </Box>
     )
 }
-
 export default ChatBody
