@@ -21,7 +21,11 @@ public class RoomService {
     }
 
     public void save(RoomEntity room) {
+        if (room == null) {
+            throw new NullPointerException("RoomEntity value is null!");
+        }
         this.roomRepository.save(room);
+
     }
 
 

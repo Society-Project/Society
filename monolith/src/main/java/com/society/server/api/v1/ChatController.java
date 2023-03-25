@@ -3,10 +3,11 @@ package com.society.server.api.v1;
 import com.society.server.dto.message.MessageDTO;
 import com.society.server.dto.message.RoomDTO;
 import com.society.server.security.UserPrincipal;
-import com.society.server.service.MessageService;
+import com.society.server.service.ChatService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
@@ -20,15 +21,17 @@ import static java.lang.String.format;
 @RestController
 @RequestMapping(path = API_BASE + "/chat")
 public class ChatController {
-    private final MessageService chatService;
+
+    private final ChatService chatService;
     private final SimpMessagingTemplate simpMessagingTemplate;
-    public ChatController(MessageService chatService,
+
+    public ChatController(ChatService chatService,
                           SimpMessagingTemplate simpMessagingTemplate) {
         this.chatService = chatService;
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
-    @PostMapping("/{roomId}/sendMessage")
+    @MessageMapping("/{roomId}/sendMessage")
     public ResponseEntity<MessageDTO> sendMessage(@PathVariable Long roomId,
                                                   @Valid @RequestBody MessageDTO messageDTO,
                                                   BindingResult bindingResult) {
@@ -36,11 +39,9 @@ public class ChatController {
         if (chatService.getRoomById(roomId) == null || bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().build();
         }
+        simpMessagingTemplate.convertAndSend(format("/channel/%d", roomId), messageDTO);
 
-            simpMessagingTemplate.convertAndSend(format("/channel/%d", roomId), messageDTO);
-
-            chatService.saveMessage(messageDTO, roomId);
-
+        chatService.saveMessage(messageDTO, roomId);
 
         return ResponseEntity.ok(messageDTO);
     }

@@ -19,7 +19,6 @@ import static java.lang.String.format;
 public class WebSocketEventListener {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebSocketEventListener.class);
 
-
     private final SimpMessageSendingOperations messagingTemplate;
 
     public WebSocketEventListener(SimpMessageSendingOperations messagingTemplate) {

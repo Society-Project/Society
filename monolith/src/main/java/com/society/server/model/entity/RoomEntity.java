@@ -40,4 +40,5 @@ public class RoomEntity extends BaseEntity {
         }
         this.messages.add(entity);
     }
+
 }
