@@ -21,7 +21,6 @@ import static java.lang.String.format;
 @RestController
 @RequestMapping(path = API_BASE + "/chat")
 public class ChatController {
-
     private final ChatService chatService;
     private final SimpMessagingTemplate simpMessagingTemplate;
 
@@ -31,6 +30,7 @@ public class ChatController {
         this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
+//    /chat/app/{roomId}/sendMessage
     @MessageMapping("/{roomId}/sendMessage")
     public ResponseEntity<MessageDTO> sendMessage(@PathVariable Long roomId,
                                                   @Valid @RequestBody MessageDTO messageDTO,

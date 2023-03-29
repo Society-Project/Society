@@ -15,7 +15,7 @@ public class RoomService {
     }
 
     public RoomEntity getRoomById(Long roomId) {
-        return roomRepository.findById(roomId).orElseThrow(() ->
+        return roomRepository.findRoomEntityById(roomId).orElseThrow(() ->
                 new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Room with id: " + roomId + " cannot be found")
         );
     }

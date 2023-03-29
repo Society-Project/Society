@@ -96,23 +96,28 @@ public class ChatService {
                 .orElseThrow(() -> new UserNotFoundException(
                         format("User with username %s is not found!", userPrincipal.getUsername())));
 
-
-        return user.getRooms()
+        List<RoomEntity> roomEntitiesByUser = user.getRooms()
                 .stream()
-                .map(r ->
-                        new RoomDTO(r.getId(),
-                                r.getName(),
-                                r.getRoomEnum(),
-                                r.getUsers()
-                                        .stream()
-                                        .map(BaseEntity::getId)
-                                        .collect(Collectors.toList()),
-                                r.getMessages()
-                                        .stream()
-                                        .map(messageMapper::messageEntityToMessageDTO)
-                                        .collect(Collectors.toList()))
-                )
+                .map(roomEntity -> roomService.getRoomById(roomEntity.getId()))
                 .toList();
+
+
+        return roomEntitiesByUser
+                        .stream()
+                        .map(r ->
+                                new RoomDTO(r.getId(),
+                                        r.getName(),
+                                        r.getRoomEnum(),
+                                        r.getUsers()
+                                                .stream()
+                                                .map(BaseEntity::getId)
+                                                .collect(Collectors.toList()),
+                                        r.getMessages()
+                                                .stream()
+                                                .map(messageMapper::messageEntityToMessageDTO)
+                                                .collect(Collectors.toList()))
+                        )
+                        .toList();
 
     }
 

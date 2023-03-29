@@ -1,29 +1,32 @@
 package com.society.server.dto.message;
 
 import com.society.server.model.enums.RoomEnum;
-import com.society.server.utils.validators.IdUnique;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoomDTO {
-
-    @NotNull
-    @IdUnique
     private Long id;
+
     @NotEmpty
     private String name;
 
     @NotNull
     private RoomEnum roomEnum;
-    //    @Min(1)
+    @Size(min = 1)
     private List<Long> participantsIds;
 
     private List<MessageDTO> messages;
 
-    public RoomDTO(Long id, String name, RoomEnum roomEnum, List<Long> participantsIds, List<MessageDTO> messages) {
+    public RoomDTO(Long id,
+                   String name,
+                   RoomEnum roomEnum,
+                   List<Long> participantsIds,
+                   List<MessageDTO> messages) {
         this.id = id;
         this.name = name;
         this.roomEnum = roomEnum;
@@ -33,6 +36,17 @@ public class RoomDTO {
 
     public RoomDTO() {
         this.participantsIds = new ArrayList<>();
+        this.messages = new ArrayList<>();
+    }
+
+
+    public Long getId() {
+        return id;
+    }
+
+    public RoomDTO setId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getName() {
@@ -62,15 +76,6 @@ public class RoomDTO {
         return this;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public RoomDTO setId(Long id) {
-        this.id = id;
-        return this;
-    }
-
     public List<MessageDTO> getMessages() {
         return messages;
     }
@@ -79,4 +84,5 @@ public class RoomDTO {
         this.messages = messages;
         return this;
     }
+
 }
