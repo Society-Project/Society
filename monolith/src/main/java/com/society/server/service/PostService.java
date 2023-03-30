@@ -11,6 +11,7 @@ import com.society.server.model.entity.UserEntity;
 import com.society.server.repository.PostRepository;
 import com.society.server.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,11 +35,16 @@ public class PostService {
     }
 
     public PostDTO findPost(Long id){
-        PostEntity postEntity = postRepository.findPostEntityById(id).orElseThrow(ResourceNotFoundException::new);
+        PostEntity postEntity = postRepository
+                .findPostEntityById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND,"Post with id " + id + " not exist."));
         return modelMapper.map(postEntity, PostDTO.class);
     }
 
     public PostDTO createPost(CreatePostDTO createPostDTO, String username) {
+        if(userRepository.findByUsername(username).isEmpty()) {
+            throw new ResourceNotFoundException(HttpStatus.NOT_FOUND, "User with username \"" + username +  "\" not exist.");
+        }
         PostEntity postEntity = modelMapper.map(createPostDTO, PostEntity.class);
         postEntity.setAuthorUsername(username);
         postRepository.save(postEntity);
@@ -47,7 +53,9 @@ public class PostService {
     }
 
     public PostDTO updatePost(Long id, UpdatePostDTO updatePostDTO) {
-        PostEntity postEntity = postRepository.findPostEntityById(id).orElseThrow(ResourceNotFoundException::new);
+        PostEntity postEntity = postRepository
+                .findPostEntityById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND,"Post with id " + id + " not exist."));
 
         postEntity.setTextContent(updatePostDTO.getTextContent())
                 .setImageUrl(updatePostDTO.getImageUrl());
@@ -68,15 +76,14 @@ public class PostService {
     }
 
     public boolean isOwner(Long id, String username) {
-        PostEntity postEntity = postRepository.findPostEntityById(id).orElseThrow(ResourceNotFoundException::new);
+        PostEntity postEntity = postRepository.findById(id).orElseThrow(ResourceNotFoundException::new);
         String authorUsername = postEntity.getAuthorUsername();
         return authorUsername.equals(username);
     }
 
     public boolean isAdmin(UserEntity userEntity){
-        RoleEntity roleAdmin = userEntity.getRoles().stream().filter(r -> r.getRoleName().name().equals("ADMIN"))
-                .findFirst().orElse(null);
-        return roleAdmin != null;
+        return userEntity.getRoles().stream()
+                .anyMatch(role -> role.getRoleName().name().equals("ADMIN"));
     }
 
 }

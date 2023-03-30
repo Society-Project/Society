@@ -12,6 +12,11 @@ public class UpdatePostDTO {
     public UpdatePostDTO() {
     }
 
+    public UpdatePostDTO(String textContent, String imageUrl) {
+        this.textContent = textContent;
+        this.imageUrl = imageUrl;
+    }
+
     public String getTextContent() {
         return textContent;
     }

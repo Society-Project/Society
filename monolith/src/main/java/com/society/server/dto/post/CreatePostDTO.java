@@ -12,6 +12,11 @@ public class CreatePostDTO {
     public CreatePostDTO() {
     }
 
+    public CreatePostDTO(String textContent, String imageUrl) {
+        this.textContent = textContent;
+        this.imageUrl = imageUrl;
+    }
+
     public String getTextContent() {
         return textContent;
     }
