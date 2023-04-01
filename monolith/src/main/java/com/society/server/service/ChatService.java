@@ -3,11 +3,10 @@ package com.society.server.service;
 import com.society.server.dto.message.MessageDTO;
 import com.society.server.dto.message.RoomDTO;
 import com.society.server.exception.UserNotFoundException;
-import com.society.server.model.entity.BaseEntity;
 import com.society.server.model.entity.MessageEntity;
 import com.society.server.model.entity.RoomEntity;
 import com.society.server.model.entity.UserEntity;
-import com.society.server.model.mapper.MessageMapper;
+import com.society.server.model.mapper.RoomMapper;
 import com.society.server.repository.MessageRepository;
 import com.society.server.repository.UserRepository;
 import com.society.server.security.UserPrincipal;
@@ -23,16 +22,16 @@ public class ChatService {
     private final RoomService roomService;
     private final UserRepository userRepository;
     private final MessageRepository messageRepository;
-    private final MessageMapper messageMapper;
+    private final RoomMapper roomMapper;
 
     public ChatService(RoomService roomService,
                        UserRepository userRepository,
                        MessageRepository messageRepository,
-                       MessageMapper messageMapper) {
+                       RoomMapper roomMapper) {
         this.roomService = roomService;
         this.userRepository = userRepository;
         this.messageRepository = messageRepository;
-        this.messageMapper = messageMapper;
+        this.roomMapper = roomMapper;
     }
 
     public void saveMessage(MessageDTO messageDTO, Long roomId) {
@@ -73,12 +72,14 @@ public class ChatService {
 
         users.add(creator);
 
-        RoomEntity room = new RoomEntity(
-                roomDTO.getName(),
-                roomDTO.getRoomEnum(),
-                users,
-                new ArrayList<>()
-        );
+        RoomEntity room = RoomEntity.builder()
+                .name(roomDTO.getName())
+                .roomEnum(roomDTO.getRoomEnum())
+                .users(users)
+                .messages(new ArrayList<>())
+                .imageUrl(roomDTO.getImageUrl())
+                .build();
+
         roomService.save(room);
 
         users.forEach(userEntity ->
@@ -103,39 +104,14 @@ public class ChatService {
 
 
         return roomEntitiesByUser
-                        .stream()
-                        .map(r ->
-                                new RoomDTO(r.getId(),
-                                        r.getName(),
-                                        r.getRoomEnum(),
-                                        r.getUsers()
-                                                .stream()
-                                                .map(BaseEntity::getId)
-                                                .collect(Collectors.toList()),
-                                        r.getMessages()
-                                                .stream()
-                                                .map(messageMapper::messageEntityToMessageDTO)
-                                                .collect(Collectors.toList()))
-                        )
-                        .toList();
-
+                .stream()
+                .map(roomMapper::roomEntityToRoomDTO)
+                .toList();
     }
 
     public RoomDTO getRoomById(Long roomId) {
         RoomEntity room = roomService.getRoomById(roomId);
 
-        return new RoomDTO(room.getId(),
-                room.getName(),
-                room.getRoomEnum(),
-                room.getUsers()
-                        .stream()
-                        .map(BaseEntity::getId)
-                        .collect(Collectors.toList()),
-                room.getMessages()
-                        .stream()
-                        .map(messageMapper::messageEntityToMessageDTO)
-                        .collect(Collectors.toList())
-        );
-
+        return roomMapper.roomEntityToRoomDTO(room);
     }
 }

@@ -25,6 +25,8 @@ public class RoomEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RoomEnum roomEnum;
 
+    private String imageUrl;
+
     @NotEmpty
     @ManyToMany(fetch = FetchType.LAZY,
             mappedBy = "rooms", targetEntity = UserEntity.class)

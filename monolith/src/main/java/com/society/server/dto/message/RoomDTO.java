@@ -1,7 +1,6 @@
 package com.society.server.dto.message;
 
 import com.society.server.model.enums.RoomEnum;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -17,6 +16,9 @@ public class RoomDTO {
 
     @NotNull
     private RoomEnum roomEnum;
+
+    private String imageUrl;
+
     @Size(min = 1)
     private List<Long> participantsIds;
 
@@ -26,12 +28,14 @@ public class RoomDTO {
                    String name,
                    RoomEnum roomEnum,
                    List<Long> participantsIds,
-                   List<MessageDTO> messages) {
+                   List<MessageDTO> messages,
+                   String imageUrl) {
         this.id = id;
         this.name = name;
         this.roomEnum = roomEnum;
         this.participantsIds = participantsIds;
         this.messages = messages;
+        this.imageUrl = imageUrl;
     }
 
     public RoomDTO() {
@@ -85,4 +89,12 @@ public class RoomDTO {
         return this;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public RoomDTO setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+        return this;
+    }
 }

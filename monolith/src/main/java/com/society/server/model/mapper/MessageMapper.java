@@ -3,13 +3,16 @@ package com.society.server.model.mapper;
 import com.society.server.dto.message.MessageDTO;
 import com.society.server.model.entity.MessageEntity;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
 
 @Mapper(componentModel = "spring")
-public abstract class MessageMapper {
+public interface MessageMapper {
 
-    public MessageDTO messageEntityToMessageDTO(MessageEntity messageEntity) {
-        return new MessageDTO(messageEntity.getSender().getUsername(),
-                messageEntity.getContent());
-    }
+    @Mappings({
+            @Mapping(source = "sender.username", target = "senderName"),
+            @Mapping(source = "content", target = "message")
+    })
+    MessageDTO messageEntityToMessageDTO(MessageEntity messageEntity);
 
 }
