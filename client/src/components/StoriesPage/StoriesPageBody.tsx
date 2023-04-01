@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import profilePage from '../chat/friend.png';
 import "../Styles/StoriesPageBody.scss";
@@ -12,8 +12,11 @@ const StoriesPageBody = () => {
     const [currentScreenSize, setCurrentScreenSize]: any = useState(null);
     let [numberOfGeneratedBubblesForFriends, setNumberOfGeneratedBubblesForFriends]: any = useState(5)
 
-
     const arrayOfGeneratedBubblesForFriends: Array<object> = [];
+
+    if(width < 1300){
+        numberOfGeneratedBubblesForFriends = 4
+    }
 
     for (let i = 1; i <= numberOfGeneratedBubblesForFriends; i++) {
         arrayOfGeneratedBubblesForFriends.push(
@@ -24,8 +27,9 @@ const StoriesPageBody = () => {
         );
     }
 
+
     return (
-        <Box className={ width > 900 ? 'stories-page-body-component' : 'stories-mobile-page-body-component' }>
+        <Box className={width > 900 ? 'stories-page-body-component' : 'stories-mobile-page-body-component'}>
             <Box className='friend-main-page-component'>
                 {
                     arrayOfGeneratedBubblesForFriends.map((item: any, index: number) => {

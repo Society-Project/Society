@@ -45,9 +45,16 @@
             top: 50%;
             transform: translate(-30%, -50%);
 
+            .username {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
             .user-story-image {
+                margin-top: auto;
+                margin-bottom: auto;
                 object-fit: cover;
-                max-height: 90%;
+                border-radius: 30px;
+                width: 100%;
             }
         }
 

@@ -6,6 +6,7 @@ import "../Styles/StoriesPage.scss";
 import StoriesPageBody from "./StoriesPageBody";
 import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const StoriesPage = () => {
     const [userSearchInput, setSearchInput]: any = useState("");
