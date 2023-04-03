@@ -10,6 +10,9 @@ import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
 import Modal from "react-modal";
 import { Typography } from "@mui/material";
+import { MainPageBox } from "../page-box/PageBox";
+import "../Styles/MainPage.scss";
+import { SearchBar } from "../SearchBar";
 
 const friends = [
   {
@@ -48,90 +51,93 @@ export const FriendsList = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalData, setModalData]: any = useState(null);
   return (
-    <Box className="Container">
-      <Typography className="AllFriendsText"> All friends</Typography>
-      <Box id="box">
-        <List>
-          {friends.map((friend, index) => (
-            <React.Fragment key={index}>
-              <ListItem>
-                <ListItemAvatar className="Avatar">
-                  <Avatar alt={friend.name} src={friend.avatar} />
-                </ListItemAvatar>
-                <ListItemText primary={friend.name} />
-                {friend.mutualFriends.length != 0 && (
-                  <Button
-                    className="MutualFriendsButton"
-                    variant="contained"
-                    onClick={() => {
-                      setModalData(friend);
-                      setModalIsOpen(true);
+    <Box className="page-box">
+      <SearchBar />
+      <Box className="Container">
+        <Typography className="AllFriendsText"> All friends</Typography>
+        <Box id="box">
+          <List>
+            {friends.map((friend, index) => (
+              <React.Fragment key={index}>
+                <ListItem>
+                  <ListItemAvatar className="Avatar">
+                    <Avatar alt={friend.name} src={friend.avatar} />
+                  </ListItemAvatar>
+                  <ListItemText primary={friend.name} />
+                  {friend.mutualFriends.length != 0 && (
+                    <Button
+                      className="MutualFriendsButton"
+                      variant="contained"
+                      onClick={() => {
+                        setModalData(friend);
+                        setModalIsOpen(true);
+                      }}
+                    >
+                      {friend.mutualFriends.length} mutual friends
+                    </Button>
+                  )}
+                </ListItem>
+                {index < friends.length - 1 && (
+                  <Divider
+                    sx={{
+                      width: "95%",
+                      margin: "18px auto",
+                      backgroundColor: "grey",
+                      color: "rgba(0, 0, 0, 0.4)",
+                      align: "center",
+                      opacity: "0.4",
                     }}
-                  >
-                    {friend.mutualFriends.length} mutual friends
-                  </Button>
+                  />
                 )}
-              </ListItem>
-              {index < friends.length - 1 && (
+              </React.Fragment>
+            ))}
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={() => setModalIsOpen(false)}
+              contentLabel="Mutual friends"
+              style={modalStyle}
+            >
+              <Box>
+                <button
+                  onClick={() => setModalIsOpen(false)}
+                  className="close-modal-button"
+                >
+                  <CloseIcon />
+                </button>
+                <Typography className="NumberOfMutualFriends">
+                  {modalData?.mutualFriends.length} mutual friends
+                </Typography>
                 <Divider
                   sx={{
-                    width: "95%",
-                    margin: "18px auto",
+                    width: "100%",
+                    margin: "10px auto",
                     backgroundColor: "grey",
-                    color: "rgba(0, 0, 0, 0.4)",
+                    color: "rgba(0, 0, 0, 0.2)",
                     align: "center",
-                    opacity: "0.4",
                   }}
                 />
-              )}
-            </React.Fragment>
-          ))}
-          <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={() => setModalIsOpen(false)}
-            contentLabel="Mutual friends"
-            style={modalStyle}
-          >
-            <Box>
-              <button
-                onClick={() => setModalIsOpen(false)}
-                className="close-modal-button"
-              >
-                <CloseIcon />
-              </button>
-              <Typography className="NumberOfMutualFriends">
-                {modalData?.mutualFriends.length} mutual friends
-              </Typography>
-              <Divider
-                sx={{
-                  width: "100%",
-                  margin: "10px auto",
-                  backgroundColor: "grey",
-                  color: "rgba(0, 0, 0, 0.2)",
-                  align: "center",
-                }}
-              />
-              <List>
-                {modalData?.mutualFriends.map(
-                  (mutualFriend: string, index: number) => (
-                    <ListItem key={index}>
-                      <ListItemAvatar className="Avatar">
-                        <Avatar alt={mutualFriend} src={""} />
-                      </ListItemAvatar>
-                      <ListItemText primary={mutualFriend} />
-                    </ListItem>
-                  )
-                )}
-              </List>
-            </Box>
-          </Modal>
-        </List>
+                <List>
+                  {modalData?.mutualFriends.map(
+                    (mutualFriend: string, index: number) => (
+                      <ListItem key={index}>
+                        <ListItemAvatar className="Avatar">
+                          <Avatar alt={mutualFriend} src={""} />
+                        </ListItemAvatar>
+                        <ListItemText primary={mutualFriend} />
+                      </ListItem>
+                    )
+                  )}
+                </List>
+              </Box>
+            </Modal>
+          </List>
+        </Box>
       </Box>
     </Box>
   );
 };
 
-const modalStyle : any = {
+const modalStyle: any = {
   content: {
     border: "2px solid rgba(74, 122, 99, 1)",
     borderRadius: "18px",
@@ -145,6 +151,6 @@ const modalStyle : any = {
     transform: "translate(-50%,-100px)", // adjust top "up" based on height
     width: "40%",
     maxWidth: "40rem",
-    boxShadow:"0px 0px 10px 0px rgba(74, 122, 99, 1)",
+    boxShadow: "0px 0px 10px 0px rgba(74, 122, 99, 1)",
   },
 };
