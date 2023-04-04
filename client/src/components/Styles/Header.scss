@@ -12,14 +12,12 @@
   box-shadow: none;
 
   .header-logo {
-    background-color: white;
-    width: 10.7%;
-    // margin-bottom: 10rem;
-
+    text-align: center;
+    width: 100%;
     .header-logo-image {
-      max-width: 60px;
-      margin-left: 2.8rem;
+        max-width: 80px;
     }
+  }
   }
   .search-bar {
     position: absolute;
@@ -40,12 +38,12 @@
             margin-top: 1rem;
             margin-right: 2rem;
         }
-       
+
     }
     .hamburger-menu {
         cursor: pointer;
         width: 10%;
-        
+
         .hamburger-menu-logo{
             max-width: 2rem;
             margin-top: 1.5rem;
@@ -62,7 +60,7 @@
       font-size: 5rem;
     }
   }
-}
+
 
 @media only screen and (min-width: 0) and (max-width: 900px) {
     .header-main-class {
@@ -72,7 +70,7 @@
             .header-logo-image {
                 max-width: 60px;
                 margin-left: 1rem;
-                
+
             }
         }
         .search-bar {
@@ -87,7 +85,6 @@
         }
     }
 }
-
 @media only screen and (min-width: 1836px) and (max-width: 2136px) {
     .header-main-class {
         .header-logo {
@@ -104,7 +101,7 @@
         }
 
         .user-profile {
-            
+
             .user-account-icon {
                 position: absolute;
                 right: 3.5rem;
@@ -127,4 +124,3 @@
       }
     }
   }
-

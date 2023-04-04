@@ -1,7 +1,7 @@
 .close-modal-button {
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 1vw;
+  top: 1vw;
   background: none;
   border: none;
   cursor: pointer;  
@@ -24,8 +24,9 @@
   .AllFriendsText {
     font-family: Roboto;
     font-size: 26px;
-    margin: 70px 25px 25px;
+    margin: 80px 25px 25px;
   }
+
   #box::-webkit-scrollbar {
     width: 11px;
     background-color: #F5F5F5;
@@ -33,19 +34,20 @@
    
   #box::-webkit-scrollbar-thumb {
     border-radius: 18px;
-    background-color:rgba(0, 0, 0, 0.4);
+    background-color:rgba(0, 0, 0, 0.2);
   }  
   
   #box {
-    width: 80vw;
-    background-color: rgb(230, 230, 230);
+    width: 76vw;
+    background-color: rgb(255, 255, 255);
     border-radius: 18px;
-    margin-right: 140px;
+    margin-right: 2vw;
+    margin-left: 2vw;
     overflow-y: auto;
-    height: 80vh;
+    height: 64vh;
 
     .Avatar {
-      margin-left: 25px;
+      margin-left: 2vw;
     }
   }
 
@@ -54,8 +56,8 @@
     font-size: 20px;
     color: white;
     border-radius: 18px;
-    width: 180px;
-    height: 40px;
+    width: 14vw;
+    height: 7vh;
     background-color: rgba(146, 145, 145, 1);
     text-decoration: none;
     text-transform: lowercase;

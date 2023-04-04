@@ -142,12 +142,12 @@ const modalStyle: any = {
     border: "2px solid rgba(74, 122, 99, 1)",
     borderRadius: "18px",
     bottom: "auto",
-    height: "200px", // set height
+    height: "30vh", // set height
     left: "65.3%",
-    padding: "2rem",
+    padding: "5vh",
     position: "fixed",
     right: "auto",
-    top: "45%", // start from center
+    top: "48%", // start from center
     transform: "translate(-50%,-100px)", // adjust top "up" based on height
     width: "40%",
     maxWidth: "40rem",
