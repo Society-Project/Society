@@ -14,10 +14,6 @@ const StoriesPageBody = () => {
 
     const arrayOfGeneratedBubblesForFriends: Array<object> = [];
 
-    if(width < 1300){
-        numberOfGeneratedBubblesForFriends = 4
-    }
-
     for (let i = 1; i <= numberOfGeneratedBubblesForFriends; i++) {
         arrayOfGeneratedBubblesForFriends.push(
             <Box className='friend-side'>
@@ -30,6 +26,7 @@ const StoriesPageBody = () => {
 
     return (
         <Box className={width > 900 ? 'stories-page-body-component' : 'stories-mobile-page-body-component'}>
+            
             <Box className='friend-main-page-component'>
                 {
                     arrayOfGeneratedBubblesForFriends.map((item: any, index: number) => {

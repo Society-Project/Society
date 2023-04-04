@@ -23,7 +23,7 @@ const StoriesPage = () => {
                 <Box className='search-bar'>
                     <Box className='user-input-and-close-button'>
                      <SearchIcon className="search-icon" />
-                        <input
+                        <input 
                             type="text"
                             placeholder="Search..."
                             className="user-input"
@@ -33,9 +33,14 @@ const StoriesPage = () => {
                         <CloseIcon className="close-button" onClick={deleteSearchField} />
                     </Box>
                 </Box>
+                <Box>
+                </Box>
                 <Box className='stories-and-title'>
+                    <Box className='test'>
                     <h1 className='stories-title'>Stories</h1>
+                    
                     <StoriesPageBody />
+                    </Box>
                 </Box>
             </Box>
         </Box>
