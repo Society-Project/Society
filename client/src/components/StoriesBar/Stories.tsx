@@ -12,12 +12,6 @@ const Stories = () => {
     const arrayOfStoryBubbles: Array<object> = [];
     let storyBubbles: number = 5;
 
-    if (width < 600) storyBubbles = 4
-    if (width < 600) storyBubbles = 4
-
-    if (width < 500) storyBubbles = 2
-    if (width < 500) storyBubbles = 2
-
     for (let i = 0; i < storyBubbles; i++) {
         //Should replace the . with user's profile picture
         arrayOfStoryBubbles.push(

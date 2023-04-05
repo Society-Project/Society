@@ -6,79 +6,78 @@
     float: left;
     position: relative;
     top: 2.6vh;
-  
-  
-    .header-logo {
-      text-align: center;
-      width: 100%;
-      .header-logo-image {
-          max-width: 80px;
-      }
-    }
-    .css-i4bv87-MuiSvgIcon-root {
-        font-size: 2.2rem;
-    }
-  
-    .icon-buttons {
-        height: 20vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        margin-top: 5vh;
-        margin-left: .5rem;
-    }
-  
-    .css-1s4ffru-MuiListItem-root {
-        display: block;
-        width: 100%;
-        height: 80px;
-        float: right;
-        border-radius: 10px 0 0 10px;
-        line-height: 0;
-        box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
-  
-  
-    }
-  
-    .list-item-element {
-        width: 76%;
-        margin-left: auto;
-        margin-top: 5vh;
-        cursor: pointer;
-    }
-  
-    .css-1s4ffru-MuiListItem-root:link {
-        background-color: rgb(235, 233, 233);
-    }
-  
-    .css-1s4ffru-MuiListItem-root::after {
-        content: "";
-        position: absolute;
-        background-color: transparent;
-        bottom: 50px;
-        height: 50px;
-        width: 25px;
-        border-bottom-right-radius: 25px;
-        box-shadow: 0 25px 0 0 rgb(235, 233, 233);
-        right: 0;
-    }
-  
-    // This code is not going to work if I put it like this
-    // .css-1s4ffru-MuiListItem-root::after, .css-1s4ffru-MuiListItem-root::before
-    .css-1s4ffru-MuiListItem-root::before {
-        content: "";
-        position: absolute;
-        background-color: transparent;
-        bottom: -50px;
-        height: 50px;
-        width: 25px;
-        border-top-right-radius: 25px;
-        box-shadow: 0 -25px 0 0 rgb(235, 233, 233);
-        right: 0;
+
+  .header-logo {
+    text-align: center;
+    width: 100%;
+    .header-logo-image {
+        max-width: 80px;
     }
   }
-  @media only screen and (min-width: 0) and (max-width: 900px) {
-    .navigation-root-element {
-        display: none;
-    }
+  .css-i4bv87-MuiSvgIcon-root {
+      font-size: 2.2rem;
+  }
+
+  .icon-buttons {
+      height: 20vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-top: 5vh;
+      margin-left: .5rem;
+  }
+
+  .css-1s4ffru-MuiListItem-root {
+      display: block;
+      width: 100%;
+      height: 80px;
+      float: right;
+      border-radius: 10px 0 0 10px;
+      line-height: 0;
+      box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
+
+
+  }
+
+  .list-item-element {
+      width: 76%;
+      margin-left: auto;
+      margin-top: 5vh;
+      cursor: pointer;
+  }
+
+  .css-1s4ffru-MuiListItem-root:link {
+      background-color: rgb(235, 233, 233);
+  }
+
+  .css-1s4ffru-MuiListItem-root::after {
+      content: "";
+      position: absolute;
+      background-color: transparent;
+      bottom: 50px;
+      height: 50px;
+      width: 25px;
+      border-bottom-right-radius: 25px;
+      box-shadow: 0 25px 0 0 rgb(235, 233, 233);
+      right: 0;
+  }
+
+  // This code is not going to work if I put it like this
+  // .css-1s4ffru-MuiListItem-root::after, .css-1s4ffru-MuiListItem-root::before
+  .css-1s4ffru-MuiListItem-root::before {
+      content: "";
+      position: absolute;
+      background-color: transparent;
+      bottom: -50px;
+      height: 50px;
+      width: 25px;
+      border-top-right-radius: 25px;
+      box-shadow: 0 -25px 0 0 rgb(235, 233, 233);
+      right: 0;
+  }
+}
+@media only screen and (min-width: 0) and (max-width: 900px) {
+  .navigation-root-element {
+      display: none;
+  }
   }

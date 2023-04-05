@@ -15,8 +15,8 @@ import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
 import WindowScreenSize from '@/WindowScreenSize';
 
-import "./ChatBody.scss";
-import "./ChatBodyMobile.scss";
+import "../../Styles/ChatBody.scss";
+import "../../Styles/ChatBodyMobile.scss";
 
 const ChatBody = () => {
     const [width, height] = WindowScreenSize();

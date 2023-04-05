@@ -12,10 +12,11 @@
   box-shadow: none;
 
   .header-logo {
-    text-align: center;
-    width: 100%;
-    .header-logo-image {
-        max-width: 80px;
+    background-color: white;
+    width: 10.7%;
+    
+    img {
+      max-width: 220px !important;
     }
   }
   }
