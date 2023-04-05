@@ -1,12 +1,11 @@
 .navigation-root-element {
-  width: 10.7%;
-  height: 84vh;
-  background: linear-gradient(rgb(255, 255, 255), white);
-  font-size: 20px;
-  float: left;
-  position: relative;
-  top: 2.6vh;
-  
+    width: 10.7%;
+    height: 84vh;
+    background: linear-gradient(rgb(255, 255, 255), white);
+    font-size: 20px;
+    float: left;
+    position: relative;
+    top: 2.6vh;
 
   .header-logo {
     text-align: center;
@@ -81,4 +80,4 @@
   .navigation-root-element {
       display: none;
   }
-}
+  }
