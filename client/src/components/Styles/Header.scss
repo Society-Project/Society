@@ -14,11 +14,9 @@
   .header-logo {
     background-color: white;
     width: 10.7%;
-    // margin-bottom: 10rem;
-
-    .header-logo-image {
-      max-width: 60px;
-      margin-left: 2.8rem;
+    
+    img {
+      max-width: 220px !important;
     }
   }
   .search-bar {

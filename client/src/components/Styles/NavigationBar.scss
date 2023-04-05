@@ -8,6 +8,13 @@
   top: 2.6vh;
   
 
+  .header-logo {
+    text-align: center;
+    width: 100%;
+    .header-logo-image {
+        max-width: 80px;
+    }
+  }
   .css-i4bv87-MuiSvgIcon-root {
       font-size: 2.2rem;
   }
@@ -18,16 +25,16 @@
       flex-direction: column;
       justify-content: space-between;
       margin-top: 5vh;
+      margin-left: .5rem;
   }
 
   .css-1s4ffru-MuiListItem-root {
       display: block;
-      width: 80%;
+      width: 100%;
       height: 80px;
       float: right;
       border-radius: 10px 0 0 10px;
       line-height: 0;
-      // margin-top: 1vh;
       box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.25);
 
 

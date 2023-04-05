@@ -1,11 +1,11 @@
 import { Box } from '@mui/material';
-import { NavigationBar } from '@/components/NavigationBar/Navigation';
+import { NavigationBar } from '../NavigationBar/Navigation';
 import WindowScreenSize from '@/WindowScreenSize';
-import Stories from '@/components/StoriesBar/Stories';
+import Stories from '../StoriesBar/Stories';
 import headerLogo from '../../images/logo-mark.svg';
 import ChatBody from './ChatBody/ChatBody';
 
-import "./Chat.scss";
+import "../Styles/Chat.scss";
 
 const Chat = () => {
     const [width, height] = WindowScreenSize();
