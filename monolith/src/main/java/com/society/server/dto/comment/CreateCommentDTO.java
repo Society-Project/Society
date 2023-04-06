@@ -1,6 +1,5 @@
 package com.society.server.dto.comment;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotEmpty;
 
 

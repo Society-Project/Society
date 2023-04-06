@@ -9,8 +9,18 @@ public class CommentDTO {
     private String creatorUsername;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
+    private Long postId;
 
     public CommentDTO() {
+    }
+
+    public Long getPostId() {
+        return postId;
+    }
+
+    public CommentDTO setPostId(Long postId) {
+        this.postId = postId;
+        return this;
     }
 
     public Long getId() {

@@ -32,6 +32,18 @@ public class CommentEntity extends BaseEntity {
     @Column(name = "updated_on")
     private LocalDateTime updatedOn;
 
+    @Column(name = "post_id")
+    private Long postId;
+
+    public Long getPostId() {
+        return postId;
+    }
+
+    public CommentEntity setPostId(Long postId) {
+        this.postId = postId;
+        return this;
+    }
+
     public String getCommentText() {
         return commentText;
     }
@@ -73,17 +85,5 @@ public class CommentEntity extends BaseEntity {
 
     public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
-    }
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    private UserEntity author;
-
-    public UserEntity getAuthor() {
-        return author;
-    }
-
-    public CommentEntity setAuthor(UserEntity author) {
-        this.author = author;
-        return this;
     }
 }

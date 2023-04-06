@@ -10,4 +10,8 @@ public class NotAuthorizedException extends ApiException{
     public NotAuthorizedException(HttpStatus status, String message) {
         super(status, message);
     }
+
+    public NotAuthorizedException(String message){
+        super(HttpStatus.UNAUTHORIZED, message);
+    }
 }
