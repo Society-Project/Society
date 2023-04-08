@@ -1,10 +1,9 @@
 .stories-main-box {
-    width: 10%;
+    width: 8%;
     height: auto;
     position: absolute;
     right: 0;
     background: white;
-    overflow: hidden;
 
     .profile-picture {
         margin-left: auto;
@@ -23,15 +22,15 @@
     }
 
     .stories-data-box {
-        background-color: lightgray;
-        width: 60%;
-        height: 79.8vh;
+        background: rgba(217, 217, 217, 0.6);
+        width: 65%;
+        height: 100%;
         margin-top: 2rem;
-        margin-left: 1.8rem;
+        margin-left: 1.4rem;
         border-radius: 2rem;
 
         .add-story-box {
-            border-radius: 50%;           
+            border-radius: 50%;
             width: 100%;
             text-align: center;
 
@@ -61,10 +60,8 @@
 
             .stories-of-followed-people {
                 text-align: center;
-                overflow: hidden;
 
                 .person-story {
-
                     box-shadow: 0 5px 10px 0 #aaaaaa;
                     background-color: white;
                     color: white;
@@ -92,147 +89,94 @@
 }
 
 .stories-main-box-for-mobile {
-  width: auto;
-  height: 1vh;
-  margin-top: 2rem;
-  padding-bottom: 4rem;
-  width: auto;
-  height: 1vh;
-  margin-top: 2rem;
-  padding-bottom: 4rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
 
+    .profile-picture {
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 5rem;
+        width: 100%;
+        text-align: center;
+    }
 
-  .stories-paragraph {
-      margin-left: 1.5rem;
-      font-size: 1.2rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-  .stories-paragraph {
-      margin-left: 1.5rem;
-      font-size: 1.2rem;
-      font-weight: bold;
-      letter-spacing: 1px;
+    .stories-paragraph {
+        margin-left: 1.5rem;
+        font-size: 1.2rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+        display: none;
+    }
 
-  }
-  }
+    .stories-data-box {
+        background-color: lightgray;
+        width: 100%;
+        
+        height: 14vh;
+        margin-top: 4rem;
+        display: flex;
+        justify-content: space-around;
+        border-radius: 1rem;
+        overflow: hidden;
 
-  .stories-data-box {
-      background-color: lightgray;
-      width: 95%;
-      display: flex;
-      margin-left: .5rem;
-  .stories-data-box {
-      background-color: lightgray;
-      width: 95%;
-      display: flex;
-      margin-left: .5rem;
+        .add-story-box {
+            border-radius: 50%;
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            margin-top: .5rem;  
 
-      .add-story-box {
-          border-radius: 50%;
-          text-align: center;
-          padding: 1rem;
-          display: flex;
-      .add-story-box {
-          border-radius: 50%;
-          text-align: center;
-          padding: 1rem;
-          display: flex;
+            .add-story-button {
+                border: 4px solid rgba(74, 122, 99, 0.66);        
+                text-transform: lowercase;
+                color: black;
+                border-radius: 50%;
+                margin-left: 1rem;
+                margin-top: -.5rem;
+            }
 
-          .add-story-button {
-              border: 4px solid rgba(74, 122, 99, 0.66);
-              background-color: white;
-              text-transform: lowercase;
-              border-radius: 50%;
-              color: black;
-              height: 9vh;
-              width: 9vh;
-              margin-left: -.2rem;
-          }
-          .add-story-button {
-              border: 4px solid rgba(74, 122, 99, 0.66);
-              background-color: white;
-              text-transform: lowercase;
-              border-radius: 50%;
-              color: black;
-              height: 9vh;
-              width: 9vh;
-              margin-left: -.2rem;
-          }
+            .straight-line {
+                background-color: black;
+                height: 100%;
+                width: .1%;
+                position: relative;
+                left: 1rem;
 
-          .straight-line {
-              background-color: black;
-              height: 10vh;
-              width: 2%;
-              position: relative;
-              left: 5px;
-          }
-      }
-          .straight-line {
-              background-color: black;
-              height: 10vh;
-              width: 2%;
-              position: relative;
-              left: 5px;
-          }
-      }
+            }
+        }
 
-      .other-people-stories {
-          display: flex;
-          justify-content: space-around;
-          margin-top: auto;
-          margin-bottom: auto;
-          width: 100%;
-      .other-people-stories {
-          display: flex;
-          justify-content: space-around;
-          margin-top: auto;
-          margin-bottom: auto;
-          width: 100%;
+        .other-people-stories {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            
+            .stories-of-followed-people {
+                display: flex;
+                justify-content: space-around;
+                height: auto;
+                margin-left: 1rem;
 
-          .stories-of-followed-people {
-               
-              .person-story {
-                  width: 9vh;
-                  height: 9vh;
-                  background: white;
-                  border-radius: 50%;
-                  box-sizing: 0 5px 10px 0 #aaaaaa;
-                  margin-left: .5rem;
-              }
-          }
-      }
-          .stories-of-followed-people {
-               
-              .person-story {
-                  width: 9vh;
-                  height: 9vh;
-                  background: white;
-                  border-radius: 50%;
-                  box-sizing: 0 5px 10px 0 #aaaaaa;
-                  margin-left: .5rem;
-              }
-          }
-      }
+                .person-story {
+                    background-color: white;
+                    color: white;
+                    border-radius: 50%;
+                    padding: 1.3rem;
+                }
+            }
+        }
 
-      .more-options {
-          margin-top: auto;
-          margin-bottom: auto;
-      .more-options {
-          margin-top: auto;
-          margin-bottom: auto;
-
-          .css-i4bv87-MuiSvgIcon-root {
-              font-size: 2.3rem;
-              cursor: pointer;
-           
-          }
-      }
-  }
-          .css-i4bv87-MuiSvgIcon-root {
-              font-size: 2.3rem;
-              cursor: pointer;
-           
-          }
-      }
-  }
+        .more-options {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            .css-i4bv87-MuiSvgIcon-root {
+                font-size: 2rem;
+                
+            }
+        }
+    }
 }

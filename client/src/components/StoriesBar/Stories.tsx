@@ -2,15 +2,17 @@ import { useState, useEffect } from 'react';
 import { Box, Button } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import '../Styles/Stories.scss';
-import WindowScreenSize from '@/WindowScreenSize';
+import useWindowScreenSize from '@/useWindowScreenSize';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 const Stories = () => {
-    const [width, height] = WindowScreenSize();
+    const [width, height] = useWindowScreenSize();
 
 
     const arrayOfStoryBubbles: Array<object> = [];
     let storyBubbles: number = 5;
+
+    if(width < 900) storyBubbles = 10;
 
     for (let i = 0; i < storyBubbles; i++) {
         //Should replace the . with user's profile picture

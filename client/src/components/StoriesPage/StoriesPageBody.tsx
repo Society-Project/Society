@@ -4,10 +4,10 @@ import profilePage from '../chat/friend.png';
 import "../Styles/StoriesPageBody.scss";
 import userStoryImage from '../../images/userStory.jpg';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import WindowScreenSize from '@/WindowScreenSize';
+import useWindowScreenSize from '@/useWindowScreenSize';
 
 const StoriesPageBody = () => {
-    const [width, height]: any = WindowScreenSize();
+    const [width, height]: any = useWindowScreenSize();
     const [friendBubble, setFriendBubble]: any = useState([]);
     const [currentScreenSize, setCurrentScreenSize]: any = useState(null);
     let [numberOfGeneratedBubblesForFriends, setNumberOfGeneratedBubblesForFriends]: any = useState(5)

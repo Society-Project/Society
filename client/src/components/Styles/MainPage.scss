@@ -9,14 +9,35 @@
   border-radius: 1.13rem;
   box-shadow: 15px 0px 10px 0px rgba(0, 0, 0, 0.25);
   overflow-y: auto;
+  display: grid;
 }
 
-.main {
-    background-color: white;
-}
+.mobile-header-view {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 
-.search-bar.MuiBox-root.css-0 {
-  float: right;
-  margin-right: 2rem;
-  cursor: pointer;
+  .society-logo {
+    max-width: 60px;
+    margin-left: 1rem;
+    margin-top: 1rem;
+  }
+
+  .search-bar-hamburger-menu {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: .5rem;
+    width: 25%;
+
+    .css-i4bv87-MuiSvgIcon-root {
+      font-size: 2.3rem;
+      color: gray;
+      cursor: pointer;
+    }
+    img {
+      max-width: 40px;
+    }
+
+  }
 }

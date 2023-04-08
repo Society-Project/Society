@@ -1,38 +1,37 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import '../../Styles/PostReactions.scss';
 import { Post } from '../Post';
-import { Grid, IconButton, TextareaAutosize } from '@mui/material';
+import { Grid, TextareaAutosize, Box } from '@mui/material';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import PinDropIcon from '@mui/icons-material/PinDrop';
+import useWindowScreenSize from '@/useWindowScreenSize';
 
 export const CreatePost = (post: any) => {
-
+    const [width, height] = useWindowScreenSize();
     const [clicked, setClicked] = useState(false);
 
     const onClickHandler = () => {
         setClicked(true);
     }
     return (
-        <>
-            <Grid className='createPostGrid'>
-                <TextareaAutosize className='createPostTxtArea' placeholder='Create post...'/>
-                <div id='createPostDivBtn'>
-                    <IconButton id='tag'>
-                    <LocalOfferIcon />
-                    </IconButton>
-                    <IconButton id='addPhoto'>
-                    <AddPhotoAlternateIcon />
-                    </IconButton>
-                    <IconButton id='location'>
-                    <PinDropIcon />
-                    </IconButton>
-                    <button id='createPostBtn' onClick={onClickHandler}>Post</button>
-                </div>
+        <Box className="create-post-class">
+            <Grid className='create-post-grid'>
+                <TextareaAutosize className='create-post-input-field' placeholder='Create post...' />
+                <Box id='create-post-button' className='create-post-button-class'>
+                    <Box className={ width < 900 ? "icon-post-class" : "icon-post-desktop" }>
+                        <Box className="icons">
+                            <LocalOfferIcon className='attach-image-icon' />
+                            <AddPhotoAlternateIcon className='upload-photo-icon' />
+                            <PinDropIcon className='post-location-icon' />
+                        </Box>
+                        <button id='create-post-button' className={ width > 900 ? "create-post-button" : "create-post-button-mobile" } onClick={onClickHandler}>Post</button>
+                    </Box>
+                </Box>
             </Grid>
             {
                 clicked ? <Post /> : null
             }
-        </>
+        </Box>
     )
 }
