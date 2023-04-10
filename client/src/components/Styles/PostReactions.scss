@@ -120,8 +120,13 @@ body {
       .like-divider{
         background-color: black;
         height: 3vh;
-        width: 1px;
+        width: .5px;
         position: relative;
+      }
+      .comment-divider {
+        width: 1px;
+        height: 3vh;
+        background-color: black;
       }
     }
 

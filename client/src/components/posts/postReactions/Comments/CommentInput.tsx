@@ -35,7 +35,7 @@ export const CommentInput: React.FC<CommentInputProps> = ({ onSubmit }) => {
                     />
                     <IconButton onClick={onSubmitHandler} sx={{ marginLeft: 2 }}
                     >
-                        <SendIcon />
+                    <SendIcon />
                     </IconButton>
                 </Box>
             </Grid>

@@ -34,7 +34,7 @@ export const Post = () => {
                         <IconButton className='comment' onClick={() => setComment(state => !state)}>
                             <ChatBubbleOutlineOutlinedIcon />
                         </IconButton>
-                        <p className='like-divider'></p>
+                        <p className='comment-divider'></p>
                         <IconButton>
                             <ShareOutlinedIcon />
                         </IconButton>

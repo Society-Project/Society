@@ -1,11 +1,9 @@
 import React from 'react';
 import { Comment } from './Comment';
-import { Box, Divider, Grid, IconButton, ListItemText, Paper } from '@mui/material';
+import { Box, Grid, ListItemText } from '@mui/material';
 import Avatar from '@mui/material/Avatar'
 import "../../../Styles/CommentStyles/CommentFunctionality.scss";
-
 import { TextareaAutosize } from '@mui/base';
-import { CommentsReactions } from './CommentsReactions';
 
 interface CmntFunctionalityProps {
     comments: Comment[];
@@ -64,7 +62,7 @@ export const CmntFunctionality: React.FC<CmntFunctionalityProps> = ({
                             <Avatar className="user-profile-image">R</Avatar>
 
                             <Box className="username-and-comment">
-                                <p>Didi Didova</p>
+                                <p className='username-paragraph'>Didi Didova</p>
 
                                 <ListItemText
                                     sx={{ marginLeft: 2 }}
@@ -85,14 +83,9 @@ export const CmntFunctionality: React.FC<CmntFunctionalityProps> = ({
                                     }
                                 />
                             </Box>
-
-                            {/* <Box className="comment-reactions">
-                                <CommentsReactions />
-                            </Box> */}
                         </Box>
                     })
                 }
-
             </Grid>
         </Box >
     )

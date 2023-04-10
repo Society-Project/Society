@@ -14,11 +14,17 @@
         .username-and-comment {
             margin-top: -.5rem;
         
+            .username-paragraph {
+                margin-left: -2rem;
+                margin-top: 1rem;
+            }
+
             .edit-text-area {
                 outline: none;
                 padding: .5rem;
                 border: none;
                 text-align: center;
+                margin-left: -4rem;
             }
         }
 
