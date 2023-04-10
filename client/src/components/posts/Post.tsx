@@ -23,7 +23,7 @@ export const Post = () => {
     return (
         <Box className={ width > 900 ? 'post-page-uploader' : 'post-page-uploader-mobile'}>
              <p className='news-feed-paragraph'>News feed</p>
-            <Grid className='post-grid'>
+            <Grid className={ width > 900 ? 'post-grid' : 'post-mobile-grid' }>
                 <Paper className='post-paper'>
 
                     <Box className='user-profile-image'>
@@ -35,7 +35,7 @@ export const Post = () => {
                         hover ? <Box className={ width > 900 ? 'reaction-pop-up-window' : 'reaction-mobile-pop-up' }>
                             <ThumbUpIcon className='like-icon' />
                             <FavoriteBorderIcon className='love-icon' />
-                            <SentimentVeryDissatisfiedIcon className='funny-icon' />
+                            <SentimentVerySatisfiedIcon className='funny-icon' />
                             <SentimentVeryDissatisfiedIcon className='sad-icon' />
                     </Box> : null
                     }

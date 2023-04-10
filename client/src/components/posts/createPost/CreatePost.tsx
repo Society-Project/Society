@@ -5,6 +5,7 @@ import { Grid, TextareaAutosize, Box } from '@mui/material';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
 import PinDropIcon from '@mui/icons-material/PinDrop';
+
 import useWindowScreenSize from '@/useWindowScreenSize';
 
 export const CreatePost = (post: any) => {
@@ -15,9 +16,9 @@ export const CreatePost = (post: any) => {
         setClicked(true);
     }
     return (
-        <Box className="create-post-class">
+        <Box className={ width > 900 ? "create-post-class" : "create-post-mobile-class" }>
             <Grid className='create-post-grid'>
-                <TextareaAutosize className='create-post-input-field' placeholder='Create post...' />
+                <input className='create-post-input-field' placeholder='Create post...' />
                 <Box id='create-post-button' className='create-post-button-class'>
                     <Box className={ width < 900 ? "icon-post-class" : "icon-post-desktop" }>
                         <Box className="icons">
