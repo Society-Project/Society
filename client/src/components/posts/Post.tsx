@@ -4,6 +4,10 @@ import { blue } from '@mui/material/colors';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
 import Divider from '@mui/material/Divider';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
 import { PostImage } from './image/Image';
 import '../Styles/PostReactions.scss';
@@ -14,7 +18,8 @@ import useWindowScreenSize from '@/useWindowScreenSize';
 export const Post = () => {
     const [width, height] = useWindowScreenSize();
     const [comment, setComment] = useState(false);
-
+    const [hover, setHover] = useState(false);
+ 
     return (
         <Box className={ width > 900 ? 'post-page-uploader' : 'post-page-uploader-mobile'}>
              <p className='news-feed-paragraph'>News feed</p>
@@ -26,10 +31,21 @@ export const Post = () => {
                         <Box className='username'>Didi Didova</Box>
                     </Box>
                     <PostImage />
+                    {
+                        hover ? <Box className={ width > 900 ? 'reaction-pop-up-window' : 'reaction-mobile-pop-up' }>
+                            <ThumbUpIcon className='like-icon' />
+                            <FavoriteBorderIcon className='love-icon' />
+                            <SentimentVeryDissatisfiedIcon className='funny-icon' />
+                            <SentimentVeryDissatisfiedIcon className='sad-icon' />
+                    </Box> : null
+                    }
 
                     <Divider variant="middle" className='divider' />
                     <CardActions className='reactions'>
-                        <Like />
+                        <button 
+                            onClick={() => setHover(!hover)}
+                            className='like-button'><Like /></button>
+
                         <p className='like-divider'></p>
                         <IconButton className='comment' onClick={() => setComment(state => !state)}>
                             <ChatBubbleOutlineOutlinedIcon />

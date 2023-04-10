@@ -35,7 +35,8 @@ body {
         margin-top: auto;
         margin-bottom: auto;
 
-        .icon-post-class, .icon-post-desktop {
+        .icon-post-class,
+        .icon-post-desktop {
           display: flex;
           justify-content: end;
           align-items: end;
@@ -71,6 +72,7 @@ body {
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
             margin-left: 2rem;
           }
+
           .create-post-button-mobile {
             border-radius: 18px;
             border: none;
@@ -82,6 +84,7 @@ body {
           }
 
         }
+
         .icon-post-desktop {
           width: 95%;
         }
@@ -100,7 +103,7 @@ body {
 .post-grid {
   display: flex;
   width: 100%;
-  
+
   .post-paper {
     width: 100%;
     text-align: center;
@@ -111,18 +114,53 @@ body {
       margin-top: 1rem;
     }
 
+    .reaction-pop-up-window, .reaction-mobile-pop-up {
+      display: flex;
+      justify-content: space-around;
+      width: 20%;
+      position: relative;
+      left: 3rem;
+      top: 2%;
+   
+      border: 1px solid black;
+      background-color: white;
+      border-radius: 1rem;
+      box-shadow: 0px 0px 10px #4A7A63;
+
+      .like-icon,
+      .love-icon,
+      .funny-icon,
+      .sad-icon {
+        cursor: pointer;
+        font-size: 1.5rem;
+        padding: .5rem;
+
+      }
+    }
+    .reaction-mobile-pop-up {
+      width: 50%;
+      margin-left: -2rem;
+    }
+
     .reactions {
       display: flex;
       justify-content: space-around;
       align-items: center;
       width: 100%;
-      
-      .like-divider{
+
+      .like-button {
+        background: none;
+        border: none;
+        width: 10%;
+      }
+
+      .like-divider {
         background-color: black;
         height: 3vh;
         width: .5px;
         position: relative;
       }
+
       .comment-divider {
         width: 1px;
         height: 3vh;
