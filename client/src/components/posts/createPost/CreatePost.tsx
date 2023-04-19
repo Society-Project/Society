@@ -10,7 +10,7 @@ import useWindowScreenSize from '@/useWindowScreenSize';
 
 export const CreatePost = (post: any) => {
     const [width, height] = useWindowScreenSize();
-    const [clicked, setClicked] = useState(false);
+    const [clicked, setClicked] = useState<boolean>(false);
 
     const onClickHandler = () => {
         setClicked(true);

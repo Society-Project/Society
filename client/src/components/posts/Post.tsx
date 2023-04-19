@@ -17,8 +17,8 @@ import useWindowScreenSize from '@/useWindowScreenSize';
 
 export const Post = () => {
     const [width, height] = useWindowScreenSize();
-    const [comment, setComment] = useState(false);
-    const [hover, setHover] = useState(false);
+    const [comment, setComment] = useState<boolean>(false);
+    const [hover, setHover] = useState<boolean>(false);
  
     return (
         <Box className={ width > 900 ? 'post-page-uploader' : 'post-page-uploader-mobile'}>

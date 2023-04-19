@@ -10,7 +10,7 @@ import "./Styles/Header.scss";
 
 export const SearchBar = () => {
   const [searchValue, setSearchValue] = useState<string>("");
-  const [isSearchButtonClicked, setIsSearchButtonClicked] = useState(false);
+  const [isSearchButtonClicked, setIsSearchButtonClicked] = useState<boolean>(false);
 
   function onSeachButtonClick() {
     setIsSearchButtonClicked(isSearchButtonClicked => !isSearchButtonClicked);

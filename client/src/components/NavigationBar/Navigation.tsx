@@ -16,18 +16,16 @@ import { useRouter } from 'next/navigation';
 
 export const NavigationBar = () => {
     const router = useRouter();
-    console.log(router)
     let tokenMap: Map<number, boolean> = new Map();
 
-    //I use any here because it throws an error when trying to set the type to Map<number, boolean>
     const [mapState, setMapState]: any = useState(null);
 
     
-    const [homeClk, setHomeClk] = useState(false);
+    const [homeClick, setHomeClick] = useState<boolean>(false);
 
-    const homeOnClk = () => {
+    const homeOnClickHandler = () => {
         router.push('/');
-        setHomeClk(true);
+        setHomeClick(true);
     }
 
     type icon = SvgIconProps

@@ -22,7 +22,7 @@ import {
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState<string>("");
-  const [isSearchButtonClicked, setIsSearchButtonClicked] = useState(false);
+  const [isSearchButtonClicked, setIsSearchButtonClicked] = useState<boolean>(false);
   const [width, height] = WindowScreenSize();
 
 

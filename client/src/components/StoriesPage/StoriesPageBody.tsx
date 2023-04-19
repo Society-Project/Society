@@ -7,10 +7,10 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import useWindowScreenSize from '@/useWindowScreenSize';
 
 const StoriesPageBody = () => {
-    const [width, height]: any = useWindowScreenSize();
-    const [friendBubble, setFriendBubble]: any = useState([]);
-    const [currentScreenSize, setCurrentScreenSize]: any = useState(null);
-    let [numberOfGeneratedBubblesForFriends, setNumberOfGeneratedBubblesForFriends]: any = useState(5)
+    const [width, height] = useWindowScreenSize();
+    const [friendBubble, setFriendBubble] = useState<number[]>([]);
+    const [currentScreenSize, setCurrentScreenSize] = useState<number | null>(null);
+    let [numberOfGeneratedBubblesForFriends, setNumberOfGeneratedBubblesForFriends] = useState<number>(5)
 
     const arrayOfGeneratedBubblesForFriends: Array<object> = [];
 

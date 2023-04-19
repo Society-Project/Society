@@ -8,8 +8,8 @@ export const SignUpLogInBtn = () => {
 
     const router = useRouter();
 
-    const [logclick, setLogClick] = useState(false);
-    const [signclick, setSignClick] = useState(false);
+    const [logclick, setLogClick] = useState<boolean>(false);
+    const [signclick, setSignClick] = useState<boolean>(false);
 
     const logOnClick = () => {
         router.push('/login');

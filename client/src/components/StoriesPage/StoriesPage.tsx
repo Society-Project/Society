@@ -8,7 +8,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import CloseIcon from '@mui/icons-material/Close';
 
 const StoriesPage = () => {
-    const [userSearchInput, setSearchInput]: any = useState("");
+    const [userSearchInput, setSearchInput] = useState<string>("");
 
     const deleteSearchField = () => {
         setSearchInput("")
