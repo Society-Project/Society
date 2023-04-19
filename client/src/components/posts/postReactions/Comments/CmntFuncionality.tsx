@@ -23,13 +23,6 @@ export const CmntFunctionality: React.FC<CmntFunctionalityProps> = ({
     const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
 
     const handleSave = (commentId: number, newText: string) => {
-        const commentText: string[] = comments.map(item => item.text);
-        const commentIdFromMap: number[] = comments.map(item => item.id);
-
-        if(commentText[0].length == 0) {
-            setComments(comments.filter((comment) => comment.id !== commentId));
-        }
-
         setComments(
             comments.map((comment) => {
                 if (comment.id == commentId && comment.text != '') {
