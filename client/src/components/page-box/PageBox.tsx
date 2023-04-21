@@ -3,7 +3,6 @@ import { CreatePost } from "../posts/createPost/CreatePost";
 import { SearchBar } from "../SearchBar";
 
 import useWindowScreenSize from '@/useWindowScreenSize';
-import Stories from '@/components/StoriesBar/Stories';
 import SearchIcon from "@mui/icons-material/Search";
 
 import headerLogo from '/src/images/logo-mark.svg'
@@ -23,7 +22,6 @@ export const MainPageBox = () => {
                     <img src={Vector.src} alt="Hamburger menu" className='hamburger-menu-icon' />
                 </Box>
             </Box> } 
-            { width < 900 ? <Stories /> : null }
             <CreatePost />
         </Box>
     )

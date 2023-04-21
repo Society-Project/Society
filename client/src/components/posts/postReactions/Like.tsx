@@ -13,7 +13,7 @@ export const Like: React.FC = () => {
 }
 
 const Liked = () => {
-    let [count, setCount] = useState(1);
+    let [count, setCount] = useState<number>(1);
     return (
         <>
             <ThumbUpIcon  onClick={() => setCount(count++)} sx={{ color: '#6495ED' }} />

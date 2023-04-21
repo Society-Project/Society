@@ -20,7 +20,7 @@ export const CmntFunctionality: React.FC<CmntFunctionalityProps> = ({
     comments,
     setComments,
 }) => {
-    const [isEditButtonClicked, setIsEditButtonClicked] = useState(false);
+    const [isEditButtonClicked, setIsEditButtonClicked] = useState<boolean>(false);
 
     const handleSave = (commentId: number, newText: string) => {
         setComments(

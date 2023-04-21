@@ -1,7 +1,6 @@
 import { Box } from '@mui/material';
 import { NavigationBar } from '../NavigationBar/Navigation';
 import WindowScreenSize from '@/useWindowScreenSize';
-import Stories from '../StoriesBar/Stories';
 import headerLogo from '../../images/logo-mark.svg';
 import ChatBody from './ChatBody/ChatBody';
 
@@ -18,7 +17,6 @@ const Chat = () => {
             <Box className='chat-component'>
                 <ChatBody />
             </Box>
-            { width > 1100 ? <Stories /> : null }
         </Box>
     )
 }

@@ -20,12 +20,12 @@ import "../../Styles/ChatBodyMobile.scss";
 
 const ChatBody = () => {
     const [width, height] = useWindowScreenSize();
-    const [userStatus, setUserStatus]: any = useState(false);
-    const [isSearchIconOnMobileClicked, setIsSearchIconOnMobileClicked]: any = useState(false);
-    const [userInput, setUserInput]: any = useState("");
-    const [userSearchInput, setUserInputSearch]: any = useState("");
-    const [userMessages, setUserMessages]: Array<any> = useState([]);
-    const [isUnreadMessagesAvaiable, setIsUnreadMessagesAvaiable]: any = useState(true);
+    const [userStatus, setUserStatus] = useState<boolean>(false);
+    const [isSearchIconOnMobileClicked, setIsSearchIconOnMobileClicked] = useState<boolean>(false);
+    const [userInput, setUserInput] = useState<string>("");
+    const [userSearchInput, setUserInputSearch] = useState<string>("");
+    const [userMessages, setUserMessages] = useState<string[]>([]);
+    const [isUnreadMessagesAvaiable, setIsUnreadMessagesAvaiable] = useState<boolean>(true);
 
     const numberOfBubbles: number = 6;
     const arrayOfAvaiableFriends: Array<Object> = [];

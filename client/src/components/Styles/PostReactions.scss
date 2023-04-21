@@ -161,16 +161,16 @@ body {
       }
 
       .like-divider {
-        background-color: black;
+        background-color: rgba(0, 0, 0, 0.12);
         height: 3vh;
         width: .5px;
         position: relative;
       }
 
       .comment-divider {
-        width: 1px;
+        width: .1px;
         height: 3vh;
-        background-color: black;
+        background-color: rgba(0, 0, 0, 0.12);
       }
     }
 
