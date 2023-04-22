@@ -1,18 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Box, Grid, ListItemText, Avatar } from '@mui/material';
+
+import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
+
+import "../../../Styles/CommentStyles/CommentFunctionality.scss";
+import { Like } from '../Like';
 import { Comment } from './Comment';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import ListItem from '@mui/material/ListItem';
-import { Box, Divider, Grid, IconButton, ListItemText, Paper } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
-import { TextareaAutosize } from '@mui/base';
-import Popover from '@mui/material/Popover';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import '../../../Styles/PostReactions.scss';
-import PopupState, { bindTrigger, bindPopover } from 'material-ui-popup-state';
-import { CommentsReactions } from './CommentsReactions';
-
-
-
 
 interface CmntFunctionalityProps {
     comments: Comment[];
@@ -24,9 +20,9 @@ export const CmntFunctionality: React.FC<CmntFunctionalityProps> = ({
     comments,
     setComments,
 }) => {
+    const [isEditButtonClicked, setIsEditButtonClicked] = useState<boolean>(false);
 
     const handleSave = (commentId: number, newText: string) => {
-
         setComments(
             comments.map((comment) => {
                 if (comment.id == commentId && comment.text != '') {
@@ -36,7 +32,9 @@ export const CmntFunctionality: React.FC<CmntFunctionalityProps> = ({
                 return comment;
             })
         )
-    }
+
+        setIsEditButtonClicked(false);
+    } 
     const handleEdit = (commentId: number) => {
         setComments(
             comments.map((comment) => {
@@ -46,137 +44,71 @@ export const CmntFunctionality: React.FC<CmntFunctionalityProps> = ({
                 return comment;
             })
         )
+
+        setIsEditButtonClicked(true);
     }
     const handleDelete = (commentId: number) => {
         setComments(comments.filter((comment) => comment.id !== commentId));
+        setIsEditButtonClicked(false);
     }
 
 
 
     return (
-        <>
-            {
-                comments.length > 0 ? (
-                    <Grid className='comments-box' sx={{
-                        paddingTop: 1,
-                        borderRadius: 5,
-                        paddingBottom: 1,
-                        maxWidth: 500,
-                        maxHeight: 3000,
-                        backgroundColor: 'white',
-                        boxShadow: 'none',
+        <Box className="comment-functionality-main-component">
+            <Grid className='comments-box' sx={{
+                paddingTop: 1,
+                borderRadius: 5,
+                paddingBottom: 1,
+                maxWidth: 500,
+                maxHeight: 3000,
+                backgroundColor: 'white',
+                boxShadow: 'none',
 
-                    }} >
-                        {
-                            comments.map((comment) => (
-                                <Grid key={comment.id}>
-                                    {
-                                        comment.editable ? (
-                                            <>
-                                                <Divider variant="middle" sx={{ marginTop: 2 }} />
-                                                <ListItem alignItems="flex-start">
-                                                    <ListItemAvatar>
-                                                        <Avatar sx={{ marginLeft: 2, backgroundColor: 'green' }}>R</Avatar>
-                                                    </ListItemAvatar>
-                                                    <ListItemText
-                                                        sx={{ marginLeft: 2 }}
-                                                        primary="username"
-                                                        secondary={
-                                                            <React.Fragment>
-                                                                <TextareaAutosize
-                                                                    spellCheck="false"
-                                                                    className='editTextArea'
-                                                                    value={comment.text}
-                                                                    onChange={(event) =>
-                                                                        setComments(
-                                                                            comments.map((com) =>
-                                                                                com.id === comment.id ? { ...com, text: event.target.value } : com
-                                                                            )
-                                                                        )
-                                                                    }
-                                                                />
-                                                            </React.Fragment>
-                                                        }
-                                                    />
-                                                    <Grid id='saveBtn'>
-                                                        <button onClick={() => handleSave(comment.id, comment.text)}>Save</button>
-                                                    </Grid>
-                                                </ListItem>
-                                            </>
-                                        ) : (
-                                            <>
-                                                <Grid className={'commentsBox'}>
+            }} >
+                {
+                    comments.map((comment) => {
+                        return <Box key={comment.id} className='user-comment'>
+                            <Box className='username-and-profile-picture'>
+                              <Avatar className="user-profile-image">R</Avatar>
+                              <p className='username-paragraph'>Didi Didova</p>
 
-                                                    <ListItem alignItems="flex-start">
-                                                        <ListItemAvatar>
-                                                            <Avatar sx={{ marginLeft: 2, backgroundColor: 'green' }}>R</Avatar>
-                                                        </ListItemAvatar>
-                                                        <ListItemText
-                                                            sx={{ marginLeft: 2 }}
-                                                            primary="username"
-                                                            secondary={
-                                                                <>
-                                                                    <div className='cmnt'>
-                                                                        <textarea
-                                                                            disabled
-                                                                            spellCheck="false"
-                                                                            className='comTextArea'
-                                                                            value={comment.text}
-                                                                            onChange={(event) =>
-                                                                                setComments(
-                                                                                    comments.map((c) =>
-                                                                                        c.id === comment.id ? { ...c, text: event.target.value } : c
-                                                                                    )
-                                                                                )
-                                                                            }
+                            </Box>
+                            <Box className="username-and-comment">
 
-                                                                        />
-                                                                        <PopupState variant="popover" popupId="demo-popup-popover">
-                                                                            {(popupState) => (
-                                                                                <div className='popover'>
-                                                                                    <IconButton {...bindTrigger(popupState)}>
-                                                                                        <MoreVertIcon />
-                                                                                    </IconButton>
-                                                                                    <Popover
-                                                                                        {...bindPopover(popupState)}
-                                                                                        anchorOrigin={{
-                                                                                            vertical: 'bottom',
-                                                                                            horizontal: 'center',
-                                                                                        }}
-                                                                                        transformOrigin={{
-                                                                                            vertical: 'top',
-                                                                                            horizontal: 'center',
-                                                                                        }}
-                                                                                    >
-                                                                                        <div className='editBtnsDiv'>
-                                                                                            <button onClick={() => handleEdit(comment.id)}>Edit</button>
-                                                                                            <button onClick={() => handleDelete(comment.id)}>Delete</button>
-                                                                                        </div>
+                                <ListItemText
+                                    sx={{ marginLeft: 2 }}
+                                    secondary={
 
-                                                                                    </Popover>
-                                                                                </div>
-                                                                            )}
-                                                                        </PopupState>
-                                                                    </div>
-                                                                    <Divider sx={{ width: 380, marginLeft: 0 }} />
-                                                                    <CommentsReactions />
-                                                                </>
-                                                            }
-                                                        />
-                                                    </ListItem>
-                                                </Grid>
-                                            </>
-                                        )
+                                        <input
+                                            className={ !isEditButtonClicked ? 'disabled-input-field' : 'edit-text-area' }
+                                            value={comment.text}
+                                            disabled={isEditButtonClicked ? false : true}
+                                            onChange={(event) =>
+                                                setComments(
+                                                    comments.map((com) =>
+                                                        com.id === comment.id ? { ...com, text: event.target.value } : com
+                                                    )
+                                                )
+                                            }   
+                                        />
                                     }
-
-                                </Grid>
-                            ))
-                        }
-                    </Grid>
-
-                ) : null
-            }
-
-        </>
+                                />
+                               <Box className='like-and-comment-icons'> 
+                                   <Like />
+                                   <ChatBubbleOutlineOutlinedIcon className='comment-icon' />
+                                   <EditOutlinedIcon onClick={() => handleEdit(comment.id)} className='edit-comment' />
+                                   <DeleteOutlineOutlinedIcon onClick={() => handleDelete(comment.id)} className='delete-comment' />
+                                   
+                                   {
+                                     isEditButtonClicked ? <SendOutlinedIcon onClick={(event: any) => handleSave(comment.id, event.target.value)} className='save-icon' /> : null
+                                   }
+                               </Box>
+                            </Box>
+                        </Box>
+                    })
+                }
+            </Grid>
+        </Box >
     )
 }

@@ -1,44 +1,46 @@
-import * as React from 'react';
-import CardHeader from '@mui/material/CardHeader';
-import CardActions from '@mui/material/CardActions';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
+import { useState } from 'react';
+import { Box, Grid, Paper, Avatar, CardHeader, CardActions, IconButton } from '@mui/material';
 import { blue } from '@mui/material/colors';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import { PostImage } from './image/Image';
-import { Comment } from './postReactions/Comments/Comment';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined';
-import { Like } from './postReactions/Like';
-import '../Styles/PostReactions.scss'
 import Divider from '@mui/material/Divider';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
+import { PostImage } from './image/Image';
+import '../Styles/PostReactions.scss';
+import { Like } from './postReactions/Like';
+import { Comment } from './postReactions/Comments/Comment';
+import useWindowScreenSize from '@/useWindowScreenSize';
 
 export const Post = () => {
-    const [comment, setComment] = React.useState(false);
-
+    const [width, height] = useWindowScreenSize();
+    const [comment, setComment] = useState<boolean>(false);
+ 
     return (
-        <>
-            <p className='news-feed-p'>News feed</p>
-            <Grid className='post-grid'>
+        <Box className={ width > 900 ? 'post-page-uploader' : 'post-page-uploader-mobile'}>
+             <p className='news-feed-paragraph'>News feed</p>
+            <Grid className={ width > 900 ? 'post-grid' : 'post-mobile-grid' }>
                 <Paper className='post-paper'>
 
-                    <CardHeader
-                        avatar={
-                            <Avatar sx={{ bgcolor: blue[500] }} className='user-post-icon' aria-label="recipe">
-                                S
-                            </Avatar>
-                        }
-                    />
+                    <Box className='user-profile-image'>
+                        <Avatar sx={{ bgcolor: blue[500] }} className='user-post-icon' aria-label="recipe" />
+                        <Box className='username'>Didi Didova</Box>
+                    </Box>
                     <PostImage />
+                
 
                     <Divider variant="middle" className='divider' />
                     <CardActions className='reactions'>
-                        <Like />
+                        <button className='like-button'><Like /></button>
+
+                        <p className='like-divider'></p>
                         <IconButton className='comment' onClick={() => setComment(state => !state)}>
                             <ChatBubbleOutlineOutlinedIcon />
                         </IconButton>
+                        <p className='comment-divider'></p>
                         <IconButton>
                             <ShareOutlinedIcon />
                         </IconButton>
@@ -48,7 +50,7 @@ export const Post = () => {
                     }
                 </Paper>
             </Grid>
-        </>
+        </Box>
     );
 }
 
