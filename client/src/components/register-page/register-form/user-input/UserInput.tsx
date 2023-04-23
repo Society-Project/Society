@@ -1,25 +1,119 @@
-import { Icon } from '@mui/material'
-import "../../../Styles/LoginRegisterStyles.scss"
+import { ChangeEvent, useState } from 'react';
+import { Icon, TextField, Button } from '@mui/material'
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import { BirthDate, PasswordInput, UserInputTextField } from './UserInputTextFields';
+
+import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
+import dayjs, { Dayjs } from "dayjs";
+import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { UserSignUpTextFields } from './UserInputTextFields';
+
+import "../../../Styles/LoginRegisterStyles.scss"
 
 export const UserInput = () => {
+  const [firstName, setFirstNameInput] = useState<string>("");
+  const [lastName, setLastNameInput] = useState<string>("");
+  const [email, setEmailAddressInput] = useState<string>("");
+  const [username, setUsernameInput] = useState<string>("");
+  const [password, setPasswordInput] = useState<string>("");
 
-  const placeholdersArr = [
-    'First name',
-    'Last name',
-    'Email address',
-    'Username'
-  ]
+  const [birthday, setBirthday] = useState<Dayjs | null>(dayjs("11-03-2023"));
+
+  const [responseMessageHandler, setResponseMessageHandler] = useState<string>("");
+
+  const onSubmitHandler = async () => {
+    const objectParameters: object = { firstName, lastName, email, username, password, birthday };
+    
+    fetch('http://localhost:8080/api/v1/auth/signup', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(objectParameters)
+    }).then(response => response.json())
+      .then((responseMessage) => {
+        if(responseMessage.status === 200) {
+          setResponseMessageHandler(responseMessage.message)
+          return window.location.href = "/login";
+        }
+        
+        setResponseMessageHandler(responseMessage.message);
+      }).catch((error: string) => {
+        setResponseMessageHandler(error);
+      })
+  }
 
   return (
-    <>
-      {placeholdersArr.map((a, index: number)=>{
-        return <div key={index}>{UserInputTextField(a)}</div>
-      })}
-      <PasswordInput />
-      <BirthDate  />
-    </>
+    <div>
+      <div className='error-message-class'>
+        { responseMessageHandler.length > 0 ? responseMessageHandler : null }
+      </div>
+
+      { UserSignUpTextFields('First name', (event: ChangeEvent<HTMLInputElement>) => setFirstNameInput(event.target.value)) }
+      { UserSignUpTextFields('Last name', (event: ChangeEvent<HTMLInputElement>) => setLastNameInput(event.target.value)) }
+      { UserSignUpTextFields('Email address', (event: ChangeEvent<HTMLInputElement>) => setEmailAddressInput(event.target.value)) }
+      { UserSignUpTextFields('Username', (event: ChangeEvent<HTMLInputElement>) => setUsernameInput(event.target.value)) }
+
+      <TextField
+        className="textField"
+        variant="standard"
+        InputProps={{
+          startAdornment: (
+            <Icon sx={{ marginLeft: 3, marginRight: 2 }}>
+              <HttpsOutlinedIcon />
+            </Icon>
+          ),
+          disableUnderline: true,
+        }}
+        margin="dense"
+        type={"password"}
+        placeholder="Password"
+        sx={userInputSx}
+        onChange={(event: ChangeEvent<HTMLInputElement>) => setPasswordInput(event.target.value)}
+      />
+
+
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DesktopDatePicker
+          value={birthday}
+          minDate={dayjs("11-02-1920")}
+          onChange={(newValue) => {
+            setBirthday(newValue);
+          }}
+          renderInput={(params) => (
+            <TextField
+              className="textField"
+              margin="dense"
+              sx={userInputSx}
+              {...params}
+            />
+          )}
+        />
+      </LocalizationProvider>
+
+      <div style={{ width: '100%', textAlign: 'center' }}>
+        <Button sx={{
+          marginTop: 3,
+          marginBottom: 3,
+          borderRadius: 4,
+          backgroundColor: 'darkGreen',
+          boxShadow: '2px 4px 4px rgba(74, 122, 99, 0.54)',
+          color: "white",
+          fontFamily: 'Roboto',
+          fontSize: 20,
+          letterSpacing: 0.5,
+          width: 130,
+          height: 50,
+          marginLeft: 'auto'
+        }}
+          variant='contained'
+          color='success'
+          onClick={onSubmitHandler}
+        >
+          Sign Up
+        </Button>
+      </div>
+    </div>
   )
 }
 
@@ -32,7 +126,7 @@ export const userInputSx = {
   height: 55,
   display: 'flex',
   justifyContent: 'center',
-  
+
 }
 
 export const userTextFieldIcon = {

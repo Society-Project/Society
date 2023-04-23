@@ -1,27 +1,30 @@
+import { ChangeEvent, useState } from "react";
 import { Icon, TextField } from "@mui/material";
-import "../../../Styles/LoginRegisterStyles.scss";
-import { userInputSx, userTextFieldIcon } from "./UserInput";
+import { userInputSx } from "./UserInput";
 import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
 import dayjs, { Dayjs } from "dayjs";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import React from "react";
+import { userTextFieldIcon } from "./UserInput";
 
-export const UserInputTextField = (placeHolderValue: string) => {
+import "../../../Styles/LoginRegisterStyles.scss";
+
+export const UserSignUpTextFields = (placeholderText: string, callBackFunction: (event: ChangeEvent<HTMLInputElement>) => void) => {
   return (
     <TextField
-      className="textField"
-      variant="standard"
-      InputProps={userTextFieldIcon}
-      margin="dense"
-      type={"text"}
-      placeholder={placeHolderValue}
-      sx={userInputSx}
-    />
-  );
-};
+    className="textField"
+    variant="standard"
+    InputProps={userTextFieldIcon}
+    margin="dense"
+    type={"text"}
+    placeholder={placeholderText}
+    sx={userInputSx}
+    onChange={callBackFunction}
+  />
+  )
+}
 
-export const PasswordInput = () => {
+export const PasswordInput = (callBackFunction: (event: ChangeEvent<HTMLInputElement>) => void) => {
   return (
     <TextField
       className="textField"
@@ -38,12 +41,13 @@ export const PasswordInput = () => {
       type={"password"}
       placeholder="Password"
       sx={userInputSx}
+      onChange={callBackFunction}
     />
   );
 };
 
 export const BirthDate = () => {
-  const [value, setValue] = React.useState<Dayjs | null>(dayjs("11-03-2023"));
+  const [value, setValue] = useState<Dayjs | null>(dayjs("11-03-2023"));
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDayjs}>

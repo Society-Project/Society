@@ -4,7 +4,7 @@ import '../Styles/LoginRegisterStyles.scss'
 import { logInBtnSx, signUpBtnSx } from './btns-sx';
 import { useRouter } from 'next/router';
 
-export const SignUpLogInBtn = () => {
+export const    SignUpLogInBtn = () => {
 
     const router = useRouter();
 

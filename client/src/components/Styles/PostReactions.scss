@@ -201,7 +201,7 @@ body {
 .post-picture {
   margin-left: auto;
   margin-right: auto;
-  object-fit: contain;
+  max-width: 520px;
 }
 
 .comments-box-post-comment {
