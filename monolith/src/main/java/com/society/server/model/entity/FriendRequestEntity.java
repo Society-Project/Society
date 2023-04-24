@@ -2,6 +2,7 @@ package com.society.server.model.entity;
 
 import com.society.server.model.enums.RelationshipStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 @Getter
@@ -16,9 +17,11 @@ public class FriendRequestEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RelationshipStatus status;
 
+    @NotEmpty
     @ManyToOne
     private UserEntity creator;
 
+    @NotEmpty
     @ManyToOne
     private UserEntity receiver;
 }
