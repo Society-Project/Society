@@ -6,9 +6,11 @@ import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
 import dayjs, { Dayjs } from "dayjs";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { UserSignUpTextFields } from './UserInputTextFields';
+import { PasswordInput, UserSignUpTextFields } from './UserInputTextFields';
 
 import "../../../Styles/LoginRegisterStyles.scss"
+
+export const localhostURL: string = 'http://localhost:8080';
 
 export const UserInput = () => {
   const [firstName, setFirstNameInput] = useState<string>("");
@@ -23,36 +25,48 @@ export const UserInput = () => {
 
   const onSubmitHandler = async () => {
     const objectParameters: object = { firstName, lastName, email, username, password, birthday };
-    
-    fetch('http://localhost:8080/api/v1/auth/signup', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(objectParameters)
-    }).then(response => response.json())
-      .then((responseMessage) => {
-        if(responseMessage.status === 200) {
-          setResponseMessageHandler(responseMessage.message)
-          return window.location.href = "/login";
+
+    try {
+      //@dev This is for test porpouses only
+      if(firstName.length == 0 || lastName.length == 0 || 
+        email.length == 0 || username.length == 0 || password.length == 0){
+          return setResponseMessageHandler('Please make sure to fill all the fields');
         }
-        
-        setResponseMessageHandler(responseMessage.message);
-      }).catch((error: string) => {
-        setResponseMessageHandler(error);
+
+      fetch(`${localhostURL}/api/v1/auth/signup`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(objectParameters)
       })
+        .then(response => response.json())
+        .then((responseMessage: any) => {
+          if (responseMessage.status === 200) {
+            setResponseMessageHandler(responseMessage.message);
+
+            return window.location.href = "/login";
+          }
+        })
+    } catch (error: any) {
+      console.error(error);
+    }
   }
 
   return (
     <div>
-      <div className='error-message-class'>
-        { responseMessageHandler.length > 0 ? responseMessageHandler : null }
-      </div>
+      <p
+        data-testid="error-message"
+        style={{
+          textAlign: 'center',
+          fontSize: '17px'
+        }}
+      >{responseMessageHandler}</p>
 
-      { UserSignUpTextFields('First name', (event: ChangeEvent<HTMLInputElement>) => setFirstNameInput(event.target.value)) }
-      { UserSignUpTextFields('Last name', (event: ChangeEvent<HTMLInputElement>) => setLastNameInput(event.target.value)) }
-      { UserSignUpTextFields('Email address', (event: ChangeEvent<HTMLInputElement>) => setEmailAddressInput(event.target.value)) }
-      { UserSignUpTextFields('Username', (event: ChangeEvent<HTMLInputElement>) => setUsernameInput(event.target.value)) }
+      {UserSignUpTextFields('First name', (event: ChangeEvent<HTMLInputElement>) => setFirstNameInput(event.target.value), "first-name-input")}
+      {UserSignUpTextFields('Last name', (event: ChangeEvent<HTMLInputElement>) => setLastNameInput(event.target.value), "last-name-input")}
+      {UserSignUpTextFields('Email address', (event: ChangeEvent<HTMLInputElement>) => setEmailAddressInput(event.target.value), "email-input")}
+      {UserSignUpTextFields('Username', (event: ChangeEvent<HTMLInputElement>) => setUsernameInput(event.target.value), "username-input")}
 
       <TextField
         className="textField"
@@ -69,6 +83,7 @@ export const UserInput = () => {
         type={"password"}
         placeholder="Password"
         sx={userInputSx}
+        inputProps={{ 'data-testid': 'password-input' }}
         onChange={(event: ChangeEvent<HTMLInputElement>) => setPasswordInput(event.target.value)}
       />
 
@@ -108,6 +123,7 @@ export const UserInput = () => {
         }}
           variant='contained'
           color='success'
+          data-testid="sign-up-submit-button"
           onClick={onSubmitHandler}
         >
           Sign Up

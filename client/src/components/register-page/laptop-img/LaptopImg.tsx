@@ -1,4 +1,4 @@
-import laptopPicture from "/src/images/laptopPicture.jpg"
+import laptopPicture from '../../../images/laptopPicture.jpg'
 import styled from 'styled-components';
 
 export const LaptopImg = () => {

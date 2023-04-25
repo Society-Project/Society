@@ -9,7 +9,8 @@ import { userTextFieldIcon } from "./UserInput";
 
 import "../../../Styles/LoginRegisterStyles.scss";
 
-export const UserSignUpTextFields = (placeholderText: string, callBackFunction: (event: ChangeEvent<HTMLInputElement>) => void) => {
+export const UserSignUpTextFields = (placeholderText: string, callBackFunction: (event: ChangeEvent<HTMLInputElement>) => void, dataTestId: string) => {
+
   return (
     <TextField
     className="textField"
@@ -17,6 +18,7 @@ export const UserSignUpTextFields = (placeholderText: string, callBackFunction: 
     InputProps={userTextFieldIcon}
     margin="dense"
     type={"text"}
+    inputProps={{ 'data-testid': dataTestId }}
     placeholder={placeholderText}
     sx={userInputSx}
     onChange={callBackFunction}
@@ -24,7 +26,7 @@ export const UserSignUpTextFields = (placeholderText: string, callBackFunction: 
   )
 }
 
-export const PasswordInput = (callBackFunction: (event: ChangeEvent<HTMLInputElement>) => void) => {
+export const PasswordInput = (callBackFunction: (event: ChangeEvent<HTMLInputElement>) => void, dataTestId: string) => {
   return (
     <TextField
       className="textField"
@@ -37,6 +39,7 @@ export const PasswordInput = (callBackFunction: (event: ChangeEvent<HTMLInputEle
         ),
         disableUnderline: true,
       }}
+      inputProps={{ "data-testid": dataTestId }}
       margin="dense"
       type={"password"}
       placeholder="Password"

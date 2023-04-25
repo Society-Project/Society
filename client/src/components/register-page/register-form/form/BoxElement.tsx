@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import headerLogo from "/src/images/headerLogo.png"
+import headerLogo from '../../../../images/headerLogo.png';
 import "../../../Styles/LoginRegisterStyles.scss"
 import { UserInput } from '../user-input/UserInput'
 import { SignUpLogInBtn } from '../../../logIn-signUp-btns/SignUp-LogIn-Btn'

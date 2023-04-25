@@ -1,14 +1,14 @@
 import { ChangeEvent, useState } from "react";
 import { Box, Button, TextField } from "@mui/material";
-import headerLogo from "/src/images/headerLogo.png";
+import headerLogo from "../../images/headerLogo.png";
 import "../Styles/LoginRegisterStyles.scss";
-import { SignUpLogInBtn } from "@/components/logIn-signUp-btns/SignUp-LogIn-Btn";
-import { LaptopImg } from "@/components/register-page/laptop-img/LaptopImg";
-import { darkGreen } from "@/components/register-page/register-form/form/BoxElement";
-import {
-  PasswordInput
-} from "@/components/register-page/register-form/user-input/UserInputTextFields";
-import { userTextFieldIcon, userInputSx } from "@/components/register-page/register-form/user-input/UserInput";
+import { SignUpLogInBtn } from '../logIn-signUp-btns/SignUp-LogIn-Btn';
+import { LaptopImg } from '../register-page/laptop-img/LaptopImg';
+import { darkGreen } from "../register-page/register-form/form/BoxElement";
+
+import { PasswordInput } from "../register-page/register-form/user-input/UserInputTextFields";
+import { userTextFieldIcon, userInputSx } from "../register-page/register-form/user-input/UserInput";
+import { localhostURL } from "../register-page/register-form/user-input/UserInput";
 
 const LoginForm = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState<string>("");
@@ -19,8 +19,13 @@ const LoginForm = () => {
   const loginHandler = () => {
     const loginObject = { usernameOrEmail, password };
 
+    //@dev This statement is for test cases in SignIn.test.js
+    if(usernameOrEmail.length === 0 || password.length === 0) {
+      return setResponseMessageFromServer('Please make sure to fill all the fields');
+    }
+
     localStorage.removeItem('userCookie');
-    fetch('http://localhost:8080/api/v1/auth/signin', {
+    fetch(`${localhostURL}/api/v1/auth/signin`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -28,8 +33,6 @@ const LoginForm = () => {
       body: JSON.stringify(loginObject)
     }).then(response => response.json())
     .then((responseData) => {
-
-      //The logical OR is until Back-End fix the response object
        if(responseData.status === 200){
 
          if(localStorage.getItem('userCookie') === null){
@@ -41,6 +44,8 @@ const LoginForm = () => {
        } else {
         setResponseMessageFromServer(responseData.message);
        }
+    }).catch(() => {
+      return setResponseMessageFromServer('Please make sure to fill all the fields');
     })
 
   }
@@ -60,12 +65,13 @@ const LoginForm = () => {
       >
         <img src={headerLogo.src} alt="HeaderLogo" className="HeaderLogo" />
 
-        <Box>{ responseMessageFromServer.length > 0 ? responseMessageFromServer : null }</Box>
+        <Box data-testid="error-message-login">{ responseMessageFromServer.length > 0 ? responseMessageFromServer : null }</Box>
 
         <TextField
           className="textField"
           variant="standard"
           InputProps={userTextFieldIcon}
+          inputProps={{ "data-testid": "emailorUsername" }}
           margin="dense"
           type={"text"}
           placeholder='Username'
@@ -73,7 +79,7 @@ const LoginForm = () => {
           onChange={(event: ChangeEvent<HTMLInputElement>) => setUsernameOrEmail(event.target.value)}
         />
 
-        {PasswordInput((event: ChangeEvent<HTMLInputElement>) => setPassword(event.target.value))}
+        {PasswordInput((event: ChangeEvent<HTMLInputElement>) => setPassword(event.target.value), "password-input")}
         <Button
           sx={{
             marginTop: 3,
@@ -90,6 +96,7 @@ const LoginForm = () => {
           }}
           variant="contained"
           color="success"
+          data-testid="login-button"
           onClick={loginHandler}
         >
           Log In
