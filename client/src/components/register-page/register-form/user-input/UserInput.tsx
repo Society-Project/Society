@@ -7,10 +7,9 @@ import dayjs, { Dayjs } from "dayjs";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { PasswordInput, UserSignUpTextFields } from './UserInputTextFields';
+import { RegisterRequest } from '../../../api'
 
 import "../../../Styles/LoginRegisterStyles.scss"
-
-export const localhostURL: string = 'http://localhost:8080';
 
 export const UserInput = () => {
   const [firstName, setFirstNameInput] = useState<string>("");
@@ -26,28 +25,25 @@ export const UserInput = () => {
   const onSubmitHandler = async () => {
     const objectParameters: object = { firstName, lastName, email, username, password, birthday };
 
+    //@dev This is for test porpouses only
+    if (firstName.length == 0 || lastName.length == 0 ||
+      email.length == 0 || username.length == 0 || password.length == 0) {
+      return setResponseMessageHandler('Please make sure to fill all the fields');
+    }
     try {
-      //@dev This is for test porpouses only
-      if(firstName.length == 0 || lastName.length == 0 || 
-        email.length == 0 || username.length == 0 || password.length == 0){
-          return setResponseMessageHandler('Please make sure to fill all the fields');
-        }
+      const serverResponse = await RegisterRequest(objectParameters);
 
-      fetch(`${localhostURL}/api/v1/auth/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(objectParameters)
-      })
-        .then(response => response.json())
-        .then((responseMessage: any) => {
-          if (responseMessage.status === 200) {
-            setResponseMessageHandler(responseMessage.message);
+      if (serverResponse.status === 200) {
+        setResponseMessageHandler(serverResponse.message);
 
-            return window.location.href = "/login";
-          }
-        })
+        return window.location.href = '/login';
+      } else {
+        setResponseMessageHandler(serverResponse.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500)
+        return;
+      }
     } catch (error: any) {
       console.error(error);
     }

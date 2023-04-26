@@ -8,7 +8,8 @@ import { darkGreen } from "../register-page/register-form/form/BoxElement";
 
 import { PasswordInput } from "../register-page/register-form/user-input/UserInputTextFields";
 import { userTextFieldIcon, userInputSx } from "../register-page/register-form/user-input/UserInput";
-import { localhostURL } from "../register-page/register-form/user-input/UserInput";
+import { LoginRequest } from "../api";
+import Cookie from 'universal-cookie';
 
 const LoginForm = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState<string>("");
@@ -16,38 +17,25 @@ const LoginForm = () => {
 
   const [responseMessageFromServer, setResponseMessageFromServer] = useState<string>("");
 
-  const loginHandler = () => {
-    const loginObject = { usernameOrEmail, password };
+  const cookies = new Cookie();
 
-    //@dev This statement is for test cases in SignIn.test.js
-    if(usernameOrEmail.length === 0 || password.length === 0) {
-      return setResponseMessageFromServer('Please make sure to fill all the fields');
+  const loginHandler = async () => {
+    const loginObject: object = { usernameOrEmail, password };
+
+    try {
+      const serverResponse = await LoginRequest(loginObject);   
+
+      if(serverResponse.status === 200){
+        setResponseMessageFromServer(serverResponse.message);
+        cookies.set("accessToken", serverResponse.content.accessToken);
+    
+        return window.location.href = '/';
+      }
+
+      setResponseMessageFromServer(serverResponse.message);
+    } catch(error: any) {
+      console.error(error);
     }
-
-    localStorage.removeItem('userCookie');
-    fetch(`${localhostURL}/api/v1/auth/signin`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(loginObject)
-    }).then(response => response.json())
-    .then((responseData) => {
-       if(responseData.status === 200){
-
-         if(localStorage.getItem('userCookie') === null){
-            localStorage.setItem('userCookie', responseData.content.accessToken);
-          }
-
-          setResponseMessageFromServer(responseData.message);
-          return window.location.href = "/";
-       } else {
-        setResponseMessageFromServer(responseData.message);
-       }
-    }).catch(() => {
-      return setResponseMessageFromServer('Please make sure to fill all the fields');
-    })
-
   }
 
   return (
@@ -71,10 +59,10 @@ const LoginForm = () => {
           className="textField"
           variant="standard"
           InputProps={userTextFieldIcon}
-          inputProps={{ "data-testid": "emailorUsername" }}
+          inputProps={{ "data-testid": "email-or-username" }}
           margin="dense"
           type={"text"}
-          placeholder='Username'
+          placeholder='Username or Email'
           sx={userInputSx}
           onChange={(event: ChangeEvent<HTMLInputElement>) => setUsernameOrEmail(event.target.value)}
         />

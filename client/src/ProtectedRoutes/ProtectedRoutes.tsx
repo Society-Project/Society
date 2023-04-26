@@ -1,7 +1,10 @@
+import Cookie from 'universal-cookie';
+
 const ProtectedRoutes = ({ children }: any) => {
-  const doesUserHaveCookie: string | null = localStorage.getItem('userCookie');
+  const cookies: Cookie = new Cookie();
+  const userCookie: string | null = cookies.get('accessToken');
   
-  if(doesUserHaveCookie === null){
+  if(userCookie === undefined){
     return window.location.href = '/login'
   }
 
