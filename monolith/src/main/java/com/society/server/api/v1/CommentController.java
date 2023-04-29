@@ -4,11 +4,13 @@ import com.society.server.dto.comment.CommentDTO;
 import com.society.server.dto.comment.CreateCommentDTO;
 import com.society.server.dto.comment.UpdateCommentDTO;
 import com.society.server.dto.response.ResponseDTO;
+import com.society.server.exception.NotAuthorizedException;
 import com.society.server.exception.ResourceNotFoundException;
 import com.society.server.service.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,34 +29,102 @@ public class CommentController {
 
 
     @PostMapping("/posts/comments")
-    public ResponseEntity<CommentDTO> createComment(@RequestHeader("X-username") String username,
-                                                    @RequestParam("postId") Long postId,
-                                                    @Valid @RequestBody CreateCommentDTO createCommentDTO) {
+    public ResponseEntity<ResponseDTO<CommentDTO>> createComment(@RequestHeader("X-username") String username,
+                                                                 @RequestParam("postId") Long postId,
+                                                                 @Valid @RequestBody CreateCommentDTO createCommentDTO,
+                                                                 BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            String errorDefaultMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
+            return ResponseEntity
+                    .badRequest()
+                    .body(
+                            ResponseDTO
+                                    .<CommentDTO>builder()
+                                    .status(HttpStatus.BAD_REQUEST.value())
+                                    .message(errorDefaultMessage)
+                                    .build()
+                    );
+        }
+
         CommentDTO commentDTO = commentService.createComment(postId, username, createCommentDTO);
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(commentDTO);
+                .body(
+                        ResponseDTO
+                                .<CommentDTO>builder()
+                                .status(HttpStatus.CREATED.value())
+                                .content(commentDTO)
+                                .build()
+                );
     }
 
     @DeleteMapping("/posts/comments/{commentId}")
-    public ResponseEntity<Void> deleteComment(@RequestHeader("X-username") String username,
-                                              @PathVariable("commentId") Long id) {
-        commentService.deleteComment(username, id);
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .build();
+    public ResponseEntity<ResponseDTO<Void>> deleteComment(@RequestHeader("X-username") String username,
+                                                           @PathVariable("commentId") Long id) {
+        try {
+            commentService.deleteComment(username, id);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(
+                            ResponseDTO
+                                    .<Void>builder()
+                                    .status(HttpStatus.OK.value())
+                                    .build()
+                    );
+        } catch (ResourceNotFoundException | NotAuthorizedException ex) {
+            return ResponseEntity
+                    .status(ex.getStatus())
+                    .body(
+                            ResponseDTO
+                                    .<Void>builder()
+                                    .status(ex.getStatus().value())
+                                    .message(ex.getMessage())
+                                    .build()
+                    );
+        }
     }
 
     @PutMapping("/posts/comments/{commentId}")
-    public ResponseEntity<CommentDTO> updateComment(@RequestHeader("X-username") String username,
-                                                    @PathVariable("commentId") Long id,
-                                                    @Valid @RequestBody UpdateCommentDTO updateCommentDTO) {
+    public ResponseEntity<ResponseDTO<CommentDTO>> updateComment(@RequestHeader("X-username") String username,
+                                                                 @PathVariable("commentId") Long id,
+                                                                 @Valid @RequestBody UpdateCommentDTO updateCommentDTO,
+                                                                 BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            String errorDefaultMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
+            return ResponseEntity
+                    .badRequest()
+                    .body(
+                            ResponseDTO
+                                    .<CommentDTO>builder()
+                                    .status(HttpStatus.BAD_REQUEST.value())
+                                    .message(errorDefaultMessage)
+                                    .build()
+                    );
+        }
+        try {
+            CommentDTO commentDTO = commentService.updateComment(username, id, updateCommentDTO);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(
+                            ResponseDTO
+                                    .<CommentDTO>builder()
+                                    .content(commentDTO)
+                                    .status(HttpStatus.OK.value())
+                                    .build()
+                    );
+        } catch (ResourceNotFoundException | NotAuthorizedException ex) {
+            return ResponseEntity
+                    .status(ex.getStatus())
+                    .body(
+                            ResponseDTO
+                                    .<CommentDTO>builder()
+                                    .status(ex.getStatus().value())
+                                    .message(ex.getMessage())
+                                    .build()
+                    );
+        }
 
-        CommentDTO commentDTO = commentService.updateComment(username, id, updateCommentDTO);
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(commentDTO);
     }
 
     @GetMapping("/posts/comments/{commentId}")
@@ -84,11 +154,29 @@ public class CommentController {
     }
 
     @GetMapping("/posts/comments")
-    public ResponseEntity<List<CommentDTO>> getAllCommentsByPostId(@RequestParam("postId") Long postId) {
-        List<CommentDTO> comments = commentService.getCommentsByPostId(postId);
+    public ResponseEntity<ResponseDTO<List<CommentDTO>>> getAllCommentsByPostId(@RequestParam("postId") Long postId) {
 
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(comments);
+        try {
+            List<CommentDTO> comments = commentService.getCommentsByPostId(postId);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(
+                            ResponseDTO
+                                    .<List<CommentDTO>>builder()
+                                    .status(HttpStatus.OK.value())
+                                    .content(comments)
+                                    .build()
+                    );
+        } catch (ResourceNotFoundException ex) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(
+                            ResponseDTO
+                                    .<List<CommentDTO>>builder()
+                                    .status(ex.getStatus().value())
+                                    .message(ex.getMessage())
+                                    .build()
+                    );
+        }
     }
 }

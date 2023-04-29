@@ -1,7 +1,9 @@
 package com.society.server.model.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -14,13 +16,13 @@ public class CommentEntity extends BaseEntity {
     public CommentEntity() {
     }
 
+    @NotNull
     @Column(name = "comment_text")
-    @NotEmpty
     private String commentText;
 
+    @NotNull
     private String imageUrl;
 
-    @NotEmpty
     @Column(name = "creator_username")
     private String creatorUsername;
 

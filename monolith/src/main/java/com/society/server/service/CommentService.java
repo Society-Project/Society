@@ -15,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -41,7 +42,8 @@ public class CommentService {
         commentEntity.setCreatorUsername(username)
                 .setCommentText(createCommentDTO.getCommentText())
                 .setImageUrl(createCommentDTO.getImageUrl())
-                .setPostId(postEntity.getId());
+                .setPostId(postEntity.getId())
+                        .setPhotoId(createCommentDTO.getPhotoId());
         commentRepository.save(commentEntity);
 
         postEntity.getComments().add(commentEntity);
@@ -84,7 +86,7 @@ public class CommentService {
         } else if (commentPresent) {
             commentEntity.setCommentText(updateCommentDTO.getCommentText())
                     .setImageUrl(updateCommentDTO.getImageUrl())
-                    .setUpdatedOn(updateCommentDTO.getUpdatedOn());
+                    .setUpdatedOn(LocalDateTime.now());
             commentRepository.save(commentEntity);
         }
         return modelMapper.map(commentEntity, CommentDTO.class);
@@ -100,6 +102,7 @@ public class CommentService {
     public List<CommentDTO> getCommentsByPostId(Long postId) {
         PostEntity postEntity = postRepository.findPostEntityById(postId).orElseThrow(() ->
                 new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Post not found"));
+
         return postEntity
                 .getComments()
                 .stream()

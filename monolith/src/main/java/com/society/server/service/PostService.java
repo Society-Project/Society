@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,7 +73,8 @@ public class PostService {
                 .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Post with id " + id + " not exist."));
 
         postEntity.setTextContent(updatePostDTO.getTextContent())
-                .setImageUrl(updatePostDTO.getImageUrl());
+                .setImageUrl(updatePostDTO.getImageUrl())
+                        .setUpdatedOn(LocalDateTime.now());
         postRepository.save(postEntity);
 
         return modelMapper.map(postEntity, PostDTO.class);
