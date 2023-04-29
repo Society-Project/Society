@@ -1,6 +1,7 @@
 package com.society.server.utils;
 
 import com.society.server.model.entity.*;
+import com.society.server.model.entity.user.UserEntity;
 import com.society.server.model.enums.RoleEnum;
 import com.society.server.repository.*;
 import jakarta.transaction.Transactional;

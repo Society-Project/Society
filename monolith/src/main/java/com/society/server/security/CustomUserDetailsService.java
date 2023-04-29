@@ -1,6 +1,6 @@
 package com.society.server.security;
 
-import com.society.server.model.entity.UserEntity;
+import com.society.server.model.entity.user.UserEntity;
 import com.society.server.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.GrantedAuthority;

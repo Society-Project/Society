@@ -4,6 +4,7 @@ import com.society.server.dto.payload.SigninDTO;
 import com.society.server.dto.payload.SignupDTO;
 import com.society.server.dto.response.JwtResponseDTO;
 import com.society.server.dto.response.ResponseDTO;
+import com.society.server.exception.InvalidCredentialsException;
 import com.society.server.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -28,18 +29,30 @@ public class AuthController {
     @PostMapping("/auth/signin")
     public ResponseEntity<ResponseDTO<JwtResponseDTO>> signIn(@Valid @RequestBody SigninDTO signinDto) {
 
-        String token = authService.signInUser(signinDto);
-        JwtResponseDTO jwtResponseDTO = new JwtResponseDTO(token, "Bearer");
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(
-                        ResponseDTO
-                                .<JwtResponseDTO>builder()
-                                .message("Logged in successfully!")
-                                .content(jwtResponseDTO)
-                                .status(HttpStatus.OK.value())
-                                .build()
-                );
+        try {
+            String token = authService.signInUser(signinDto);
+            JwtResponseDTO jwtResponseDTO = new JwtResponseDTO(token, "Bearer");
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(
+                            ResponseDTO
+                                    .<JwtResponseDTO>builder()
+                                    .message("Logged in successfully!")
+                                    .content(jwtResponseDTO)
+                                    .status(HttpStatus.OK.value())
+                                    .build()
+                    );
+        } catch (InvalidCredentialsException ex) {
+            return ResponseEntity
+                    .status(ex.getStatus())
+                    .body(
+                            ResponseDTO
+                                    .<JwtResponseDTO>builder()
+                                    .message(ex.getMessage())
+                                    .status(ex.getStatus().value())
+                                    .build()
+                    );
+        }
     }
 
     @PostMapping("/auth/signup")
@@ -53,7 +66,7 @@ public class AuthController {
                                 .builder()
                                 .message("Signed up successfully!")
                                 .content(null)
-                                .status(HttpStatus.OK.value())
+                                .status(HttpStatus.CREATED.value())
                                 .build()
                 );
     }

@@ -1,5 +1,6 @@
 package com.society.server.model.entity;
 
+import com.society.server.model.entity.user.UserEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.annotations.CreationTimestamp;

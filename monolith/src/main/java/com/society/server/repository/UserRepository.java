@@ -1,6 +1,7 @@
 package com.society.server.repository;
 
-import com.society.server.model.entity.UserEntity;
+import com.society.server.model.entity.user.UserEntity;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +11,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     Optional<UserEntity> findByUsernameOrEmail(String username, String email);
 
+    @EntityGraph(attributePaths = "userPosts")
     Optional<UserEntity> findByUsername(String username);
 
     boolean existsByUsername(String usernameOrEmail);

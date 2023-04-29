@@ -35,6 +35,18 @@ public class CommentEntity extends BaseEntity {
     @Column(name = "post_id")
     private Long postId;
 
+    @Column(name = "photo_id")
+    private Long photoId;
+
+    public Long getPhotoId() {
+        return photoId;
+    }
+
+    public CommentEntity setPhotoId(Long photoId) {
+        this.photoId = photoId;
+        return this;
+    }
+
     public Long getPostId() {
         return postId;
     }
