@@ -17,12 +17,12 @@ export const CreatePost = (post: any) => {
 
     const onClickHandler = async () => {
         //@dev We should fix 401 error in order to send request to the server and create a post
-        // const postObject: object = { textContent, imageUrl };
+        const postObject: object = { textContent, imageUrl };
 
-        // const receivedData = CreatePostFunction(postObject);
-        // console.log(receivedData)
+        const receivedData = await CreatePostFunction(postObject);
+        console.log(await CreatePostFunction(postObject))
 
-        setClicked(true)
+        // setClicked(true)
     }
 
     return (

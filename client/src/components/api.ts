@@ -1,5 +1,7 @@
-export const localhostURL: string = 'http://localhost:8080';
+import Cookie from 'universal-cookie';
 
+export const localhostURL: string = 'http://localhost:8080';
+const cookies: Cookie = new Cookie();
 
 export const RegisterRequest = async (objectBody: object) => {
     const options = {
@@ -32,10 +34,13 @@ export const LoginRequest = async(objectBody: object) => {
 }
 
 export const CreatePostFunction = async (objectBody: object) => {
+    const userCookie: string | undefined = cookies.get('accessToken');
+
     const options = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${userCookie}`
         },
         body: JSON.stringify(objectBody)
     }
