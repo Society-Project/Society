@@ -1,9 +1,6 @@
 package com.society.server.model.entity.user;
 
-import com.society.server.model.entity.BaseEntity;
-import com.society.server.model.entity.PhotoEntity;
-import com.society.server.model.entity.PostEntity;
-import com.society.server.model.entity.RoleEntity;
+import com.society.server.model.entity.*;
 import com.society.server.utils.validators.EmailValidator;
 import com.society.server.utils.validators.UserUsernameValidator;
 import jakarta.persistence.*;

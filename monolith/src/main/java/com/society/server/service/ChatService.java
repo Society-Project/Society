@@ -5,7 +5,7 @@ import com.society.server.dto.message.RoomDTO;
 import com.society.server.exception.UserNotFoundException;
 import com.society.server.model.entity.MessageEntity;
 import com.society.server.model.entity.RoomEntity;
-import com.society.server.model.entity.UserEntity;
+import com.society.server.model.entity.user.UserEntity;
 import com.society.server.model.mapper.RoomMapper;
 import com.society.server.repository.MessageRepository;
 import com.society.server.repository.UserRepository;
