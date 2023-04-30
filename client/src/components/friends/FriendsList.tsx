@@ -48,8 +48,8 @@ const friends = [
 ];
 
 export const FriendsList = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalData, setModalData]: any = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [modalData, setModalData] = useState<any>(null);
   return (
     <Box className="page-box">
       <SearchBar />

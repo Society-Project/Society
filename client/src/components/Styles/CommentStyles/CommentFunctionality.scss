@@ -1,0 +1,79 @@
+.comment-functionality-main-component {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .comments-box {
+        width: 80%;
+
+        .user-comment {
+            width: 100%;
+            margin-left: 1rem;
+            display: grid;
+            border: 1px solid lightgray;
+            margin-top: .5rem;
+            border-radius: 18px;
+
+            .user-profile-image {
+                background-color: green;
+                color: white;
+                margin: 20px;
+            }
+
+            .username-and-profile-picture {
+                display: flex;
+                align-items: center;
+                width: 100%;
+            }
+
+            .username-and-comment {
+                margin-top: .5rem;
+                width: 100%;
+
+                .edit-text-area, .disabled-input-field {
+                    outline: none;
+                    border: none;
+                    text-align: center;
+                    border-bottom: 1px solid lightgray;
+                    width: 90%;
+                }
+                .disabled-input-field {
+                    background: none;
+                }
+               
+
+                .like-and-comment-icons {
+                    display: flex;
+                    justify-content: flex-end;
+                    width: 95%;
+
+                    .comment-icon,
+                    .edit-comment,
+                    .delete-comment,
+                    .save-icon {
+                        margin-top: .5rem;
+                        margin-left: .5rem;
+                        cursor: pointer;
+                    }
+
+                    .comment-icon {
+                        margin-top: .6rem;
+                    }
+
+                    .delete-comment {
+                        margin-left: .2rem;
+                    }
+
+                }
+            }
+
+            .comment-reactions {
+                width: 130%;
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
+
+    }
+
+}

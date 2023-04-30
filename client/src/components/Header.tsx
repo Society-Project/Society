@@ -10,7 +10,7 @@ import headerLogo from '/src/images/logo-mark.svg'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import { Box, TextField } from '@mui/material';
 import Vector from '../images/Vector.png'
-import WindowScreenSize from "@/WindowScreenSize";
+import WindowScreenSize from "@/useWindowScreenSize";
 
 import "./Styles/Header.scss";
 

@@ -1,21 +1,24 @@
 "use client";
-import { useState, useEffect } from 'react';
 import styled from "styled-components";
 import { NavigationBar } from "@/components/NavigationBar/Navigation";
-import "../components/Styles/MainPage.scss";
 import { MainPageBox } from "@/components/page-box/PageBox";
-import Stories from "@/components/StoriesBar/Stories";
+import useWindowScreenSize from "@/useWindowScreenSize";
+import ProtectedRoutes from "@/ProtectedRoutes/ProtectedRoutes";
 
+import "../components/Styles/MainPage.scss";
 
-const Home = () => (
-  <>
-    <Main className="main-page">
+const Home = () => {
+  const [width,height] = useWindowScreenSize();
+
+  return <Main className={ width > 1024 ? "main-page" : "main-mobile-view" }>
+    <ProtectedRoutes>
       <NavigationBar />
+    </ProtectedRoutes>
+    <ProtectedRoutes>
       <MainPageBox />
-      <Stories />
-    </Main>
-  </>
-);
+    </ProtectedRoutes>
+  </Main>
+};
 
 export default Home;
 
