@@ -1,5 +1,6 @@
 package com.society.server.model.entity;
 
+import com.society.server.model.entity.user.UserEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;

@@ -10,8 +10,18 @@ public class CommentDTO {
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
     private Long postId;
+    private Long photoId;
 
     public CommentDTO() {
+    }
+
+    public Long getPhotoId() {
+        return photoId;
+    }
+
+    public CommentDTO setPhotoId(Long photoId) {
+        this.photoId = photoId;
+        return this;
     }
 
     public Long getPostId() {

@@ -2,10 +2,12 @@ package com.society.server.service;
 
 import com.society.server.dto.payload.SigninDTO;
 import com.society.server.dto.payload.SignupDTO;
+import com.society.server.exception.InvalidCredentialsException;
+import com.society.server.exception.ResourceNotFoundException;
 import com.society.server.exception.RoleNotFoundException;
 import com.society.server.exception.UserAlreadyExistsException;
 import com.society.server.model.entity.RoleEntity;
-import com.society.server.model.entity.UserEntity;
+import com.society.server.model.entity.user.UserEntity;
 import com.society.server.model.enums.RoleEnum;
 import com.society.server.repository.RoleRepository;
 import com.society.server.repository.UserRepository;
@@ -20,10 +22,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class AuthService  {
+public class AuthService {
 
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider jwtTokenProvider;
@@ -44,6 +47,15 @@ public class AuthService  {
     }
 
     public String signInUser(SigninDTO signinDto) {
+        if (!userRepository.existsByUsername(signinDto.getUsernameOrEmail())) {
+            throw new InvalidCredentialsException("Incorrect username!", HttpStatus.UNAUTHORIZED);
+        }
+        Optional<UserEntity> byUsername = userRepository.findByUsername(signinDto.getUsernameOrEmail());
+
+        if (!passwordEncoder.matches(signinDto.getPassword(), byUsername.get().getPassword())) {
+            throw new InvalidCredentialsException("Incorrect password!", HttpStatus.UNAUTHORIZED);
+        }
+
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 signinDto.getUsernameOrEmail(), signinDto.getPassword()));
 

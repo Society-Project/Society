@@ -7,15 +7,14 @@ import com.society.server.exception.NotAuthorizedException;
 import com.society.server.exception.ResourceNotFoundException;
 import com.society.server.model.entity.PostEntity;
 import com.society.server.model.entity.RoleEntity;
-import com.society.server.model.entity.UserEntity;
+import com.society.server.model.entity.user.UserEntity;
 import com.society.server.model.enums.RoleEnum;
+import com.society.server.repository.CommentRepository;
 import com.society.server.repository.PostRepository;
-import com.society.server.repository.RoleRepository;
 import com.society.server.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
@@ -38,11 +37,13 @@ class PostServiceTest {
     private UserRepository userRepository;
     @Mock
     private PostRepository postRepository;
+    @Mock
+    private CommentRepository commentRepository;
     private PostService underTest;
 
     @BeforeEach
     void setUp() {
-        underTest = new PostService(postRepository, modelMapper, userRepository);
+        underTest = new PostService(postRepository, modelMapper, userRepository, commentRepository);
     }
 
     @Test

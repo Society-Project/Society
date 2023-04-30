@@ -1,5 +1,6 @@
 package com.society.server.dto.post;
 import com.society.server.dto.comment.CommentDTO;
+import com.society.server.model.entity.user.UserEntity;
 
 import java.time.LocalDateTime;
 import java.util.List;

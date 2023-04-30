@@ -7,7 +7,7 @@ import com.society.server.exception.NotAuthorizedException;
 import com.society.server.exception.ResourceNotFoundException;
 import com.society.server.model.entity.CommentEntity;
 import com.society.server.model.entity.PostEntity;
-import com.society.server.model.entity.UserEntity;
+import com.society.server.model.entity.user.UserEntity;
 import com.society.server.repository.CommentRepository;
 import com.society.server.repository.PostRepository;
 import com.society.server.repository.UserRepository;
@@ -35,8 +35,8 @@ public class CommentService {
         this.postRepository = postRepository;
     }
 
-    public CommentDTO createComment(Long id, String username, CreateCommentDTO createCommentDTO) {
-        PostEntity postEntity = postRepository.findPostEntityById(id).orElseThrow(ResourceNotFoundException::new);
+    public CommentDTO createComment(Long postId, String username, CreateCommentDTO createCommentDTO) {
+        PostEntity postEntity = postRepository.findPostEntityById(postId).orElseThrow(ResourceNotFoundException::new);
         CommentEntity commentEntity = new CommentEntity();
         commentEntity.setCreatorUsername(username)
                 .setCommentText(createCommentDTO.getCommentText())
@@ -50,15 +50,18 @@ public class CommentService {
         return modelMapper.map(commentEntity, CommentDTO.class);
     }
 
-    public void deleteComment(String username, Long postId, Long id) {
-        String postAuthorName = postRepository.findById(postId).map(PostEntity::getAuthorUsername).orElseThrow(ResourceNotFoundException::new);
+    public void deleteComment(String username, Long id) {
+        CommentEntity commentEntity =
+                commentRepository.findById(id).orElseThrow(() ->
+                        new ResourceNotFoundException(HttpStatus.NOT_FOUND, "The comment you want to delete does not exist!"));
+
+        String postAuthorName = postRepository.findById(commentEntity.getPostId()).map(PostEntity::getAuthorUsername)
+                .orElseThrow(ResourceNotFoundException::new);
+
         UserEntity currentUser = userRepository.findByUsername(username).orElseThrow(ResourceNotFoundException::new);
 
         if (postAuthorName.equals(username) || postService.isAdmin(currentUser)) {
-            CommentEntity commentEntity =
-                    commentRepository.findById(id).orElseThrow(() ->
-                            new ResourceNotFoundException(HttpStatus.NOT_FOUND, "The comment you want to delete does not exist!"));
-            PostEntity postEntity = postRepository.findPostEntityById(postId).orElseThrow(ResourceNotFoundException::new);
+            PostEntity postEntity = postRepository.findPostEntityById(commentEntity.getPostId()).orElseThrow(ResourceNotFoundException::new);
             postEntity.getComments().remove(commentEntity);
             postRepository.save(postEntity);
             commentRepository.delete(commentEntity);
@@ -67,12 +70,12 @@ public class CommentService {
         }
     }
 
-    public CommentDTO updateComment(Long postId, String username, Long id, UpdateCommentDTO updateCommentDTO) {
-        PostEntity postEntity = postRepository.findPostEntityById(postId)
-                .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Post not found."));
+    public CommentDTO updateComment(String username, Long id, UpdateCommentDTO updateCommentDTO) {
         CommentEntity commentEntity =
                 commentRepository.findById(id).orElseThrow(() ->
                         new ResourceNotFoundException(HttpStatus.NOT_FOUND, "The comment you are trying to update does not exist!"));
+        PostEntity postEntity = postRepository.findPostEntityById(commentEntity.getId())
+                .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Post not found."));
 
         boolean commentPresent = postEntity.getComments().stream().anyMatch(c -> Objects.equals(c.getId(), id));
 

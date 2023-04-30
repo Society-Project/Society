@@ -1,8 +1,10 @@
-package com.society.server.web;
+package com.society.server.api.v1;
 
 import com.society.server.dto.comment.CommentDTO;
 import com.society.server.dto.comment.CreateCommentDTO;
 import com.society.server.dto.comment.UpdateCommentDTO;
+import com.society.server.dto.response.ResponseDTO;
+import com.society.server.exception.ResourceNotFoundException;
 import com.society.server.service.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -26,9 +28,9 @@ public class CommentController {
 
     @PostMapping("/posts/comments")
     public ResponseEntity<CommentDTO> createComment(@RequestHeader("X-username") String username,
-                                                    @RequestParam("postId") Long id,
+                                                    @RequestParam("postId") Long postId,
                                                     @Valid @RequestBody CreateCommentDTO createCommentDTO) {
-        CommentDTO commentDTO = commentService.createComment(id, username, createCommentDTO);
+        CommentDTO commentDTO = commentService.createComment(postId, username, createCommentDTO);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(commentDTO);
@@ -36,9 +38,8 @@ public class CommentController {
 
     @DeleteMapping("/posts/comments/{commentId}")
     public ResponseEntity<Void> deleteComment(@RequestHeader("X-username") String username,
-                                              @RequestParam("postId") Long postId,
                                               @PathVariable("commentId") Long id) {
-        commentService.deleteComment(username, postId, id);
+        commentService.deleteComment(username, id);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .build();
@@ -46,11 +47,10 @@ public class CommentController {
 
     @PutMapping("/posts/comments/{commentId}")
     public ResponseEntity<CommentDTO> updateComment(@RequestHeader("X-username") String username,
-                                                    @RequestParam("postId") Long postId,
                                                     @PathVariable("commentId") Long id,
                                                     @Valid @RequestBody UpdateCommentDTO updateCommentDTO) {
 
-        CommentDTO commentDTO = commentService.updateComment(postId,username, id, updateCommentDTO);
+        CommentDTO commentDTO = commentService.updateComment(username, id, updateCommentDTO);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -58,12 +58,29 @@ public class CommentController {
     }
 
     @GetMapping("/posts/comments/{commentId}")
-    public ResponseEntity<CommentDTO> getComment(@PathVariable("commentId") Long id) {
-        CommentDTO commentDto = commentService.getComment(id);
-
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(commentDto);
+    public ResponseEntity<ResponseDTO<CommentDTO>> getComment(@PathVariable("commentId") Long id) {
+        try {
+            CommentDTO commentDto = commentService.getComment(id);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(
+                            ResponseDTO
+                                    .<CommentDTO>builder()
+                                    .content(commentDto)
+                                    .status(HttpStatus.OK.value())
+                                    .build()
+                    );
+        } catch (ResourceNotFoundException ex) {
+            return ResponseEntity
+                    .status(ex.getStatus())
+                    .body(
+                            ResponseDTO
+                                    .<CommentDTO>builder()
+                                    .message(ex.getMessage())
+                                    .status(ex.getStatus().value())
+                                    .build()
+                    );
+        }
     }
 
     @GetMapping("/posts/comments")

@@ -1,5 +1,6 @@
-package com.society.server.model.entity;
+package com.society.server.model.entity.user;
 
+import com.society.server.model.entity.*;
 import com.society.server.utils.validators.EmailValidator;
 import com.society.server.utils.validators.UserUsernameValidator;
 import jakarta.persistence.*;
@@ -27,6 +28,10 @@ public class UserEntity extends BaseEntity {
     private String lastName;
     @EmailValidator
     private String email;
+
+    @Embedded
+    private UserPersonalInfo userPersonalInfo;
+
     @Builder.Default
     private boolean enabled = true;
     @Builder.Default
@@ -35,6 +40,12 @@ public class UserEntity extends BaseEntity {
     private boolean accountExpired = false;
     @Builder.Default
     private boolean credentialsExpired = false;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PostEntity> userPosts = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<PhotoEntity> userPhotos = new ArrayList<>();
 
     @NotNull
     @ManyToMany(fetch = FetchType.EAGER)
