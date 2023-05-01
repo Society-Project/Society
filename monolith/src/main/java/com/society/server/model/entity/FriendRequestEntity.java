@@ -17,11 +17,9 @@ public class FriendRequestEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private RelationshipStatus status;
 
-    @NotEmpty
     @ManyToOne
     private UserEntity creator;
 
-    @NotEmpty
     @ManyToOne
     private UserEntity receiver;
 }
