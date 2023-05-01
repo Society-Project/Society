@@ -1,56 +1,40 @@
-name: "society"
+app:
+  jwtSecret: ${JWT_SECRET_KEY}
+  jwtExpirationMs: 600000
+  dataLoader: true
 
-services:
-  postgres:
-    container_name: postgres
-    image: postgres:14.4-alpine3.16
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_USER=${DB_USER:-root}
-      - POSTGRES_PASSWORD=${DB_PASSWORD:-root}
-      - POSTGRES_DB=${DB_DATABASE_NAME:-society}
-    networks:
-      - postgres
-    restart: unless-stopped
-    env_file: .env
-  pgadmin:
-    container_name: pgadmin
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
-      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
-      PGADMIN_CONFIG_SERVER_MODE: 'False'
-    volumes:
-      - pgadmin:/var/lib/pgadmin
-    ports:
-      - "5050:80"
-    networks:
-      - postgres
-    restart: unless-stopped
-  society-app:
-    container_name: society-app
-    build:
-      context: ..
-      dockerfile: Dockerfile
-    environment:
-      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_URL=${DB_URL}
-    #      - SPRING_PROFILES_ACTIVE=docker
-    ports:
-      - "8080:8080"
-    depends_on:
-      - postgres
-    networks:
-      - postgres
-    env_file: .env
-
-networks:
-  postgres:
-    driver: bridge
-
-volumes:
-  postgres:
-  pgadmin:
+server:
+  port: 8080
+#logging:
+#    level:
+#        root: debug
+spring:
+  datasource:
+    driverClassName: org.postgresql.Driver
+    password: ${DB_PASSWORD}
+    url: ${DB_URL}
+    username: ${DB_USER}
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        show_sql: false
+    open-in-view: false
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+springdoc:
+  packagesToScan: com.society.server.api.v1
+  pathsToMatch: /api/v1/**
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha
+    url: /v3/api-docs
+  show-actuator: true
+  api-docs:
+    version: openapi_3_0
+#    path: /documentation
