@@ -12,7 +12,7 @@ spring:
   datasource:
     driverClassName: org.postgresql.Driver
     password: ${DB_PASSWORD}
-    url: jdbc:postgresql://localhost:5432/postgres #${DB_URL}
+    url: ${DB_URL}
     username: ${DB_USER}
   jpa:
     hibernate:

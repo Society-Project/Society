@@ -7,9 +7,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-      - POSTGRES_DB=${DB_DATABASE_NAME}
+      - POSTGRES_USER=${DB_USER:-root}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-root}
+      - POSTGRES_DB=${DB_DATABASE_NAME:-society}
     networks:
       - postgres
     restart: unless-stopped
@@ -30,13 +30,15 @@ services:
     restart: unless-stopped
   society-app:
     container_name: society-app
-    image: bobo91280/society-docker
+    build:
+      context: ..
+      dockerfile: Dockerfile
     environment:
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
       - DB_URL=${DB_URL}
-#      - SPRING_PROFILES_ACTIVE=docker
+    #      - SPRING_PROFILES_ACTIVE=docker
     ports:
       - "8080:8080"
     depends_on:
