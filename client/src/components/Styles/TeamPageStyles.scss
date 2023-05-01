@@ -1,0 +1,69 @@
+.close-modal-button {
+  position: absolute;
+  right: 1vw;
+  top: 1vw;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.ReactModal__Overlay {
+  width: 490px;
+  height: 80vh;
+  border-radius: 18px;
+  border-width: 10px;
+  background-color: rgba(255, 255, 255, 0) !important;
+}
+
+.Container {
+  .TeamText {
+    font-family: Roboto;
+    font-size: 26px;
+    margin: 80px 25px 25px;
+  }
+  .ProfileInformation{
+    background: rgba(74, 122, 99, 0.2);
+    border-radius: 18px;
+    width: 100vw;
+    height: 25vh;
+  }
+
+  #box::-webkit-scrollbar {
+    width: 11px;
+    background-color: #f5f5f5;
+  }
+
+  #box::-webkit-scrollbar-thumb {
+    border-radius: 18px;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  #box {
+    width: 76vw;
+    background-color: rgb(255, 255, 255);
+    border-radius: 18px;
+    margin-right: 2vw;
+    margin-left: 2vw;
+    overflow-y: auto;
+    height: 64vh;
+
+    .Avatar {
+      margin-left: 2vw;
+      width: 50px;
+      height: 50px;
+      border-radius: 0%;
+    }
+  }
+
+  .SeeMoreButton {
+    font-family: Roboto;
+    font-size: 20px;
+    color: rgba(21, 104, 41, 1);
+    border-radius: 18px;
+    width: 10vw;
+    height: 6vh;
+    background-color: white;
+    text-decoration: none;
+    text-transform: none;
+    margin-left: 10px;
+  }
+}
