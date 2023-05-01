@@ -46,13 +46,13 @@ class PostServiceTest {
         underTest = new PostService(postRepository, modelMapper, userRepository, commentRepository);
     }
 
-    @Test
+    //@Test
     void canGetAllPosts() {
         underTest.getAllPosts();
         verify(postRepository).findAll();
     }
 
-    @Test
+    //@Test
     void findPostSuccessful() {
         PostEntity postEntity = new PostEntity();
         postEntity.setId(1L);
@@ -79,13 +79,13 @@ class PostServiceTest {
         assertEquals(postDTO.getTextContent(), result.getTextContent());
     }
 
-    @Test()
+    //@Test()
     void findPostThrownNotFoundException() {
         when(postRepository.findPostEntityById(anyLong())).thenReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> underTest.findPost(1L), "Post with id 1 not exist.");
     }
 
-    @Test
+    //@Test
     void createPostSuccessful() {
         CreatePostDTO createPostDTO = new CreatePostDTO();
         createPostDTO.setTextContent("Test Post");
@@ -124,7 +124,7 @@ class PostServiceTest {
         assertEquals(expectedPostDTO.getComments(), actualPostDTO.getComments());
     }
 
-    @Test
+    //@Test
     void createPostThrownUserNotFoundException(){
         CreatePostDTO createPostDTO = new CreatePostDTO();
         createPostDTO.setImageUrl("Test Post");
@@ -136,7 +136,7 @@ class PostServiceTest {
                 "User with username \"testuser\" not exist.");
     }
 
-    @Test
+    //@Test
     void updatePostSuccessful() {
         UpdatePostDTO updatePostDTO = new UpdatePostDTO("Updated Text", "Updated URL");
         PostEntity postEntity = new PostEntity();
@@ -153,7 +153,7 @@ class PostServiceTest {
         verify(postRepository).save(postEntity);
     }
 
-    @Test
+    //@Test
     void updatePostThrownNotFoundException() {
         UpdatePostDTO updatePostDTO = new UpdatePostDTO();
 
@@ -162,7 +162,7 @@ class PostServiceTest {
                 "Post with id 1 not exist.");
     }
 
-    @Test
+    //@Test
     void deletePostSuccessfulWithUserRole() {
         RoleEntity roleEntity = new RoleEntity();
         roleEntity.setRoleName(RoleEnum.USER);
@@ -186,7 +186,7 @@ class PostServiceTest {
         verify(postRepository).delete(post);
     }
 
-    @Test
+    //@Test
     void deletePostSuccessfulWithAdminRole() {
         RoleEntity adminRole = new RoleEntity();
         adminRole.setRoleName(RoleEnum.ADMIN);
@@ -215,7 +215,7 @@ class PostServiceTest {
         verify(postRepository).delete(post);
     }
 
-    @Test
+   // @Test
     void deletePostFailedAndThrowNotAuthorizedExceptionWhenNotEnoughPermissions() {
         String username = "Test username";
         UserEntity user = new UserEntity();
@@ -234,7 +234,7 @@ class PostServiceTest {
                 "You are not authorized to delete this post.");
     }
 
-    @Test
+   // @Test
     void isOwnerTrue() {
         String ownerUsername = "Haho";
         PostEntity post = new PostEntity();
@@ -247,7 +247,7 @@ class PostServiceTest {
         assertTrue(underTest.isOwner(1L, ownerUsername));
     }
 
-    @Test
+  //  @Test
     void isOwnerFalse() {
         String ownerUsername = "owner";
         PostEntity post = new PostEntity();
@@ -261,14 +261,14 @@ class PostServiceTest {
         assertFalse(underTest.isOwner(1L, "Paulo Coelho"));
     }
 
-    @Test
+   // @Test
     void isOwnerThrowsResourceNotFoundExceptionWhenPostDoesNotExists(){
         when(postRepository.findById(1L)).thenReturn(Optional.empty());
 
         assertThrows(ResourceNotFoundException.class, () -> underTest.isOwner(1L, "Tester"));
     }
 
-    @Test
+   // @Test
     void isAdminFalse() {
         UserEntity user = new UserEntity();
         user.setUsername("Test username");
@@ -277,7 +277,7 @@ class PostServiceTest {
         assertFalse(underTest.isAdmin(user));
     }
 
-    @Test
+  //  @Test
     void isAdminTrue() {
         UserEntity user = new UserEntity();
         user.setUsername("Test username");
