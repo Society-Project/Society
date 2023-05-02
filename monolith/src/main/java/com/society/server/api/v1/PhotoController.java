@@ -3,16 +3,15 @@ package com.society.server.api.v1;
 import com.society.server.dto.photo.PhotoDTO;
 import com.society.server.dto.photo.UploadPhotoDTO;
 import com.society.server.dto.response.ResponseDTO;
+import com.society.server.exception.NotAuthorizedException;
 import com.society.server.exception.ResourceNotFoundException;
 import com.society.server.service.PhotoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 import static com.society.server.config.AppConstants.API_BASE;
 
@@ -27,7 +26,7 @@ public class PhotoController {
     }
 
     @GetMapping("/{photoId}")
-    public ResponseEntity<ResponseDTO<PhotoDTO>> getPhotoById(@PathVariable("photoId") Long id){
+    public ResponseEntity<ResponseDTO<PhotoDTO>> getPhotoById(@PathVariable("photoId") Long id) {
         try {
             PhotoDTO photoDto = photoService.findPhotoById(id);
             return ResponseEntity
@@ -51,11 +50,12 @@ public class PhotoController {
                     );
         }
     }
+
     @PostMapping()
     public ResponseEntity<ResponseDTO<Void>> uploadPhoto(@RequestHeader("X-username") String username,
                                                          @Valid @RequestBody UploadPhotoDTO uploadPhotoDTO,
-                                                         BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
+                                                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
             return ResponseEntity
                     .badRequest()
@@ -77,7 +77,7 @@ public class PhotoController {
                                     .status(HttpStatus.CREATED.value())
                                     .build()
                     );
-        } catch (ResourceNotFoundException ex){
+        } catch (ResourceNotFoundException ex) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .body(
@@ -91,4 +91,30 @@ public class PhotoController {
 
     }
 
+    @DeleteMapping("/{photoId}")
+    public ResponseEntity<ResponseDTO<Void>> deletePhoto(@RequestHeader("X-username") String username,
+                                                         @PathVariable(name = "photoId") Long photoId) {
+        try {
+            photoService.deletePhotoById(username, photoId);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(
+                            ResponseDTO
+                                    .<Void>builder()
+                                    .status(HttpStatus.OK.value())
+                                    .build()
+                    );
+        } catch (ResourceNotFoundException | NotAuthorizedException ex) {
+            return ResponseEntity
+                    .status(ex.getStatus())
+                    .body(
+                            ResponseDTO
+                                    .<Void>builder()
+                                    .message(ex.getMessage())
+                                    .status(ex.getStatus().value())
+                                    .build()
+                    );
+        }
+    }
+    
 }

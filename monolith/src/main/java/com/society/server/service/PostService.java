@@ -59,13 +59,16 @@ public class PostService {
     }
 
     public PostDTO createPost(CreatePostDTO createPostDTO, String username) {
+        UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() ->
+                new ResourceNotFoundException(HttpStatus.NOT_FOUND, "User with username " + username + " not found."));
         PostEntity postEntity = modelMapper.map(createPostDTO, PostEntity.class);
         postEntity.setAuthorUsername(username);
 
         List<PostEntity> authorPosts = postRepository.findAllByAuthorUsername(username);
         authorPosts.add(postEntity);
         postRepository.save(postEntity);
-
+        userEntity.setUserPosts(authorPosts);
+        userRepository.save(userEntity);
         return modelMapper.map(postEntity, PostDTO.class);
     }
 
@@ -92,6 +95,7 @@ public class PostService {
         if (isAdmin(userEntity) || postEntity.getAuthorUsername().equals(username)) {
             userEntity.getUserPosts().remove(postEntity);
             postRepository.delete(postEntity);
+            userRepository.save(userEntity);
         } else {
             throw new NotAuthorizedException("You are not authorized to delete this post.");
         }

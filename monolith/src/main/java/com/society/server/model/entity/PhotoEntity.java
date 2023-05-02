@@ -1,8 +1,6 @@
 package com.society.server.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -27,7 +25,10 @@ public class PhotoEntity extends BaseEntity{
     @CreationTimestamp
     private LocalDateTime uploadedOn;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "photos_comments",
+           joinColumns = @JoinColumn(name = "photo_id"),
+            inverseJoinColumns = @JoinColumn(name = "comment_id"))
     private List<CommentEntity> comments = new ArrayList<>();
     @NotEmpty
     private String photoOwner;
