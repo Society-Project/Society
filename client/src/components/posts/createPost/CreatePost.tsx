@@ -16,13 +16,11 @@ export const CreatePost = (post: any) => {
     const [imageUrl, setImageUrl] = useState<string>("");
 
     const onClickHandler = async () => {
-        //@dev We should fix 401 error in order to send request to the server and create a post
         const postObject: object = { textContent, imageUrl };
-
-        const receivedData = await CreatePostFunction(postObject);
-        console.log(await CreatePostFunction(postObject))
-
-        // setClicked(true)
+        await CreatePostFunction(postObject);
+        setClicked(true);
+        setTextContent("");
+        window.location.reload();
     }
 
     return (
@@ -41,9 +39,11 @@ export const CreatePost = (post: any) => {
                     </Box>
                 </Box>
             </Grid>
-            {
+            <Post />
+            {/* {
+
                 clicked ? <Post /> : null
-            }
+            } */}
         </Box>
     )
 }

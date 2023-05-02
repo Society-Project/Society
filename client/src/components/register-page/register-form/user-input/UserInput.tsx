@@ -33,7 +33,7 @@ export const UserInput = () => {
     try {
       const serverResponse = await RegisterRequest(objectParameters);
 
-      if (serverResponse.status === 200) {
+      if (serverResponse.status === 201) {
         setResponseMessageHandler(serverResponse.message);
 
         return window.location.href = '/login';

@@ -179,17 +179,19 @@ body {
       align-items: center;
 
       .user-post-icon {
-        background-color: #323232;
-        margin: 20px;
-        padding: .3rem;
-      }
-
-      .username {
-        font-weight: bold;
-        color: #323232;
-        font-size: 1.3rem;
-      }
+          background-color: darkgreen;
+          color: white;
+          margin: 20px;
+        }
+      
+        .username {
+          font-weight: bold;
+          color: #323232;
+          font-size: 1.3rem;
+        }
+    
     }
+
   }
 }
 
