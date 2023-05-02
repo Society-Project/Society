@@ -42,9 +42,15 @@ public class UserEntity extends BaseEntity {
     private boolean credentialsExpired = false;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "users_posts",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id"))
     private List<PostEntity> userPosts = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "users_photos",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "photo_id"))
     private List<PhotoEntity> userPhotos = new ArrayList<>();
 
     @NotNull

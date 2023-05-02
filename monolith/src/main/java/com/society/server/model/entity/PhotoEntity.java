@@ -4,10 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -26,7 +28,7 @@ public class PhotoEntity extends BaseEntity{
     private LocalDateTime uploadedOn;
 
     @OneToMany
-    private List<CommentEntity> comments;
-
+    private List<CommentEntity> comments = new ArrayList<>();
+    @NotEmpty
     private String photoOwner;
 }

@@ -36,12 +36,14 @@ public class PostService {
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
     }
+    //Return the last 50 posts sorted by creation time and cache them.
+    //Thus, on the next request, it will not be necessary to access database.
     @Cacheable(value = "postsCache")
     public List<PostDTO> getAllPosts() {
         List<PostEntity> allPosts = postRepository.findTop50ByOrderByCreatedOnDesc();
         List<PostDTO> postDTOS = new ArrayList<>();
         for (PostEntity p : allPosts) {
-            List<CommentEntity> commentEntities = new ArrayList<>(commentRepository.findCommentsByPostId(p.getId()));
+            List<CommentEntity> commentEntities = new ArrayList<>(commentRepository.findAllByPostId(p.getId()));
             p.setComments(commentEntities);
             PostDTO postDTO = modelMapper.map(p, PostDTO.class);
             postDTOS.add(postDTO);
