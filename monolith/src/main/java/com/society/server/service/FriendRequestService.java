@@ -3,7 +3,7 @@ package com.society.server.service;
 import com.society.server.dto.friendRequest.FriendRequestDTO;
 import com.society.server.exception.UserNotFoundException;
 import com.society.server.model.entity.FriendRequestEntity;
-import com.society.server.model.entity.UserEntity;
+import com.society.server.model.entity.user.UserEntity;
 import com.society.server.model.enums.RelationshipStatus;
 import com.society.server.model.mapper.FriendRequestMapper;
 import com.society.server.repository.FriendRequestRepository;

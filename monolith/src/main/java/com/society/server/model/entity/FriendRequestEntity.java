@@ -1,5 +1,6 @@
 package com.society.server.model.entity;
 
+import com.society.server.model.entity.user.UserEntity;
 import com.society.server.model.enums.RelationshipStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
