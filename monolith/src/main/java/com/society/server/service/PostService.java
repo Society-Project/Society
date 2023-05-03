@@ -72,10 +72,11 @@ public class PostService {
         return modelMapper.map(postEntity, PostDTO.class);
     }
 
-    public PostDTO updatePost(Long id, UpdatePostDTO updatePostDTO) {
+    public PostDTO updatePost(Long id, UpdatePostDTO updatePostDTO, String username) {
         PostEntity postEntity = postRepository
                 .findPostEntityById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Post with id " + id + " not exist."));
+        if(!isOwner(id, username)) throw new NotAuthorizedException(HttpStatus.UNAUTHORIZED, "You can update only posts written by you!");
 
         postEntity.setTextContent(updatePostDTO.getTextContent())
                 .setImageUrl(updatePostDTO.getImageUrl())

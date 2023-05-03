@@ -11,4 +11,5 @@ import java.util.List;
 public interface PhotoRepository extends JpaRepository<PhotoEntity,Long> {
     @EntityGraph(attributePaths = "comments")
     List<PhotoEntity> findAllByPhotoOwner(String photoOwner);
+    List<PhotoEntity> findAllByPhotoOwnerEquals(String photoOwner);
 }

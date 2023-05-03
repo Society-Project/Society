@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PhotoService {
@@ -73,5 +74,20 @@ public class PhotoService {
             userRepository.save(userEntity);
             photoRepository.delete(photoEntity);
         }
+    }
+
+    public List<PhotoDTO> getAllPhotosByUsername(String username) {
+        if(!userRepository.existsByUsername(username)) {
+            throw new ResourceNotFoundException(HttpStatus.NOT_FOUND, "User with username " + username + " not found.");
+        }
+        List<PhotoEntity> userPhotos = photoRepository.findAllByPhotoOwnerEquals(username);
+        return userPhotos.stream().map(photoEntity -> {
+            return PhotoDTO.builder()
+                    .id(photoEntity.getId())
+                    .photoOwner(photoEntity.getPhotoOwner())
+                    .imageURL(photoEntity.getImageURL())
+                    .uploadedOn(photoEntity.getUploadedOn())
+                    .build();
+        }).collect(Collectors.toList());
     }
 }

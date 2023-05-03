@@ -13,6 +13,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.util.List;
+
 import static com.society.server.config.AppConstants.API_BASE;
 
 @RestController
@@ -116,5 +118,29 @@ public class PhotoController {
                     );
         }
     }
-    
+    @GetMapping("/username")
+    public ResponseEntity<ResponseDTO<List<PhotoDTO>>> getAllPhotosByUsername(@RequestParam(name = "username") String username){
+        try {
+            List<PhotoDTO> userPhotos = photoService.getAllPhotosByUsername(username);
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(
+                            ResponseDTO
+                                    .<List<PhotoDTO>>builder()
+                                    .content(userPhotos)
+                                    .status(HttpStatus.OK.value())
+                                    .build()
+                    );
+        }catch (ResourceNotFoundException ex) {
+            return ResponseEntity
+                    .status(ex.getStatus())
+                    .body(
+                            ResponseDTO
+                                    .<List<PhotoDTO>>builder()
+                                    .status(ex.getStatus().value())
+                                    .message(ex.getMessage())
+                                    .build()
+                    );
+        }
+    }
 }

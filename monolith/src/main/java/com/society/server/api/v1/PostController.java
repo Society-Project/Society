@@ -6,6 +6,7 @@ import com.society.server.dto.post.UpdatePostDTO;
 import com.society.server.dto.response.ResponseDTO;
 import com.society.server.exception.NotAuthorizedException;
 import com.society.server.exception.ResourceNotFoundException;
+import com.society.server.exception.handler.GlobalExceptionHandler;
 import com.society.server.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -41,9 +42,8 @@ public class PostController {
                 );
     }
 
-    @GetMapping("/by-username/{username}")
-    public ResponseEntity<ResponseDTO<List<PostDTO>>> getAllPostsByUsername(
-                                         @PathVariable("username") String username) {
+    @GetMapping("/username")
+    public ResponseEntity<ResponseDTO<List<PostDTO>>> getAllPostsByUsername(@RequestParam("username") String username) {
         List<PostDTO> postsByUsername = postService.getAllPostsByUsername(username);
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -80,7 +80,6 @@ public class PostController {
                                     .build()
                     );
         }
-
     }
 
     @PostMapping()
@@ -98,16 +97,28 @@ public class PostController {
                                     .build()
                     );
         }
-        PostDTO postDto = postService.createPost(createPostDTO, username);
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(
-                        ResponseDTO
-                                .<PostDTO>builder()
-                                .content(postDto)
-                                .status(HttpStatus.CREATED.value())
-                                .build()
-                );
+        try {
+            PostDTO postDto = postService.createPost(createPostDTO, username);
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(
+                            ResponseDTO
+                                    .<PostDTO>builder()
+                                    .content(postDto)
+                                    .status(HttpStatus.CREATED.value())
+                                    .build()
+                    );
+        }catch (ResourceNotFoundException ex){
+            return ResponseEntity
+                    .status(ex.getStatus())
+                    .body(
+                            ResponseDTO
+                                    .<PostDTO>builder()
+                                    .status(ex.getStatus().value())
+                                    .message(ex.getMessage())
+                                    .build()
+                    );
+        }
     }
 
     @PutMapping("/{postId}")
@@ -126,30 +137,30 @@ public class PostController {
                                     .build()
                     );
         }
-
-        boolean userOwnThePost = postService.isOwner(id, username);
-        PostDTO postDto = postService.updatePost(id, updatePostDTO);
-
-        if (!userOwnThePost) {
+        try {
+            PostDTO postDto = postService.updatePost(id, updatePostDTO, username);
             return ResponseEntity
-                    .status(HttpStatus.FORBIDDEN)
+                    .status(HttpStatus.OK)
                     .body(
                             ResponseDTO
                                     .<PostDTO>builder()
-                                    .status(HttpStatus.FORBIDDEN.value())
-                                    .message("You can update only posts written by you!")
+                                    .content(postDto)
+                                    .status(HttpStatus.OK.value())
+                                    .build()
+                    );
+        } catch (ResourceNotFoundException | NotAuthorizedException ex) {
+            return ResponseEntity
+                    .status(ex.getStatus())
+                    .body(
+                            ResponseDTO
+                                    .<PostDTO>builder()
+                                    .status(ex.getStatus().value())
+                                    .message(ex.getMessage())
                                     .build()
                     );
         }
-        return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(
-                        ResponseDTO
-                                .<PostDTO>builder()
-                                .content(postDto)
-                                .status(HttpStatus.OK.value())
-                                .build()
-                );
+
+
     }
 
     @DeleteMapping("/{postId}")
