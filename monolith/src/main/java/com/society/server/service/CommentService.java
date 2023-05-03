@@ -44,6 +44,9 @@ public class CommentService {
         PostEntity postEntity = postRepository
                 .findPostEntityById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Post with id " + postId + " not found."));
+        if(!userRepository.existsByUsername(username)) {
+            throw new ResourceNotFoundException(HttpStatus.NOT_FOUND, "User with username " + username + " not found.");
+        }
 
         CommentEntity commentEntity = CommentEntity.builder()
                 .creatorUsername(username)
