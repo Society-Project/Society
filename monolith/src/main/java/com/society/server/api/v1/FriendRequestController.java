@@ -2,7 +2,6 @@ package com.society.server.api.v1;
 
 import com.society.server.dto.friendRequest.FriendRequestDTO;
 import com.society.server.dto.response.ResponseDTO;
-import com.society.server.exception.UserNotFoundException;
 import com.society.server.security.UserPrincipal;
 import com.society.server.service.FriendRequestService;
 import org.springframework.http.HttpStatus;
@@ -10,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.society.server.config.AppConstants.API_BASE;
@@ -24,14 +22,14 @@ public class FriendRequestController {
         this.friendRequestService = friendRequestService;
     }
 
-    @PostMapping("/send/{id}")
+    @PostMapping("/send/{receiverId}")
     public ResponseEntity<ResponseDTO<FriendRequestDTO>> sendRequest(
-            @PathVariable Long id,
+            @PathVariable Long receiverId,
             @AuthenticationPrincipal UserPrincipal userPrincipal) {
 
         FriendRequestDTO friendRequestDTO;
         try {
-            friendRequestDTO = friendRequestService.sendFriendRequest(userPrincipal.getUsername(), id);
+            friendRequestDTO = friendRequestService.sendFriendRequest(userPrincipal.getUsername(), receiverId);
         } catch (RuntimeException exception) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -73,6 +71,32 @@ public class FriendRequestController {
                         .status(HttpStatus.OK.value())
                         .message("Successfully received all requests for you.")
                         .content(allReceivedRequests)
+                        .build());
+    }
+
+    @PostMapping("/{requestId}/accept")
+    public ResponseEntity<ResponseDTO<FriendRequestDTO>> acceptFriendRequest(
+            @PathVariable Long requestId,
+            @AuthenticationPrincipal UserPrincipal userPrincipal) {
+
+        FriendRequestDTO friendRequestDTO;
+        try {
+            friendRequestDTO =
+                    friendRequestService.acceptFriendRequest(requestId, userPrincipal.getUsername());
+        } catch (Exception exception) {
+            return ResponseEntity
+                    .status(HttpStatus.UNAUTHORIZED)
+                    .body(ResponseDTO.<FriendRequestDTO>builder()
+                            .message(exception.getMessage())
+                            .status(HttpStatus.UNAUTHORIZED.value())
+                            .build());
+        }
+        return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
+                .body(ResponseDTO.<FriendRequestDTO>builder()
+                        .message("Accepted the friend request!")
+                        .status(HttpStatus.ACCEPTED.value())
+                        .content(friendRequestDTO)
                         .build());
     }
 }

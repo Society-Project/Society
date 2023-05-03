@@ -3,7 +3,6 @@ package com.society.server.service;
 import com.society.server.dto.friendRequest.FriendRequestDTO;
 import com.society.server.exception.FriendRequestsNotFoundException;
 import com.society.server.exception.RelationshipAlreadyExistsException;
-import com.society.server.exception.ResourceNotFoundException;
 import com.society.server.exception.UserNotFoundException;
 import com.society.server.model.entity.FriendRequestEntity;
 import com.society.server.model.entity.user.UserEntity;
@@ -14,10 +13,13 @@ import com.society.server.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static java.lang.String.format;
 
 @Service
 public class FriendRequestService {
@@ -36,12 +38,12 @@ public class FriendRequestService {
     public FriendRequestDTO sendFriendRequest(String username, Long id) {
         UserEntity requestCreator = userRepository.findByUsername(username)
                 .orElseThrow(
-                        () -> new UserNotFoundException("User with username: " + username + " cannot be found!")
+                        () -> new UserNotFoundException(format("User with username: %s cannot be found!", username))
                 );
 
         UserEntity requestReceiver = userRepository.findById(id)
                 .orElseThrow(
-                        () -> new UserNotFoundException("User with id: " + id + " cannot be found!")
+                        () -> new UserNotFoundException(format("User with id: %d cannot be found!", id))
                 );
 
         if (Objects.equals(requestCreator.getId(), requestReceiver.getId())) {
@@ -69,7 +71,7 @@ public class FriendRequestService {
     public List<FriendRequestDTO> getAllReceivedRequests(String username) {
         UserEntity user = userRepository.findByUsername(username)
                 .orElseThrow(() ->
-                        new UserNotFoundException("User with username: " + username + " cannot be found!")
+                        new UserNotFoundException(format("User with username: %s cannot be found!", username))
                 );
         Optional<List<FriendRequestEntity>> allByReceiver = friendRequestRepository.findAllByReceiver(user);
         if (allByReceiver.isEmpty() || allByReceiver.get().size() == 0) {
@@ -79,5 +81,21 @@ public class FriendRequestService {
                 .stream()
                 .map(friendRequestMapper::friendRequestEntityToFriendRequestDTO)
                 .collect(Collectors.toList());
+    }
+
+    public FriendRequestDTO acceptFriendRequest(Long requestId, String username) throws IllegalAccessException {
+        FriendRequestEntity friendRequestEntity = friendRequestRepository.findById(requestId)
+                .orElseThrow(FriendRequestsNotFoundException::new);
+
+        if (!friendRequestEntity.getReceiver().getUsername().equals(username)) {
+            throw new IllegalAccessException(format("User with username: %s is not receiver of that request," +
+                                                    " and don't have access to accept the request", username));
+        }
+        friendRequestEntity.setStatus(RelationshipStatus.FRIENDS);
+        friendRequestEntity.setUpdatedOn(LocalDateTime.now());
+
+        friendRequestRepository.save(friendRequestEntity);
+
+        return friendRequestMapper.friendRequestEntityToFriendRequestDTO(friendRequestEntity);
     }
 }
