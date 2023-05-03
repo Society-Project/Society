@@ -8,17 +8,15 @@ import com.society.server.service.FriendRequestService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.society.server.config.AppConstants.API_BASE;
 
 @RestController
-@RequestMapping(path = API_BASE + "/connection-request")
+@RequestMapping(path = API_BASE + "/friendship-requests")
 public class FriendRequestController {
     private final FriendRequestService friendRequestService;
 
@@ -34,17 +32,15 @@ public class FriendRequestController {
         FriendRequestDTO friendRequestDTO;
         try {
             friendRequestDTO = friendRequestService.sendFriendRequest(userPrincipal.getUsername(), id);
-        } catch (UserNotFoundException exception) {
+        } catch (RuntimeException exception) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
                     .body(ResponseDTO
                             .<FriendRequestDTO>builder()
                             .status(HttpStatus.BAD_REQUEST.value())
                             .message(exception.getMessage())
-                            .timestamp(LocalDateTime.now())
                             .build());
         }
-
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(ResponseDTO
@@ -52,7 +48,31 @@ public class FriendRequestController {
                         .content(friendRequestDTO)
                         .status(HttpStatus.CREATED.value())
                         .message("Successfully created a friend request!")
-                        .timestamp(LocalDateTime.now())
+                        .build());
+    }
+
+    @GetMapping
+    public ResponseEntity<ResponseDTO<List<FriendRequestDTO>>> getAllRequests(
+            @AuthenticationPrincipal UserPrincipal userPrincipal
+    ) {
+
+        List<FriendRequestDTO> allReceivedRequests;
+        try {
+            allReceivedRequests = friendRequestService.getAllReceivedRequests(userPrincipal.getUsername());
+        } catch (RuntimeException exception) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(ResponseDTO.<List<FriendRequestDTO>>builder()
+                            .status(HttpStatus.NOT_FOUND.value())
+                            .message(exception.getMessage())
+                            .build());
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseDTO.<List<FriendRequestDTO>>builder()
+                        .status(HttpStatus.OK.value())
+                        .message("Successfully received all requests for you.")
+                        .content(allReceivedRequests)
                         .build());
     }
 }

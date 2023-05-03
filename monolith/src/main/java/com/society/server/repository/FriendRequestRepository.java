@@ -1,11 +1,12 @@
 package com.society.server.repository;
 
 import com.society.server.model.entity.FriendRequestEntity;
-import com.society.server.model.entity.UserEntity;
+import com.society.server.model.entity.user.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,4 +19,6 @@ public interface FriendRequestRepository extends JpaRepository<FriendRequestEnti
                    "AND creator_id = :requestReceiver",
             nativeQuery = true)
     Optional<FriendRequestEntity> findIfRelationshipExists(Long requestCreator, Long requestReceiver);
+
+    Optional<List<FriendRequestEntity>> findAllByReceiver(UserEntity user);
 }
