@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,12 +36,14 @@ public class PostService {
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
     }
+    //Return the last 50 posts sorted by creation time and cache them.
+    //Thus, on the next request, it will not be necessary to access database.
     @Cacheable(value = "postsCache")
     public List<PostDTO> getAllPosts() {
         List<PostEntity> allPosts = postRepository.findTop50ByOrderByCreatedOnDesc();
         List<PostDTO> postDTOS = new ArrayList<>();
         for (PostEntity p : allPosts) {
-            List<CommentEntity> commentEntities = new ArrayList<>(commentRepository.findCommentsByPostId(p.getId()));
+            List<CommentEntity> commentEntities = new ArrayList<>(commentRepository.findAllByPostId(p.getId()));
             p.setComments(commentEntities);
             PostDTO postDTO = modelMapper.map(p, PostDTO.class);
             postDTOS.add(postDTO);
@@ -56,23 +59,28 @@ public class PostService {
     }
 
     public PostDTO createPost(CreatePostDTO createPostDTO, String username) {
+        UserEntity userEntity = userRepository.findByUsername(username).orElseThrow(() ->
+                new ResourceNotFoundException(HttpStatus.NOT_FOUND, "User with username " + username + " not found."));
         PostEntity postEntity = modelMapper.map(createPostDTO, PostEntity.class);
         postEntity.setAuthorUsername(username);
 
         List<PostEntity> authorPosts = postRepository.findAllByAuthorUsername(username);
         authorPosts.add(postEntity);
         postRepository.save(postEntity);
-
+        userEntity.setUserPosts(authorPosts);
+        userRepository.save(userEntity);
         return modelMapper.map(postEntity, PostDTO.class);
     }
 
-    public PostDTO updatePost(Long id, UpdatePostDTO updatePostDTO) {
+    public PostDTO updatePost(Long id, UpdatePostDTO updatePostDTO, String username) {
         PostEntity postEntity = postRepository
                 .findPostEntityById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Post with id " + id + " not exist."));
+        if(!isOwner(id, username)) throw new NotAuthorizedException(HttpStatus.UNAUTHORIZED, "You can update only posts written by you!");
 
         postEntity.setTextContent(updatePostDTO.getTextContent())
-                .setImageUrl(updatePostDTO.getImageUrl());
+                .setImageUrl(updatePostDTO.getImageUrl())
+                        .setUpdatedOn(LocalDateTime.now());
         postRepository.save(postEntity);
 
         return modelMapper.map(postEntity, PostDTO.class);
@@ -88,6 +96,7 @@ public class PostService {
         if (isAdmin(userEntity) || postEntity.getAuthorUsername().equals(username)) {
             userEntity.getUserPosts().remove(postEntity);
             postRepository.delete(postEntity);
+            userRepository.save(userEntity);
         } else {
             throw new NotAuthorizedException("You are not authorized to delete this post.");
         }
