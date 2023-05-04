@@ -99,7 +99,7 @@ export const Post = () => {
                             </IconButton>
                         </CardActions>
                         {
-                            comment ? <div><Comment /></div> : null
+                            comment ? <div><Comment postId={item.id} /></div> : null
                         }
                     </Paper>
                 </Grid>

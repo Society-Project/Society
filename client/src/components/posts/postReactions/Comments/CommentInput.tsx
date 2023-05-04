@@ -1,38 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import { Box, Grid } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import SendIcon from '@mui/icons-material/Send';
 import IconButton from '@mui/material/IconButton';
+import { postCommentFunction } from '../../../api';
 
-export interface CommentInputProps {
-    onSubmit: (text: string) => void;
-}
+export const CommentInput = (props: { postId: number }) => {
+    const [commentText, setCommentText] = useState<string>("");
+    const [imageUrl, setImageUrl] = useState<string>("none");
+    const [errorMessage, setErrorMessage] = useState<string>("");
 
-export const CommentInput: React.FC<CommentInputProps> = ({ onSubmit }) => {
-    const [text, setText] = useState<string>('');
-
-    const onSubmitHandler = (event: React.FormEvent<HTMLButtonElement>) => {
-        if(text != ''){
-            event.preventDefault();
-            onSubmit(text);
-            setText('');
-        }
+    const onSubmitHandler = async () => {
+        
+        if(commentText.length === 0) {
+            return setErrorMessage("You must type something in the input box");
+        }        
+        const postCommentObject: object = { commentText, imageUrl };
+        console.log(postCommentObject)
+        await postCommentFunction(postCommentObject, props.postId);
+        window.location.reload();
     }
+ 
     return (
         <>
             <Grid>
+                { errorMessage.length > 0 ? <p style={{ color: 'red', textAlign: 'center' }}>{errorMessage}</p> : null }
                 <Box className='comments-box-post-comment'>
-                    <Avatar sx={{ marginLeft: 2, backgroundColor: 'green' }}>R</Avatar>
+                    <Avatar sx={{ marginLeft: 2, backgroundColor: 'green' }}></Avatar>
                     <TextField
                         sx={{ width: '55ch', size: 'small', marginLeft: 2 }}
                         variant="standard"
-                        value={text}
-                        onChange={(event) => setText(event.target.value)}
+                        value={commentText}
+                        onChange={(event) => setCommentText(event.target.value)}
                     />
-                    <IconButton onClick={onSubmitHandler} sx={{ marginLeft: 2 }}
-                    >
-                    <SendIcon />
+                    <IconButton sx={{ marginLeft: 2 }}>
+                        <SendIcon onClick={onSubmitHandler} />
                     </IconButton>
                 </Box>
             </Grid>

@@ -6,7 +6,7 @@ import Cookie from 'universal-cookie';
 
 export const localhostURL: string = 'http://localhost:8080';
 const cookies: Cookie = new Cookie();
-export const userCookie: string | undefined = cookies.get('accessToken');
+const userCookie: string | undefined = cookies.get('accessToken');
 
 export const RegisterRequest = async (objectBody: any) => {
     const options = {
@@ -111,4 +111,91 @@ export const deletePostFunction = async (id: number) => {
     const convertResponseDataToJSON = await deletePostRequest.json();
 
     return convertResponseDataToJSON;
+}
+
+export const getAllComments = async (postId: number) => {
+    const usernameFromLocalStorage: string | null = localStorage.getItem('username');
+
+    const getCommentsRequest = await fetch(`${localhostURL}/api/v1/posts/comments?postId=${postId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${userCookie}`,
+            'X-username': `${usernameFromLocalStorage}`,
+        }
+    });
+    
+    try {
+        const convertResponseToJSON = await getCommentsRequest.json();
+
+        return convertResponseToJSON;
+    } catch(error){
+        console.error(error);
+    }
+}
+
+export const postCommentFunction = async (postCommentObject: any, postId: number) => {
+    const usernameFromLocalStorage: string | null = localStorage.getItem('username');
+
+    const postCommentRequest = await fetch(`${localhostURL}/api/v1/posts/comments?postId=${postId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-username': `${usernameFromLocalStorage}`,
+            'Authorization': `Bearer ${userCookie}`
+        },
+        body: JSON.stringify(postCommentObject)
+    })
+
+    try {
+        const postCommentToJSON = await postCommentRequest.json();
+
+        return postCommentToJSON;
+    } catch(error) {
+        console.error(error)
+    }
+}
+
+export const editCommentFunction = async (commentId: number, putObject: any) => {
+    const usernameFromLocalStorage: string | null = localStorage.getItem('username');
+
+    const editCommentRequest = await fetch(`${localhostURL}/api/v1/posts/comments/${commentId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-username': `${usernameFromLocalStorage}`,
+            'Authorization': `Bearer ${userCookie}`
+        },
+        body: JSON.stringify(putObject)
+    })
+
+    try {
+        const responseToEditCommentRequest = await editCommentRequest.json();
+        console.log(editCommentFunction)
+        return responseToEditCommentRequest;
+    } catch(error) {
+        console.error(error);
+    }
+}
+
+export const deleteCommentFunction = async (commentId: number) => {
+    const usernameFromLocalStorage: string | null = localStorage.getItem('username');
+
+    const deleteCommentRequest = await fetch(`${localhostURL}/api/v1/posts/comments/${commentId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-username': `${usernameFromLocalStorage}`,
+            'Authorization': `Bearer ${userCookie}`
+        },
+    })
+
+    try {
+        const responseToDeleteCommentRequest = await deleteCommentRequest.json();
+        console.log(deleteCommentRequest)
+
+        return responseToDeleteCommentRequest;
+    } catch(error) {
+        console.error(error);
+    }
 }
