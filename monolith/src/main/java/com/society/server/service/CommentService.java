@@ -53,7 +53,6 @@ public class CommentService {
                 .commentText(createCommentDTO.getCommentText())
                 .imageUrl(createCommentDTO.getImageUrl())
                 .postId(postEntity.getId())
-                .photoId(createCommentDTO.getPhotoId())
                 .build();
         commentRepository.save(commentEntity);
 
@@ -76,7 +75,6 @@ public class CommentService {
                 .commentText(createCommentDTO.getCommentText())
                 .photoId(photoId)
                 .imageUrl(createCommentDTO.getImageUrl())
-                .postId(createCommentDTO.getPostId())
                 .build();
         commentRepository.save(commentEntity);
         commentsByPhotoId.add(commentEntity);

@@ -15,11 +15,7 @@ public class CreateCommentDTO {
 
     @NotNull
     private String commentText;
-
     @NotNull
     private String imageUrl;
-
-    private Long postId;
-    private Long photoId;
 
 }

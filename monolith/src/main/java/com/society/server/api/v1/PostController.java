@@ -137,7 +137,7 @@ public class PostController {
                                     .build()
                     );
         }
-        try {
+
             PostDTO postDto = postService.updatePost(id, updatePostDTO, username);
             return ResponseEntity
                     .status(HttpStatus.OK)
@@ -148,17 +148,7 @@ public class PostController {
                                     .status(HttpStatus.OK.value())
                                     .build()
                     );
-        } catch (ResourceNotFoundException | NotAuthorizedException ex) {
-            return ResponseEntity
-                    .status(ex.getStatus())
-                    .body(
-                            ResponseDTO
-                                    .<PostDTO>builder()
-                                    .status(ex.getStatus().value())
-                                    .message(ex.getMessage())
-                                    .build()
-                    );
-        }
+
 
 
     }
