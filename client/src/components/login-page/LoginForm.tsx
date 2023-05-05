@@ -17,7 +17,7 @@ const LoginForm = () => {
 
   const [responseMessageFromServer, setResponseMessageFromServer] = useState<string>("");
 
-  const cookies = new Cookie();
+  const cookies: Cookie = new Cookie();
 
   const loginHandler = async () => {
     const loginObject: object = { usernameOrEmail, password };
@@ -27,8 +27,12 @@ const LoginForm = () => {
 
       if(serverResponse.status === 200){
         setResponseMessageFromServer(serverResponse.message);
-        cookies.set("accessToken", serverResponse.content.accessToken);
-    
+        
+        let cookieExpireDate: Date = new Date();
+        cookieExpireDate.setMinutes(cookieExpireDate.getMinutes() + 10);
+        cookieExpireDate = new Date(cookieExpireDate);
+        cookies.set("accessToken", serverResponse.content.accessToken, { expires: cookieExpireDate });
+        
         return window.location.href = '/';
       }
 

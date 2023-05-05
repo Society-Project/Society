@@ -19,6 +19,7 @@ export const CmntFunctionality: React.FC<any> = ({ comments, setComments }) => {
     const saveEditedComment = async (commentId: number) => {
         const putObject: object = { commentText, imageUrl };
         await editCommentFunction(commentId, putObject);
+        window.location.reload();
     }
 
     const editCommentHandler = () => {
@@ -27,6 +28,7 @@ export const CmntFunctionality: React.FC<any> = ({ comments, setComments }) => {
 
     const deleteCommentHandler = async (commentId: number) => {
         await deleteCommentFunction(commentId);
+        window.location.reload();
     }
 
 
