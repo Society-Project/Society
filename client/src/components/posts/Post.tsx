@@ -19,6 +19,7 @@ export const Post = () => {
     const [comment, setComment] = useState<boolean>(false);
     const [userPostsData, setUserPostsData] = useState<any>([]);
     const [textContent, setEditTextContent] = useState<string>("");
+    const [imageUrl, setImageUrl] = useState<string>("");
     const [editButton, setEditButton] = useState<boolean>(false);
     const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -36,9 +37,10 @@ export const Post = () => {
         }
         window.location.reload();
     }
-    const editPostFunction = async (id: number) => {
-        //@dev We should fix the bug that changes the content 
-        //Even if user is not authorized to do it
+    const editPostHandler = async (id: number) => {
+        const editPostObject: object = { textContent, imageUrl }
+        await editPostFunction(id, editPostObject);
+        window.location.reload();
     }
 
     useEffect(() => {
@@ -63,7 +65,7 @@ export const Post = () => {
                             <Box style={{ display: 'flex', justifyContent: 'space-around', marginRight: '1rem' }}>
                                 <EditIcon onClick={() => setEditButton(oldState => !oldState)} style={{ cursor: 'pointer' }} /> 
                                 <DeleteIcon onClick={() => deletePost(item.id)} style={{ cursor: 'pointer', color: 'red' }} />
-                                <SendOutlinedIcon onClick={() => editPostFunction(item.id)} style={{ cursor: 'pointer' }} />
+                                <SendOutlinedIcon onClick={() => editPostHandler(item.id)} style={{ cursor: 'pointer' }} />
                             </Box>
                         </Box>
                         <Box className='user-content'>

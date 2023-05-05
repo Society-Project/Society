@@ -14,9 +14,10 @@ import { editCommentFunction, deleteCommentFunction } from '../../../api';
 export const CmntFunctionality: React.FC<any> = ({ comments, setComments }) => {
     const [isEditButtonClicked, setIsEditButtonClicked] = useState<boolean>(false);
     const [commentText, setEditCommentText] = useState<string>("");
+    const [imageUrl, setImageUrl] = useState<string>("");
 
     const saveEditedComment = async (commentId: number) => {
-        const putObject: object = { commentText };
+        const putObject: object = { commentText, imageUrl };
         await editCommentFunction(commentId, putObject);
     }
 
@@ -26,7 +27,6 @@ export const CmntFunctionality: React.FC<any> = ({ comments, setComments }) => {
 
     const deleteCommentHandler = async (commentId: number) => {
         await deleteCommentFunction(commentId);
-        
     }
 
 
@@ -52,20 +52,14 @@ export const CmntFunctionality: React.FC<any> = ({ comments, setComments }) => {
 
                             </Box>
                             <Box className="username-and-comment">
+                                <textarea
+                                    style={{ resize: 'none' }}
+                                    className={!isEditButtonClicked ? 'disabled-input-field' : 'edit-text-area'}
+                                    onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setEditCommentText(event.target.value)}
+                                    disabled={isEditButtonClicked ? false : true}
+                                    defaultValue={comment.commentText}
+                                ></textarea>
 
-                                <ListItemText
-                                    sx={{ marginLeft: 2 }}
-                                    secondary={
-
-                                        <input
-                                            className={!isEditButtonClicked ? 'disabled-input-field' : 'edit-text-area'}
-                                            value={comment.commentText}
-                                            disabled={isEditButtonClicked ? false : true}
-                                            onChange={(event: ChangeEvent<HTMLInputElement>) => setEditCommentText(event.target.value)}
-                                            style={{ fontSize: '1rem' }}
-                                        />
-                                    }
-                                />
                                 <Box className='like-and-comment-icons'>
                                     <Like />
                                     <ChatBubbleOutlineOutlinedIcon className='comment-icon' />

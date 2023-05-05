@@ -171,7 +171,7 @@ export const editCommentFunction = async (commentId: number, putObject: any) => 
 
     try {
         const responseToEditCommentRequest = await editCommentRequest.json();
-        console.log(editCommentFunction)
+
         return responseToEditCommentRequest;
     } catch(error) {
         console.error(error);
