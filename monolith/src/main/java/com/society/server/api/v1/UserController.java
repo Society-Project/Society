@@ -3,12 +3,9 @@ package com.society.server.api.v1;
 import com.society.server.dto.response.ResponseDTO;
 import com.society.server.dto.user.UserGetPersInfoDTO;
 import com.society.server.dto.user.UserProfileDTO;
-import com.society.server.dto.user.UserSetPersInfoDTO;
 import com.society.server.exception.AccountProblemException;
 import com.society.server.exception.ResourceNotFoundException;
-import com.society.server.exception.handler.GlobalExceptionHandler;
 import com.society.server.service.UserService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,11 +17,9 @@ import static com.society.server.config.AppConstants.API_BASE;
 public class UserController {
 
     private final UserService userService;
-    private final GlobalExceptionHandler globalExceptionHandler;
 
-    public UserController(UserService userService, GlobalExceptionHandler globalExceptionHandler) {
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.globalExceptionHandler = globalExceptionHandler;
     }
 
     @GetMapping("/{userId}")
