@@ -1,25 +1,30 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { CommentInput } from './CommentInput';
 import { CmntFunctionality } from './CmntFuncionality';
 import { Grid } from '@mui/material';
+import { getAllComments, postCommentFunction } from '../../../api';
 
-export interface Comment {
-  id: number;
-  text: string;
-  editable: boolean;
-}
+export const Comment = (props: { postId: number }) => {
+  const [comments, setComments] = useState<any>([]);
 
-export const Comment: React.FC = () => {
-  const [comments, setComments] = useState<Comment[]>([]);
+  useEffect(() => {
+    (async() => {
+      const response = await getAllComments(props.postId);
+      if(!response) {
+        return setComments([]);
+      }
+      setComments(response)
+    })()
+  }, [])
 
-  const handleSubmit = (text: string) => {
-    const newComment = {id: Date.now(), text, editable: false};
-    setComments([...comments, newComment]);
-  }
   return (
     <>
-      <Grid><CmntFunctionality comments={comments} setComments={setComments}/></Grid>
-      <Grid><CommentInput onSubmit={handleSubmit}/></Grid>
+      <Grid>
+        <CmntFunctionality comments={comments} setComments={setComments} />
+      </Grid>
+      <Grid>
+        <CommentInput postId={props.postId} />
+      </Grid>
     </>
   )
 }
