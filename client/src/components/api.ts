@@ -17,10 +17,14 @@ export const RegisterRequest = async (objectBody: any) => {
         body: JSON.stringify(objectBody)
     }
 
-    const serverResponse = await fetch(`${localhostURL}/api/v1/auth/signup`, options)
-    const serverResponseToJSON = await serverResponse.json();
+    try {
+        const serverResponse = await fetch(`${localhostURL}/api/v1/auth/signup`, options)
+        const serverResponseToJSON = await serverResponse.json();
 
-    return serverResponseToJSON;
+        return serverResponseToJSON;
+    } catch(error: any) {
+        console.error(error);
+    }
 }
 
 export const LoginRequest = async (objectBody: any) => {
@@ -34,10 +38,14 @@ export const LoginRequest = async (objectBody: any) => {
         body: JSON.stringify(objectBody)
     }
 
-    const serverResponse = await fetch(`${localhostURL}/api/v1/auth/signin`, options)
-    const serverResponseToJSON = await serverResponse.json();
+    try {
+        const serverResponse = await fetch(`${localhostURL}/api/v1/auth/signin`, options)
+        const serverResponseToJSON = await serverResponse.json();
 
-    return serverResponseToJSON;
+        return serverResponseToJSON;
+    } catch(error: any) {
+        console.error(error);
+    }
 }
 
 export const CreatePostFunction = async (objectBody: any) => {

@@ -11,33 +11,42 @@ import { userTextFieldIcon, userInputSx } from "../register-page/register-form/u
 import { LoginRequest } from "../api";
 import Cookie from 'universal-cookie';
 
+
 const LoginForm = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
+  
   const [responseMessageFromServer, setResponseMessageFromServer] = useState<string>("");
-
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  
   const cookies: Cookie = new Cookie();
+  let cookieExpireDate: Date = new Date();
 
   const loginHandler = async () => {
     const loginObject: object = { usernameOrEmail, password };
 
-    try {
-      const serverResponse = await LoginRequest(loginObject);   
+    if(usernameOrEmail.length === 0 || password.length === 0) return setResponseMessageFromServer('Please make sure to fill all the fields');
 
-      if(serverResponse.status === 200){
-        setResponseMessageFromServer(serverResponse.message);
-        
-        let cookieExpireDate: Date = new Date();
+    try {
+      const serverResponse = await LoginRequest(loginObject);
+
+      if(!serverResponse){
+        return setResponseMessageFromServer('Something went wrong, please try again.');
+      }
+
+      if (serverResponse.status === 200) {
+        setSuccessMessage(serverResponse.message);
+        setResponseMessageFromServer("");
+
         cookieExpireDate.setMinutes(cookieExpireDate.getMinutes() + 10);
         cookieExpireDate = new Date(cookieExpireDate);
         cookies.set("accessToken", serverResponse.content.accessToken, { expires: cookieExpireDate });
-        
         return window.location.href = '/';
       }
 
       setResponseMessageFromServer(serverResponse.message);
-    } catch(error: any) {
+      setSuccessMessage("");
+    } catch (error: any) {
       console.error(error);
     }
   }
@@ -57,7 +66,10 @@ const LoginForm = () => {
       >
         <img src={headerLogo.src} alt="HeaderLogo" className="HeaderLogo" />
 
-        <Box data-testid="error-message-login">{ responseMessageFromServer.length > 0 ? responseMessageFromServer : null }</Box>
+        <Box data-testid="error-message-login" style={{ 
+          color: 'red'
+         }}>{responseMessageFromServer.length > 0 ? responseMessageFromServer : null}</Box>
+        <Box>{successMessage}</Box>
 
         <TextField
           className="textField"

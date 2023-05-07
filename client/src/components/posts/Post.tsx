@@ -15,8 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
 export const Post = () => {
-    const [width, height] = useWindowScreenSize();
-    const [comment, setComment] = useState<boolean>(false);
+    const [width, height] = useWindowScreenSize();  
     const [userPostsData, setUserPostsData] = useState<any>([]);
     const [textContent, setEditTextContent] = useState<string>("");
     const [imageUrl, setImageUrl] = useState<string>("");
@@ -30,10 +29,10 @@ export const Post = () => {
     }
 
     async function deletePost(id: number) {
-        const resposeStatusCode = await deletePostFunction(id);
+        const responseStatusCode = await deletePostFunction(id);
         
-        if(resposeStatusCode.status === 401){
-            return setErrorMessage(resposeStatusCode.message);
+        if(responseStatusCode.status === 401){
+            return setErrorMessage(responseStatusCode.message);
         }
         window.location.reload();
     }
@@ -92,7 +91,7 @@ export const Post = () => {
                             <button className='like-button'><Like /></button>
     
                             <p className='like-divider'></p>
-                            <IconButton className='comment' onClick={() => setComment(state => !state)}>
+                            <IconButton className='comment'>
                                 <ChatBubbleOutlineOutlinedIcon />
                             </IconButton>
                             <p className='comment-divider'></p>
@@ -100,9 +99,7 @@ export const Post = () => {
                                 <ShareOutlinedIcon />
                             </IconButton>
                         </CardActions>
-                        {
-                            comment ? <div><Comment postId={item.id} /></div> : null
-                        }
+                        <div><Comment postId={item.id} /></div> 
                     </Paper>
                 </Grid>
                 }) : <h2 style={{ textAlign: 'center' }}>No posts are avaiable</h2>
