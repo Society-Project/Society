@@ -12,10 +12,19 @@ body {
     border-radius: 10px;
     width: 90%;
 
-    .create-post-grid {
+
+    .error-message {
+      margin-top: -1rem;
+      padding-bottom: .5rem;
+      font-size: 17px;
+      color: red;
+    }
+
+    .create-post-grid, .create-post-grid-on-error {
       width: 100%;
       text-align: center;
       display: grid;
+      margin-top: .5rem;
 
       .create-post-input-field {
         width: 95%;
@@ -54,6 +63,7 @@ body {
               color: #156829;
               margin-left: 1.3rem;
             }
+            
 
             .upload-photo-icon {
               color: #CC901C;
@@ -90,8 +100,13 @@ body {
           width: 95%;
         }
       }
+   }
+
+    .create-post-grid-on-error {
+      margin-top: -.5rem;
     }
   }
+
 
   .create-post-mobile-class {
     width: 80%;

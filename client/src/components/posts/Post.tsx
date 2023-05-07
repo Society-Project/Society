@@ -8,7 +8,7 @@ import Divider from '@mui/material/Divider';
 import '../Styles/PostReactions.scss';
 import { Like } from './postReactions/Like';
 import { Comment } from './postReactions/Comments/Comment';
-import useWindowScreenSize from '@/useWindowScreenSize';
+import useWindowScreenSize from '../../useWindowScreenSize';
 import { getAllPosts, editPostFunction, deletePostFunction } from '../api';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
