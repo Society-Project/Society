@@ -25,17 +25,18 @@ export const CommentInput = (props: { postId: number }) => {
     return (
         <>
             <Grid>
-                { errorMessage.length > 0 ? <p style={{ color: 'red', textAlign: 'center' }}>{errorMessage}</p> : null }
+            <p data-testid="comment-error-message" style={{ color: 'red', textAlign: 'center' }}>{errorMessage}</p> 
                 <Box className='comments-box-post-comment'>
                     <Avatar sx={{ marginLeft: 2, backgroundColor: 'green' }}></Avatar>
                     <TextField
+                        data-testid="comment-input"
                         sx={{ width: '55ch', size: 'small', marginLeft: 2 }}
                         variant="standard"
                         value={commentText}
                         onChange={(event) => setCommentText(event.target.value)}
                     />
                     <IconButton sx={{ marginLeft: 2 }}>
-                        <SendIcon onClick={onSubmitHandler} />
+                        <SendIcon onClick={onSubmitHandler} data-testid="upload-comment-button" />
                     </IconButton>
                 </Box>
             </Grid>
