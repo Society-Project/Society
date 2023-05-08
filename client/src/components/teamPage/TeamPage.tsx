@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box } from "@mui/system";
+import { Box } from "@mui/material";
 import "../Styles/MainPage.scss";
 import { SearchBar } from "../SearchBar";
 import Modal from "react-modal";
@@ -57,13 +57,16 @@ export const TeamPage = () => {
         <Typography className="TeamText">Team</Typography>
         <Box id="box">
           <List>
-            {team.map((oneOfUs, index) => (
+            {team.map((oneOfUs:any, index:number) => (
               <React.Fragment key={index}>
                 <ListItem>
                   <ListItem className="ProfileInformation">
                     <ListItemAvatar className="Avatar">
                       <Avatar alt={oneOfUs.name} src={oneOfUs.avatar} />
-                    <ListItemText primary={oneOfUs.name} />
+                      <ListItemText primary={oneOfUs.name} />
+                      <Typography className="PersonRole" variant="body2">
+                        Front - End
+                      </Typography>
                     </ListItemAvatar>
                     {oneOfUs.personInfo.length != 0 && (
                       <Button
