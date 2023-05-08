@@ -29,8 +29,7 @@ public class CommentController {
 
 
     @PostMapping("/posts/comments")
-    public ResponseEntity<ResponseDTO<CommentDTO>> createCommentToPostId(@RequestHeader("X-username") String username,
-                                                                         @RequestParam("postId") Long postId,
+    public ResponseEntity<ResponseDTO<CommentDTO>> createCommentToPostId(@RequestParam("postId") Long postId,
                                                                          @Valid @RequestBody CreateCommentDTO createCommentDTO,
                                                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -45,33 +44,20 @@ public class CommentController {
                                     .build()
                     );
         }
-        try {
-            CommentDTO commentDTO = commentService.createCommentToPostId(postId, username, createCommentDTO);
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(
-                            ResponseDTO
-                                    .<CommentDTO>builder()
-                                    .content(commentDTO)
-                                    .status(HttpStatus.CREATED.value())
-                                    .build()
-                    );
-        } catch (ResourceNotFoundException ex) {
-            return ResponseEntity
-                    .status(ex.getStatus())
-                    .body(
-                            ResponseDTO
-                                    .<CommentDTO>builder()
-                                    .status(ex.getStatus().value())
-                                    .message(ex.getMessage())
-                                    .build()
-                    );
-        }
+        CommentDTO commentDTO = commentService.createCommentToPostId(postId, createCommentDTO);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(
+                        ResponseDTO
+                                .<CommentDTO>builder()
+                                .content(commentDTO)
+                                .status(HttpStatus.CREATED.value())
+                                .build()
+                );
     }
 
     @PostMapping("/photos/comments")
-    public ResponseEntity<ResponseDTO<CommentDTO>> createCommentToPhotoId(@RequestHeader("X-username") String username,
-                                                                          @RequestParam(name = "photoId") Long photoId,
+    public ResponseEntity<ResponseDTO<CommentDTO>> createCommentToPhotoId(@RequestParam(name = "photoId") Long photoId,
                                                                           @Valid @RequestBody CreateCommentDTO createCommentDTO,
                                                                           BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -86,59 +72,34 @@ public class CommentController {
                                     .build()
                     );
         }
-        try {
-            CommentDTO commentToPhotoId = commentService.createCommentToPhotoId(username, photoId, createCommentDTO);
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(
-                            ResponseDTO
-                                    .<CommentDTO>builder()
-                                    .content(commentToPhotoId)
-                                    .status(HttpStatus.CREATED.value())
-                                    .build()
-                    );
-        } catch (ResourceNotFoundException ex) {
-            return ResponseEntity
-                    .status(ex.getStatus())
-                    .body(
-                            ResponseDTO
-                                    .<CommentDTO>builder()
-                                    .message(ex.getMessage())
-                                    .status(ex.getStatus().value())
-                                    .build()
-                    );
-        }
+        CommentDTO commentToPhotoId = commentService.createCommentToPhotoId(photoId, createCommentDTO);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(
+                        ResponseDTO
+                                .<CommentDTO>builder()
+                                .content(commentToPhotoId)
+                                .status(HttpStatus.CREATED.value())
+                                .build()
+                );
     }
 
     @DeleteMapping("/posts/comments/{commentId}")
-    public ResponseEntity<ResponseDTO<Void>> deleteComment(@RequestHeader("X-username") String username,
-                                                           @PathVariable("commentId") Long id) {
-        try {
-            commentService.deleteComment(username, id);
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(
-                            ResponseDTO
-                                    .<Void>builder()
-                                    .status(HttpStatus.OK.value())
-                                    .build()
-                    );
-        } catch (ResourceNotFoundException | NotAuthorizedException ex) {
-            return ResponseEntity
-                    .status(ex.getStatus())
-                    .body(
-                            ResponseDTO
-                                    .<Void>builder()
-                                    .status(ex.getStatus().value())
-                                    .message(ex.getMessage())
-                                    .build()
-                    );
-        }
+    public ResponseEntity<ResponseDTO<Void>> deleteComment(@PathVariable("commentId") Long commentId) {
+
+        commentService.deleteComment(commentId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<Void>builder()
+                                .status(HttpStatus.OK.value())
+                                .build()
+                );
     }
 
     @PutMapping("/comments/{commentId}")
-    public ResponseEntity<ResponseDTO<CommentDTO>> updateComment(@RequestHeader("X-username") String username,
-                                                                 @PathVariable("commentId") Long id,
+    public ResponseEntity<ResponseDTO<CommentDTO>> updateComment(@PathVariable("commentId") Long commentId,
                                                                  @Valid @RequestBody UpdateCommentDTO updateCommentDTO,
                                                                  BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -153,107 +114,57 @@ public class CommentController {
                                     .build()
                     );
         }
-        try {
-            CommentDTO commentDTO = commentService.updateComment(username, id, updateCommentDTO);
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(
-                            ResponseDTO
-                                    .<CommentDTO>builder()
-                                    .content(commentDTO)
-                                    .status(HttpStatus.OK.value())
-                                    .build()
-                    );
-        } catch (ResourceNotFoundException | NotAuthorizedException ex) {
-            return ResponseEntity
-                    .status(ex.getStatus())
-                    .body(
-                            ResponseDTO
-                                    .<CommentDTO>builder()
-                                    .status(ex.getStatus().value())
-                                    .message(ex.getMessage())
-                                    .build()
-                    );
-        }
-
+        CommentDTO commentDTO = commentService.updateComment(commentId, updateCommentDTO);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<CommentDTO>builder()
+                                .content(commentDTO)
+                                .status(HttpStatus.OK.value())
+                                .build()
+                );
     }
 
     @GetMapping("/comments/{commentId}")
     public ResponseEntity<ResponseDTO<CommentDTO>> getComment(@PathVariable("commentId") Long id) {
-        try {
-            CommentDTO commentDto = commentService.getComment(id);
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(
-                            ResponseDTO
-                                    .<CommentDTO>builder()
-                                    .content(commentDto)
-                                    .status(HttpStatus.OK.value())
-                                    .build()
-                    );
-        } catch (ResourceNotFoundException ex) {
-            return ResponseEntity
-                    .status(ex.getStatus())
-                    .body(
-                            ResponseDTO
-                                    .<CommentDTO>builder()
-                                    .message(ex.getMessage())
-                                    .status(ex.getStatus().value())
-                                    .build()
-                    );
-        }
+        CommentDTO commentDto = commentService.getComment(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<CommentDTO>builder()
+                                .content(commentDto)
+                                .status(HttpStatus.OK.value())
+                                .build()
+                );
     }
 
     @GetMapping("/posts/comments/postId")
     public ResponseEntity<ResponseDTO<List<CommentDTO>>> getAllCommentsByPostId(@RequestParam("postId") Long postId) {
-
-        try {
-            List<CommentDTO> comments = commentService.getCommentsByPostId(postId);
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(
-                            ResponseDTO
-                                    .<List<CommentDTO>>builder()
-                                    .status(HttpStatus.OK.value())
-                                    .content(comments)
-                                    .build()
-                    );
-        } catch (ResourceNotFoundException ex) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(
-                            ResponseDTO
-                                    .<List<CommentDTO>>builder()
-                                    .status(ex.getStatus().value())
-                                    .message(ex.getMessage())
-                                    .build()
-                    );
-        }
+        List<CommentDTO> comments = commentService.getCommentsByPostId(postId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<List<CommentDTO>>builder()
+                                .status(HttpStatus.OK.value())
+                                .content(comments)
+                                .build()
+                );
     }
 
     @GetMapping("/comments/photoId")
     public ResponseEntity<ResponseDTO<List<CommentDTO>>> getAllCommentsByPhotoId(@RequestParam("photoId") Long photoId) {
-        try {
-            List<CommentDTO> commentsByPhotoId = commentService.getCommentsByPhotoId(photoId);
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(
-                            ResponseDTO
-                                    .<List<CommentDTO>>builder()
-                                    .status(HttpStatus.OK.value())
-                                    .content(commentsByPhotoId)
-                                    .build()
-                    );
-        } catch (ResourceNotFoundException ex) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(
-                            ResponseDTO
-                                    .<List<CommentDTO>>builder()
-                                    .status(ex.getStatus().value())
-                                    .message(ex.getMessage())
-                                    .build()
-                    );
-        }
+        List<CommentDTO> commentsByPhotoId = commentService.getCommentsByPhotoId(photoId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<List<CommentDTO>>builder()
+                                .status(HttpStatus.OK.value())
+                                .content(commentsByPhotoId)
+                                .build()
+                );
     }
 }

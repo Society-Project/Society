@@ -14,14 +14,10 @@ import java.time.LocalDateTime;
 @CommentValidator
 public class UpdateCommentDTO {
 
-    private Long id;
     @NotNull
     private String commentText;
     @NotNull
     private String imageUrl;
-    private LocalDateTime createdOn;
-    private LocalDateTime updatedOn;
-    private Long postId;
-    private Long photoId;
+
 
 }

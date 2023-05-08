@@ -3,8 +3,6 @@ package com.society.server.api.v1;
 import com.society.server.dto.photo.PhotoDTO;
 import com.society.server.dto.photo.UploadPhotoDTO;
 import com.society.server.dto.response.ResponseDTO;
-import com.society.server.exception.NotAuthorizedException;
-import com.society.server.exception.ResourceNotFoundException;
 import com.society.server.service.PhotoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -29,33 +27,20 @@ public class PhotoController {
 
     @GetMapping("/{photoId}")
     public ResponseEntity<ResponseDTO<PhotoDTO>> getPhotoById(@PathVariable("photoId") Long id) {
-        try {
-            PhotoDTO photoDto = photoService.findPhotoById(id);
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(
-                            ResponseDTO
-                                    .<PhotoDTO>builder()
-                                    .content(photoDto)
-                                    .status(HttpStatus.OK.value())
-                                    .build()
-                    );
-        } catch (ResourceNotFoundException ex) {
-            return ResponseEntity
-                    .status(ex.getStatus())
-                    .body(
-                            ResponseDTO
-                                    .<PhotoDTO>builder()
-                                    .message(ex.getMessage())
-                                    .status(ex.getStatus().value())
-                                    .build()
-                    );
-        }
+        PhotoDTO photoDto = photoService.findPhotoById(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<PhotoDTO>builder()
+                                .content(photoDto)
+                                .status(HttpStatus.OK.value())
+                                .build()
+                );
     }
 
     @PostMapping()
-    public ResponseEntity<ResponseDTO<Void>> uploadPhoto(@RequestHeader("X-username") String username,
-                                                         @Valid @RequestBody UploadPhotoDTO uploadPhotoDTO,
+    public ResponseEntity<ResponseDTO<Void>> uploadPhoto(@Valid @RequestBody UploadPhotoDTO uploadPhotoDTO,
                                                          BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             String errorMessage = bindingResult.getAllErrors().get(0).getDefaultMessage();
@@ -69,78 +54,41 @@ public class PhotoController {
                                     .build()
                     );
         }
-        try {
-            photoService.uploadPhoto(username, uploadPhotoDTO);
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(
-                            ResponseDTO
-                                    .<Void>builder()
-                                    .status(HttpStatus.CREATED.value())
-                                    .build()
-                    );
-        } catch (ResourceNotFoundException ex) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(
-                            ResponseDTO
-                                    .<Void>builder()
-                                    .status(ex.getStatus().value())
-                                    .message(ex.getMessage())
-                                    .build()
-                    );
-        }
-
+        photoService.uploadPhoto(uploadPhotoDTO);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(
+                        ResponseDTO
+                                .<Void>builder()
+                                .status(HttpStatus.CREATED.value())
+                                .build()
+                );
     }
 
     @DeleteMapping("/{photoId}")
-    public ResponseEntity<ResponseDTO<Void>> deletePhoto(@RequestHeader("X-username") String username,
-                                                         @PathVariable(name = "photoId") Long photoId) {
-        try {
-            photoService.deletePhotoById(username, photoId);
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(
-                            ResponseDTO
-                                    .<Void>builder()
-                                    .status(HttpStatus.OK.value())
-                                    .build()
-                    );
-        } catch (ResourceNotFoundException | NotAuthorizedException ex) {
-            return ResponseEntity
-                    .status(ex.getStatus())
-                    .body(
-                            ResponseDTO
-                                    .<Void>builder()
-                                    .message(ex.getMessage())
-                                    .status(ex.getStatus().value())
-                                    .build()
-                    );
-        }
+    public ResponseEntity<ResponseDTO<Void>> deletePhoto(@PathVariable(name = "photoId") Long photoId) {
+        photoService.deletePhotoById(photoId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<Void>builder()
+                                .status(HttpStatus.OK.value())
+                                .build()
+                );
     }
+
     @GetMapping("/username")
-    public ResponseEntity<ResponseDTO<List<PhotoDTO>>> getAllPhotosByUsername(@RequestParam(name = "username") String username){
-        try {
-            List<PhotoDTO> userPhotos = photoService.getAllPhotosByUsername(username);
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(
-                            ResponseDTO
-                                    .<List<PhotoDTO>>builder()
-                                    .content(userPhotos)
-                                    .status(HttpStatus.OK.value())
-                                    .build()
-                    );
-        }catch (ResourceNotFoundException ex) {
-            return ResponseEntity
-                    .status(ex.getStatus())
-                    .body(
-                            ResponseDTO
-                                    .<List<PhotoDTO>>builder()
-                                    .status(ex.getStatus().value())
-                                    .message(ex.getMessage())
-                                    .build()
-                    );
-        }
+    public ResponseEntity<ResponseDTO<List<PhotoDTO>>> getAllPhotosByUsername(@RequestParam(name = "username") String username) {
+        List<PhotoDTO> userPhotos = photoService.getAllPhotosByUsername(username);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<List<PhotoDTO>>builder()
+                                .content(userPhotos)
+                                .status(HttpStatus.OK.value())
+                                .build()
+                );
     }
 }

@@ -7,6 +7,7 @@ D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\u
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\model\entity\PostEntity.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\dto\photo\PhotoDTO.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\utils\validators\impl\UpdateCommentValidatorImpl.java
+D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\security\AuthenticationFacade.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\exception\UserBannedException.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\service\PhotoService.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\model\entity\user\UserEntity.java
@@ -25,7 +26,6 @@ D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\a
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\model\entity\BaseEntity.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\model\entity\user\UserPersonalInfo.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\model\enums\RoomEnum.java
-D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\dto\user\UserSettingsDTO.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\exception\UserNotFoundException.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\utils\validators\EmailValidator.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\service\PostService.java
@@ -68,11 +68,14 @@ D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\m
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\api\v1\PostController.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\dto\response\ResponseDTO.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\api\v1\CommentController.java
+D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\dto\user\UserSetPersInfoDTO.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\model\enums\RoleEnum.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\config\WebSocketConfig.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\service\UserService.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\config\BeanConfiguration.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\repository\UserRepository.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\model\mapper\RoomMapper.java
+D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\security\IAuthenticationFacade.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\exception\AccountProblemException.java
+D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\dto\user\UserGetPersInfoDTO.java
 D:\MyProjects\SocietyProject\Society\monolith\src\main\java\com\society\server\service\CommentService.java

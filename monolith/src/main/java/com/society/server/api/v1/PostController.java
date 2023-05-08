@@ -4,9 +4,7 @@ import com.society.server.dto.post.CreatePostDTO;
 import com.society.server.dto.post.PostDTO;
 import com.society.server.dto.post.UpdatePostDTO;
 import com.society.server.dto.response.ResponseDTO;
-import com.society.server.exception.NotAuthorizedException;
-import com.society.server.exception.ResourceNotFoundException;
-import com.society.server.exception.handler.GlobalExceptionHandler;
+import com.society.server.security.IAuthenticationFacade;
 import com.society.server.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -58,33 +56,20 @@ public class PostController {
 
     @GetMapping("/{postId}")
     public ResponseEntity<ResponseDTO<PostDTO>> getPost(@PathVariable(name = "postId") Long id) {
-        try {
-            PostDTO post = postService.findPost(id);
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(
-                            ResponseDTO
-                                    .<PostDTO>builder()
-                                    .content(post)
-                                    .status(HttpStatus.OK.value())
-                                    .build()
-                    );
-        } catch (ResourceNotFoundException ex) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(
-                            ResponseDTO
-                                    .<PostDTO>builder()
-                                    .message(ex.getMessage())
-                                    .status(ex.getStatus().value())
-                                    .build()
-                    );
-        }
+        PostDTO post = postService.findPost(id);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<PostDTO>builder()
+                                .content(post)
+                                .status(HttpStatus.OK.value())
+                                .build()
+                );
     }
 
     @PostMapping()
-    public ResponseEntity<ResponseDTO<PostDTO>> createPost(@RequestHeader("X-username") String username,
-                                                           @Valid @RequestBody CreatePostDTO createPostDTO,
+    public ResponseEntity<ResponseDTO<PostDTO>> createPost(@Valid @RequestBody CreatePostDTO createPostDTO,
                                                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ResponseEntity
@@ -97,33 +82,20 @@ public class PostController {
                                     .build()
                     );
         }
-        try {
-            PostDTO postDto = postService.createPost(createPostDTO, username);
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(
-                            ResponseDTO
-                                    .<PostDTO>builder()
-                                    .content(postDto)
-                                    .status(HttpStatus.CREATED.value())
-                                    .build()
-                    );
-        }catch (ResourceNotFoundException ex){
-            return ResponseEntity
-                    .status(ex.getStatus())
-                    .body(
-                            ResponseDTO
-                                    .<PostDTO>builder()
-                                    .status(ex.getStatus().value())
-                                    .message(ex.getMessage())
-                                    .build()
-                    );
-        }
+        PostDTO postDto = postService.createPost(createPostDTO);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(
+                        ResponseDTO
+                                .<PostDTO>builder()
+                                .content(postDto)
+                                .status(HttpStatus.CREATED.value())
+                                .build()
+                );
     }
 
     @PutMapping("/{postId}")
-    public ResponseEntity<ResponseDTO<PostDTO>> updatePost(@RequestHeader("X-username") String username,
-                                                           @PathVariable(name = "postId") Long id,
+    public ResponseEntity<ResponseDTO<PostDTO>> updatePost(@PathVariable(name = "postId") Long id,
                                                            @Valid @RequestBody UpdatePostDTO updatePostDTO,
                                                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -137,56 +109,30 @@ public class PostController {
                                     .build()
                     );
         }
-        try {
-            PostDTO postDto = postService.updatePost(id, updatePostDTO, username);
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(
-                            ResponseDTO
-                                    .<PostDTO>builder()
-                                    .content(postDto)
-                                    .status(HttpStatus.OK.value())
-                                    .build()
-                    );
-        } catch (ResourceNotFoundException | NotAuthorizedException ex) {
-            return ResponseEntity
-                    .status(ex.getStatus())
-                    .body(
-                            ResponseDTO
-                                    .<PostDTO>builder()
-                                    .status(ex.getStatus().value())
-                                    .message(ex.getMessage())
-                                    .build()
-                    );
-        }
 
-
+        PostDTO postDto = postService.updatePost(id, updatePostDTO);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<PostDTO>builder()
+                                .content(postDto)
+                                .status(HttpStatus.OK.value())
+                                .build()
+                );
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<ResponseDTO<Void>> deletePost(@RequestHeader("X-username") String username,
-                                                        @PathVariable("postId") Long id) {
+    public ResponseEntity<ResponseDTO<Void>> deletePost(@PathVariable("postId") Long postId) {
 
-        try {
-            postService.deletePost(id, username);
-            return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(
-                            ResponseDTO
-                                    .<Void>builder()
-                                    .status(HttpStatus.OK.value())
-                                    .build()
-                    );
-        } catch (ResourceNotFoundException | NotAuthorizedException ex) {
-            return ResponseEntity
-                    .status(ex.getStatus())
-                    .body(
-                            ResponseDTO
-                                    .<Void>builder()
-                                    .message(ex.getMessage())
-                                    .status(ex.getStatus().value())
-                                    .build()
-                    );
-        }
+        postService.deletePost(postId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<Void>builder()
+                                .status(HttpStatus.OK.value())
+                                .build()
+                );
     }
 }
