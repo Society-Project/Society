@@ -2,13 +2,13 @@ package com.society.server.model.mapper;
 
 import com.society.server.dto.friendRequest.FriendRequestDTO;
 import com.society.server.model.entity.FriendRequestEntity;
-import com.society.server.model.entity.UserEntity;
+import com.society.server.model.entity.user.UserEntity;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-01T22:29:07+0300",
+    date = "2023-05-08T13:06:10+0300",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.5 (Amazon.com Inc.)"
 )
 @Component

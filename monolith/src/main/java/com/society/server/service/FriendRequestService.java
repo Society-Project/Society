@@ -73,7 +73,9 @@ public class FriendRequestService {
                 .orElseThrow(() ->
                         new UserNotFoundException(format("User with username: %s cannot be found!", username))
                 );
-        Optional<List<FriendRequestEntity>> allByReceiver = friendRequestRepository.findAllByReceiver(user);
+        Optional<List<FriendRequestEntity>> allByReceiver =
+                friendRequestRepository.findAllByReceiverAndStatus(user, RelationshipStatus.PENDING);
+
         if (allByReceiver.isEmpty() || allByReceiver.get().size() == 0) {
             throw new FriendRequestsNotFoundException();
         }
@@ -97,5 +99,23 @@ public class FriendRequestService {
         friendRequestRepository.save(friendRequestEntity);
 
         return friendRequestMapper.friendRequestEntityToFriendRequestDTO(friendRequestEntity);
+    }
+
+    public List<FriendRequestDTO> getAllFriends(String username) {
+        UserEntity user = userRepository.findByUsername(username)
+                .orElseThrow(() ->
+                        new UserNotFoundException(format("User with username: %s cannot be found!", username))
+                );
+
+        Optional<List<FriendRequestEntity>> allFriends =
+                friendRequestRepository.findAllFriends(user.getId());
+
+        if (allFriends.isEmpty() || allFriends.get().size() == 0) {
+            throw new FriendRequestsNotFoundException();
+        }
+        return allFriends.get()
+                .stream()
+                .map(friendRequestMapper::friendRequestEntityToFriendRequestDTO)
+                .collect(Collectors.toList());
     }
 }

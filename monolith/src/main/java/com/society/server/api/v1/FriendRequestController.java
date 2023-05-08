@@ -53,7 +53,6 @@ public class FriendRequestController {
     public ResponseEntity<ResponseDTO<List<FriendRequestDTO>>> getAllRequests(
             @AuthenticationPrincipal UserPrincipal userPrincipal
     ) {
-
         List<FriendRequestDTO> allReceivedRequests;
         try {
             allReceivedRequests = friendRequestService.getAllReceivedRequests(userPrincipal.getUsername());
@@ -98,5 +97,30 @@ public class FriendRequestController {
                         .status(HttpStatus.ACCEPTED.value())
                         .content(friendRequestDTO)
                         .build());
+    }
+
+    @GetMapping("/friends")
+    public ResponseEntity<ResponseDTO<List<FriendRequestDTO>>> getAllFriends(
+            @AuthenticationPrincipal UserPrincipal userPrincipal
+    ) {
+        List<FriendRequestDTO> allFriends;
+        try {
+            allFriends = friendRequestService.getAllFriends(userPrincipal.getUsername());
+        } catch (RuntimeException exception) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(ResponseDTO.<List<FriendRequestDTO>>builder()
+                            .status(HttpStatus.NOT_FOUND.value())
+                            .message(exception.getMessage())
+                            .build());
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseDTO.<List<FriendRequestDTO>>builder()
+                        .status(HttpStatus.OK.value())
+                        .message("Successfully received all friends for you.")
+                        .content(allFriends)
+                        .build());
+
     }
 }
