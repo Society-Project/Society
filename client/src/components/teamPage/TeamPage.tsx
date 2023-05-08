@@ -17,7 +17,7 @@ import CloseIcon from "@mui/icons-material/Close";
 const team = [
   {
     name: "Petya Petyova",
-    avatar: "../../src/images/laptopPicture.jpg",
+    avatar: "/src/images/didiPic.jpg",
     personInfo: ["Petya Petyova"],
   },
   {
@@ -63,9 +63,9 @@ export const TeamPage = () => {
                   <ListItem className="ProfileInformation">
                     <ListItemAvatar className="Avatar">
                       <Avatar alt={oneOfUs.name} src={oneOfUs.avatar} />
-                    </ListItemAvatar>
                     <ListItemText primary={oneOfUs.name} />
-                    {oneOfUs.length != 0 && (
+                    </ListItemAvatar>
+                    {oneOfUs.personInfo.length != 0 && (
                       <Button
                         className="SeeMoreButton"
                         variant="contained"
@@ -122,15 +122,15 @@ const modalStyle: any = {
     border: "2px solid rgba(74, 122, 99, 1)",
     borderRadius: "18px",
     bottom: "auto",
-    height: "30vh",
-    left: "65.3%",
+    height: "50vh",
+    left: "57%",
     padding: "5vh",
     position: "fixed",
     right: "auto",
     top: "48%",
     transform: "translate(-50%,-100px)",
-    width: "40%",
-    maxWidth: "40rem",
+    width: "60%",
+    maxWidth: "60rem",
     boxShadow: "0px 0px 10px 0px rgba(74, 122, 99, 1)",
   },
 };
