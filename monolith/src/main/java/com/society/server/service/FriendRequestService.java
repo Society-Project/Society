@@ -2,6 +2,7 @@ package com.society.server.service;
 
 import com.society.server.dto.friendRequest.FriendRequestDTO;
 import com.society.server.exception.FriendRequestsNotFoundException;
+import com.society.server.exception.NotAuthorizedException;
 import com.society.server.exception.RelationshipAlreadyExistsException;
 import com.society.server.exception.UserNotFoundException;
 import com.society.server.model.entity.FriendRequestEntity;
@@ -117,5 +118,23 @@ public class FriendRequestService {
                 .stream()
                 .map(friendRequestMapper::friendRequestEntityToFriendRequestDTO)
                 .collect(Collectors.toList());
+    }
+
+    public FriendRequestDTO getRequestById(Long requestId, String username) {
+        FriendRequestEntity friendRequestEntity = friendRequestRepository.findById(requestId)
+                .orElseThrow(FriendRequestsNotFoundException::new);
+
+        UserEntity user = userRepository.findByUsername(username)
+                .orElseThrow(() ->
+                        new UserNotFoundException(format("User with username: %s cannot be found!", username))
+                );
+
+        FriendRequestDTO friendRequestDTO = friendRequestMapper.
+                friendRequestEntityToFriendRequestDTO(friendRequestEntity);
+
+        if (!Objects.equals(user.getId(), friendRequestDTO.getReceiverId())){
+            throw new NotAuthorizedException();
+        }
+        return friendRequestDTO;
     }
 }

@@ -73,6 +73,31 @@ public class FriendRequestController {
                         .build());
     }
 
+    @GetMapping("/{requestId}")
+    public ResponseEntity<ResponseDTO<FriendRequestDTO>> getRequest(
+            @PathVariable Long requestId,
+            @AuthenticationPrincipal UserPrincipal userPrincipal) {
+
+        FriendRequestDTO requestById;
+        try {
+            requestById = friendRequestService.getRequestById(requestId, userPrincipal.getUsername());
+        } catch (RuntimeException exception) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(ResponseDTO.<FriendRequestDTO>builder()
+                            .status(HttpStatus.NOT_FOUND.value())
+                            .message(exception.getMessage())
+                            .build());
+        }
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseDTO.<FriendRequestDTO>builder()
+                        .status(HttpStatus.OK.value())
+                        .message("Successfully get request by id.")
+                        .content(requestById)
+                        .build());
+    }
+
     @PostMapping("/{requestId}/accept")
     public ResponseEntity<ResponseDTO<FriendRequestDTO>> acceptFriendRequest(
             @PathVariable Long requestId,
