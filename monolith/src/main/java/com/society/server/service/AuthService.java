@@ -47,10 +47,12 @@ public class AuthService {
     }
 
     public String signInUser(SigninDTO signinDto) {
-        if (!userRepository.existsByUsername(signinDto.getUsernameOrEmail())) {
+        if (!userRepository.existsByUsername(signinDto.getUsernameOrEmail()) &&
+                !userRepository.existsByEmail(signinDto.getUsernameOrEmail())) {
             throw new InvalidCredentialsException("Incorrect username!", HttpStatus.UNAUTHORIZED);
         }
-        Optional<UserEntity> byUsername = userRepository.findByUsername(signinDto.getUsernameOrEmail());
+        Optional<UserEntity> byUsername = userRepository
+                .findByUsernameOrEmail(signinDto.getUsernameOrEmail(), signinDto.getUsernameOrEmail());
 
         if (!passwordEncoder.matches(signinDto.getPassword(), byUsername.get().getPassword())) {
             throw new InvalidCredentialsException("Incorrect password!", HttpStatus.UNAUTHORIZED);

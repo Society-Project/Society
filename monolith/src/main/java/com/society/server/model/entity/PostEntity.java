@@ -1,6 +1,5 @@
 package com.society.server.model.entity;
 
-import com.society.server.model.entity.user.UserEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,7 +30,9 @@ public class PostEntity extends BaseEntity {
     private LocalDateTime updatedOn;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "post_id")
+    @JoinTable(name = "posts_comments",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "comment_id"))
     private List<CommentEntity> comments = new ArrayList<>();
 
     public List<CommentEntity> getComments() {

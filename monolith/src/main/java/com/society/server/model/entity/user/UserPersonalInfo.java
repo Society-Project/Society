@@ -11,11 +11,8 @@ import lombok.*;
 @NoArgsConstructor
 @Embeddable
 public class UserPersonalInfo {
-    private LocalDate birthday;
+    private String location;
     private String workPlace;
-    private String homeTown;
-    private String residence;
-    private String country;
-    private String highSchool;
-    private String university;
+    private String education;
+    private LocalDate birthday;
 }

@@ -36,6 +36,7 @@ public class GlobalExceptionHandler {
                         ResponseDTO
                                 .builder()
                                 .message(ex.getMessage())
+                                .status(ex.getStatus().value())
                                 .content(null)
                                 .build()
                 );

@@ -5,14 +5,20 @@ import com.society.server.dto.payload.SignupDTO;
 import com.society.server.dto.response.JwtResponseDTO;
 import com.society.server.dto.response.ResponseDTO;
 import com.society.server.exception.InvalidCredentialsException;
+import com.society.server.exception.UserAlreadyExistsException;
 import com.society.server.service.AuthService;
 import jakarta.validation.Valid;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.society.server.config.AppConstants.API_BASE;
 
@@ -56,18 +62,47 @@ public class AuthController {
     }
 
     @PostMapping("/auth/signup")
-    public ResponseEntity<ResponseDTO<Object>> signUp(@Valid @RequestBody SignupDTO signupDto) {
-        authService.signUpUser(signupDto);
+    public ResponseEntity<ResponseDTO<Object>> signUp(@Valid @RequestBody SignupDTO signupDto,
+                                                      BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            List<String> errorMessages = bindingResult.getAllErrors().stream().map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            return ResponseEntity
+                    .badRequest()
+                    .body(
+                            ResponseDTO
+                                    .builder()
+                                    .message(String.join("; ",errorMessages))
+                                    .status(HttpStatus.BAD_REQUEST.value())
+                                    .build()
+                    );
+        }
 
-        return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body(
-                        ResponseDTO
-                                .builder()
-                                .message("Signed up successfully!")
-                                .content(null)
-                                .status(HttpStatus.CREATED.value())
-                                .build()
-                );
+        try {
+            authService.signUpUser(signupDto);
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(
+                            ResponseDTO
+                                    .builder()
+                                    .message("Signed up successfully!")
+                                    .content(null)
+                                    .status(HttpStatus.CREATED.value())
+                                    .build()
+                    );
+        }catch (UserAlreadyExistsException ex){
+            return ResponseEntity
+                    .status(ex.getStatus())
+                    .body(
+                            ResponseDTO
+                                    .builder()
+                                    .message(ex.getMessage())
+                                    .status(ex.getStatus().value())
+                                    .content(null)
+                                    .build()
+                    );
+        }
+
+
     }
 }

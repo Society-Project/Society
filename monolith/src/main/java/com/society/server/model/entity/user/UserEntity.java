@@ -4,6 +4,7 @@ import com.society.server.model.entity.*;
 import com.society.server.utils.validators.EmailValidator;
 import com.society.server.utils.validators.UserUsernameValidator;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -24,7 +25,9 @@ public class UserEntity extends BaseEntity {
     private String username;
     @NotNull
     private String password;
+    @NotBlank()
     private String firstName;
+    @NotBlank()
     private String lastName;
     @EmailValidator
     private String email;
@@ -42,9 +45,15 @@ public class UserEntity extends BaseEntity {
     private boolean credentialsExpired = false;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "users_posts",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id"))
     private List<PostEntity> userPosts = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "users_photos",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "photo_id"))
     private List<PhotoEntity> userPhotos = new ArrayList<>();
 
     @NotNull

@@ -37,8 +37,8 @@ public class DataLoader implements ApplicationRunner {
                             .password("$2a$12$w.GNfFrtuRMFSxWq0TZsgO2M/O3jTwZ8cvdL3X/EW0XQKNitCqD6K")
                             .enabled(false)
                             .roles(Set.of(userRole))
-                            .firstName(null)
-                            .lastName(null)
+                            .firstName("Deleted")
+                            .lastName("Deleted")
                             .email("deleted@deleted.com")
                             .build()
             );

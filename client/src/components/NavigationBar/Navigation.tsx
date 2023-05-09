@@ -13,7 +13,8 @@ import '../Styles/NavigationBar.scss';
 import '../Styles/Header.scss'
 import { Logo } from '../Header';
 import { useRouter } from 'next/navigation';
-
+import { Link } from 'react-router-dom';
+ 
 export const NavigationBar = () => {
     const router = useRouter();
     let tokenMap: Map<number, boolean> = new Map();

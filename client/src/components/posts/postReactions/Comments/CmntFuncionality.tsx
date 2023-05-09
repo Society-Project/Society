@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { Box, Grid, ListItemText, Avatar } from '@mui/material';
 
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
@@ -8,48 +8,27 @@ import SendOutlinedIcon from '@mui/icons-material/SendOutlined';
 
 import "../../../Styles/CommentStyles/CommentFunctionality.scss";
 import { Like } from '../Like';
-import { Comment } from './Comment';
-
-interface CmntFunctionalityProps {
-    comments: Comment[];
-    setComments: (comments: Comment[]) => void;
-}
+import { editCommentFunction, deleteCommentFunction } from '../../../api';
 
 
-export const CmntFunctionality: React.FC<CmntFunctionalityProps> = ({
-    comments,
-    setComments,
-}) => {
+export const CmntFunctionality: React.FC<any> = ({ comments, setComments }) => {
     const [isEditButtonClicked, setIsEditButtonClicked] = useState<boolean>(false);
+    const [commentText, setEditCommentText] = useState<string>("");
+    const [imageUrl, setImageUrl] = useState<string>("");
 
-    const handleSave = (commentId: number, newText: string) => {
-        setComments(
-            comments.map((comment) => {
-                if (comment.id == commentId && comment.text != '') {
-
-                    return { ...comment, text: newText, editable: false };
-                }
-                return comment;
-            })
-        )
-
-        setIsEditButtonClicked(false);
-    } 
-    const handleEdit = (commentId: number) => {
-        setComments(
-            comments.map((comment) => {
-                if (comment.id === commentId) {
-                    return { ...comment, editable: true };
-                }
-                return comment;
-            })
-        )
-
-        setIsEditButtonClicked(true);
+    const saveEditedComment = async (commentId: number) => {
+        const putObject: object = { commentText, imageUrl };
+        await editCommentFunction(commentId, putObject);
+        window.location.reload();
     }
-    const handleDelete = (commentId: number) => {
-        setComments(comments.filter((comment) => comment.id !== commentId));
-        setIsEditButtonClicked(false);
+
+    const editCommentHandler = () => {
+        setIsEditButtonClicked(oldState => !oldState)
+    }
+
+    const deleteCommentHandler = async (commentId: number) => {
+        await deleteCommentFunction(commentId);
+        window.location.reload();
     }
 
 
@@ -67,46 +46,35 @@ export const CmntFunctionality: React.FC<CmntFunctionalityProps> = ({
 
             }} >
                 {
-                    comments.map((comment) => {
+                    comments.length > 0 ? comments?.map((comment: any) => {
                         return <Box key={comment.id} className='user-comment'>
                             <Box className='username-and-profile-picture'>
-                              <Avatar className="user-profile-image">R</Avatar>
-                              <p className='username-paragraph'>Didi Didova</p>
+                                <Avatar className="user-profile-image"></Avatar>
+                                <p className='username-paragraph'>{comment.creatorUsername}</p>
 
                             </Box>
                             <Box className="username-and-comment">
+                                <textarea
+                                    style={{ resize: 'none' }}
+                                    className={!isEditButtonClicked ? 'disabled-input-field' : 'edit-text-area'}
+                                    onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setEditCommentText(event.target.value)}
+                                    disabled={isEditButtonClicked ? false : true}
+                                    defaultValue={comment.commentText}
+                                ></textarea>
 
-                                <ListItemText
-                                    sx={{ marginLeft: 2 }}
-                                    secondary={
+                                <Box className='like-and-comment-icons'>
+                                    <Like />
+                                    <ChatBubbleOutlineOutlinedIcon className='comment-icon' />
+                                    <EditOutlinedIcon onClick={() => editCommentHandler()} className='edit-comment' />
+                                    <DeleteOutlineOutlinedIcon onClick={() => deleteCommentHandler(comment.id)} className='delete-comment' />
 
-                                        <input
-                                            className={ !isEditButtonClicked ? 'disabled-input-field' : 'edit-text-area' }
-                                            value={comment.text}
-                                            disabled={isEditButtonClicked ? false : true}
-                                            onChange={(event) =>
-                                                setComments(
-                                                    comments.map((com) =>
-                                                        com.id === comment.id ? { ...com, text: event.target.value } : com
-                                                    )
-                                                )
-                                            }   
-                                        />
+                                    {
+                                        isEditButtonClicked ? <SendOutlinedIcon onClick={() => saveEditedComment(comment.id)} className='save-icon' /> : null
                                     }
-                                />
-                               <Box className='like-and-comment-icons'> 
-                                   <Like />
-                                   <ChatBubbleOutlineOutlinedIcon className='comment-icon' />
-                                   <EditOutlinedIcon onClick={() => handleEdit(comment.id)} className='edit-comment' />
-                                   <DeleteOutlineOutlinedIcon onClick={() => handleDelete(comment.id)} className='delete-comment' />
-                                   
-                                   {
-                                     isEditButtonClicked ? <SendOutlinedIcon onClick={(event: any) => handleSave(comment.id, event.target.value)} className='save-icon' /> : null
-                                   }
-                               </Box>
+                                </Box>
                             </Box>
                         </Box>
-                    })
+                    }) : null
                 }
             </Grid>
         </Box >

@@ -21,6 +21,7 @@ export const UserInput = () => {
   const [birthday, setBirthday] = useState<Dayjs | null>(dayjs("11-03-2023"));
 
   const [responseMessageHandler, setResponseMessageHandler] = useState<string>("");
+  const [successMessage, setSuccessMessage] = useState<string>("");
 
   const onSubmitHandler = async () => {
     const objectParameters: object = { firstName, lastName, email, username, password, birthday };
@@ -33,16 +34,19 @@ export const UserInput = () => {
     try {
       const serverResponse = await RegisterRequest(objectParameters);
 
-      if (serverResponse.status === 200) {
-        setResponseMessageHandler(serverResponse.message);
+      console.log(serverResponse)
+      if(!serverResponse) {
+        return setResponseMessageHandler("Something went wrong");
+      }
+
+      if (serverResponse.status === 201) {
+        setSuccessMessage(serverResponse.message);
+        setResponseMessageHandler("");
 
         return window.location.href = '/login';
       } else {
-        setResponseMessageHandler(serverResponse.message);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1500)
-        return;
+        setSuccessMessage("");
+        return setResponseMessageHandler(serverResponse.message);
       }
     } catch (error: any) {
       console.error(error);
@@ -55,9 +59,11 @@ export const UserInput = () => {
         data-testid="error-message"
         style={{
           textAlign: 'center',
-          fontSize: '17px'
+          fontSize: '17px',
+          color: 'red'
         }}
       >{responseMessageHandler}</p>
+      <p style={{ textAlign: 'center', fontSize: '17px' }}>{successMessage}</p>
 
       {UserSignUpTextFields('First name', (event: ChangeEvent<HTMLInputElement>) => setFirstNameInput(event.target.value), "first-name-input")}
       {UserSignUpTextFields('Last name', (event: ChangeEvent<HTMLInputElement>) => setLastNameInput(event.target.value), "last-name-input")}

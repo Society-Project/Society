@@ -1,34 +1,23 @@
 package com.society.server.dto.comment;
 
-import jakarta.validation.constraints.NotEmpty;
+import com.society.server.utils.validators.CommentValidator;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@CommentValidator
 public class UpdateCommentDTO {
 
-    private Long id;
+    @NotNull
     private String commentText;
+    @NotNull
     private String imageUrl;
-    private LocalDateTime updatedOn;
 
-    public UpdateCommentDTO() {
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    @NotEmpty
-    public String getCommentText() {
-        return commentText;
-    }
-
-    @NotEmpty
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public LocalDateTime getUpdatedOn() {
-        return updatedOn;
-    }
 }
