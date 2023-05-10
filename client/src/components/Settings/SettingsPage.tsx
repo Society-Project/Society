@@ -14,7 +14,7 @@ const SettingsPage = () => {
             {width > 1200 ? <NavigationBar /> : null}
 
             {
-                width < 1200 ? <SettingsPageBody /> : <Box className={width < 1200 ? 'settings-page-mobile' : "settings-page-body"}>
+                width < 1200 ? <SettingsPageBody /> : <Box className= "settings-page-body">
                     <SettingsPageBody />
                 </Box>
             }

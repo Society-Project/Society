@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Divider } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import "../Styles/SettingsPageBody.scss";
 import useWindowScreenSize from '@/useWindowScreenSize';
 
@@ -87,7 +87,7 @@ const SettingsPageBody = () => {
                                 <div className='label-class'>
                                     {
                                         item.labels.map((item: any, index: number) => {
-                                            return <label key={index} style={{ display: 'block', marginBottom: '1.2rem', fontSize: '18px' }}>{item}</label>
+                                            return <label key={index} style={{ display: 'block', marginBottom: '1.2rem', fontSize: width < 1200 ?  '18px' : '24px' }}>{item}</label>
                                         })
                                     }
                                 </div>
@@ -112,7 +112,7 @@ const SettingsPageBody = () => {
                                 <div className='labels-account-information'>
                                     {
                                         item.labels.map((labelText: string, index: number) => {
-                                            return <label key={index} style={{ display: 'block', marginBottom: '1.2rem', fontSize: '18px' }}>{labelText}</label>
+                                            return <label key={index} style={{ display: 'block', marginBottom: '1.2rem', fontSize: width < 1200 ?  '18px' : '24px' }}>{labelText}</label>
                                         })
                                     }
                                 </div>
@@ -127,6 +127,10 @@ const SettingsPageBody = () => {
                             </div>
                         })  
                     }
+                </Box>
+
+                <Box className='save-button-class'>
+                    <Button className='save-button'>Save</Button>
                 </Box>
             </Box>
         </Box>
