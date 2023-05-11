@@ -13,32 +13,51 @@ import '../Styles/NavigationBar.scss';
 import '../Styles/Header.scss'
 import { Logo } from '../Header';
 import { useRouter } from 'next/navigation';
-import { Link } from 'react-router-dom';
+import Cookie from 'universal-cookie';
  
 export const NavigationBar = () => {
     const router = useRouter();
     let tokenMap: Map<number, boolean> = new Map();
+    const cookie: Cookie = new Cookie();
 
     //I use any here because it throws an error when trying to set the type to Map<number, boolean>
     const [mapState, setMapState] = useState<any>(null);
 
-    
-    const [homeClick, setHomeClick] = useState<boolean>(false);
-
     const homeOnClick = () => {
         router.push('/');
-        setHomeClick(true);
+    }
+    const settingsOnClick = () => {
+        router.push('/settings');
+    }
+
+    const notificationsOnClick = () => {
+        router.push('/notifications');
+    }
+
+    const friendsOnClick = () => {
+        router.push('/friends');
+    }
+        
+    const chatOnClick = () => {
+        router.push('/chat');
+    }
+
+    const logOutOnClick = () => {
+        router.push('/login');
+        cookie.remove("accessToken");
     }
 
     type icon = SvgIconProps
 
     const IconArray: icon[] = [
-        <HomeOutlinedIcon />,
-        <NotificationsIcon />,
-        <TextsmsOutlinedIcon />,
-        <PeopleIcon />,
-        <SettingsOutlinedIcon />,
-        <LogoutOutlinedIcon className='log-out-icon' />,
+        <HomeOutlinedIcon onClick={homeOnClick} />,
+        <NotificationsIcon onClick={notificationsOnClick} />,
+        <TextsmsOutlinedIcon onClick={chatOnClick} />,
+        <PeopleIcon onClick={friendsOnClick} />,
+        <SettingsOutlinedIcon onClick={settingsOnClick}  />,
+        <LogoutOutlinedIcon
+             className='log-out-icon' 
+             onClick={logOutOnClick} />,
     ]
 
     const onButtonClick = (index: number) => {

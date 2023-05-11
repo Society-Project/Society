@@ -94,7 +94,14 @@ const SettingsPageBody = () => {
                                 <div className='input-fields'>
                                     {
                                         item.userData.map((item: any, index: number) => {
-                                            return <input type="text" key={index} value={item} className='profile-input-fields' />
+                                            return <input
+                                                type="text"
+                                                key={index}
+                                                value={item}
+                                                className='profile-input-fields' 
+                                                style={{ fontSize: width < 1200 ?  '18px' : '24px'  }}    
+                                                readOnly
+                                            />
                                         })
                                     }
                                 </div>
@@ -120,7 +127,14 @@ const SettingsPageBody = () => {
                                 <div className='account-input-fields'>
                                     {
                                         item.userAccountInformation.map((item: string, index: number) => {
-                                            return <input type="text" key={index} value={item} className='account-input-fields' readOnly />
+                                            return <input
+                                                type="text"
+                                                key={index}
+                                                value={item}
+                                                className='account-input-fields'
+                                                readOnly
+                                                style={{ fontSize: width < 1200 ?  '18px' : '24px'  }}
+                                            />
                                         })
                                     }
                                 </div>
@@ -130,7 +144,10 @@ const SettingsPageBody = () => {
                 </Box>
 
                 <Box className='save-button-class'>
-                    <Button className='save-button'>Save</Button>
+                    <Button 
+                    className={ width > 1200 ? 'save-button' : 'save-button-mobile' }
+                    style={{ fontSize: width < 1200 ?  '18px' : '24px'  }}
+                    >Save</Button>
                 </Box>
             </Box>
         </Box>
