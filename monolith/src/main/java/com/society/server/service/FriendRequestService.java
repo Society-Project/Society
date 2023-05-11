@@ -1,10 +1,7 @@
 package com.society.server.service;
 
 import com.society.server.dto.friendRequest.FriendRequestDTO;
-import com.society.server.exception.FriendRequestsNotFoundException;
-import com.society.server.exception.NotAuthorizedException;
-import com.society.server.exception.RelationshipAlreadyExistsException;
-import com.society.server.exception.UserNotFoundException;
+import com.society.server.exception.*;
 import com.society.server.model.entity.FriendRequestEntity;
 import com.society.server.model.entity.user.UserEntity;
 import com.society.server.model.enums.RelationshipStatus;
@@ -48,7 +45,7 @@ public class FriendRequestService {
                 );
 
         if (Objects.equals(requestCreator.getId(), requestReceiver.getId())) {
-            throw new IllegalArgumentException("User cannot send friend request to himself");
+            throw new NotAuthorizedException("User cannot send friend request to himself");
         }
 
         Optional<FriendRequestEntity> relationshipExists =
@@ -86,13 +83,12 @@ public class FriendRequestService {
                 .collect(Collectors.toList());
     }
 
-    public FriendRequestDTO acceptFriendRequest(Long requestId, String username) throws IllegalAccessException {
+    public FriendRequestDTO acceptFriendRequest(Long requestId, String username) {
         FriendRequestEntity friendRequestEntity = friendRequestRepository.findById(requestId)
                 .orElseThrow(FriendRequestsNotFoundException::new);
 
         if (!friendRequestEntity.getReceiver().getUsername().equals(username)) {
-            throw new IllegalAccessException(format("User with username: %s is not receiver of that request," +
-                                                    " and don't have access to accept the request", username));
+            throw new NotAuthorizedException("You are not authorized to accept this request");
         }
         friendRequestEntity.setStatus(RelationshipStatus.FRIENDS);
         friendRequestEntity.setUpdatedOn(LocalDateTime.now());
@@ -102,10 +98,10 @@ public class FriendRequestService {
         return friendRequestMapper.friendRequestEntityToFriendRequestDTO(friendRequestEntity);
     }
 
-    public List<FriendRequestDTO> getAllFriends(String username) {
-        UserEntity user = userRepository.findByUsername(username)
+    public List<FriendRequestDTO> getAllFriends(Long userId) {
+        UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() ->
-                        new UserNotFoundException(format("User with username: %s cannot be found!", username))
+                        new UserNotFoundException(format("User with id: %d cannot be found!", userId))
                 );
 
         Optional<List<FriendRequestEntity>> allFriends =
@@ -132,9 +128,53 @@ public class FriendRequestService {
         FriendRequestDTO friendRequestDTO = friendRequestMapper.
                 friendRequestEntityToFriendRequestDTO(friendRequestEntity);
 
-        if (!Objects.equals(user.getId(), friendRequestDTO.getReceiverId())){
+        if (!Objects.equals(user.getId(), friendRequestDTO.getReceiverId())) {
             throw new NotAuthorizedException();
         }
         return friendRequestDTO;
+    }
+
+    public void deleteRequestById(Long requestId, String username) {
+        FriendRequestDTO requestDTO = friendRequestMapper
+                .friendRequestEntityToFriendRequestDTO(friendRequestRepository.findById(requestId)
+                        .orElseThrow(FriendRequestsNotFoundException::new));
+
+        UserEntity user = userRepository.findByUsername(username)
+                .orElseThrow(() ->
+                        new UserNotFoundException(format("User with username: %s cannot be found!", username))
+                );
+
+        if (!Objects.equals(requestDTO.getReceiverId(), user.getId())
+            && !Objects.equals(requestDTO.getCreatorId(), user.getId())) {
+            throw new NotAuthorizedException("You are not authorized to delete this request!");
+        }
+        friendRequestRepository.deleteById(requestId);
+    }
+
+    public void blockUser(Long userIdToBlock, String principalUsername) {
+        UserEntity user = userRepository.findByUsername(principalUsername)
+                .orElseThrow(() ->
+                        new UserNotFoundException(format("User with username: %s cannot be found!", principalUsername))
+                );
+
+        UserEntity userToBlock = userRepository.findById(userIdToBlock)
+                .orElseThrow(() ->
+                        new UserNotFoundException(format("User with id: %d cannot be found!", userIdToBlock))
+                );
+
+        Optional<FriendRequestEntity> ifRelationshipExists =
+                friendRequestRepository.findIfRelationshipExists(user.getId(), userToBlock.getId());
+
+        if (ifRelationshipExists.isEmpty()) {
+            throw new RelationshipNotExistException(HttpStatus.BAD_REQUEST, "Relationship between users don't exist");
+        }
+        FriendRequestEntity entity = ifRelationshipExists.get();
+        if (entity.getStatus().equals(RelationshipStatus.BLOCKED)) {
+            throw new UserAlreadyBlockedException(HttpStatus.BAD_REQUEST, "Relationship is already blocked");
+        }
+        entity.setStatus(RelationshipStatus.BLOCKED);
+        entity.setUpdatedOn(LocalDateTime.now());
+
+        friendRequestRepository.save(entity);
     }
 }
