@@ -1,7 +1,6 @@
 import { Box } from '@mui/material';
 import { NavigationBar } from '../NavigationBar/Navigation';
 import WindowScreenSize from '@/useWindowScreenSize';
-import headerLogo from '../../images/logo-mark.svg';
 import ChatBody from './ChatBody/ChatBody';
 
 import "../Styles/Chat.scss";
