@@ -9,60 +9,66 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
-import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
-import PetiPhoto from "src/images/Peti.jpg"
+import PetyaPhoto from "src/images/Petya.jpg";
+import DimitrinaPhoto from "src/images/Dimitrina.jpg";
+import SimeonPhoto from "src/images/Simeon.jpg";
+import IvayloPhoto from "src/images/Ivaylo.jpg";
+import ZahariPhoto from "src/images/Zahari.jpg";
+import GeorgiPhoto from "src/images/Georgi.jpg";
+import PavelPhoto from "src/images/Pavel.jpg";
+import BozhidarPhoto from "src/images/Bozhidar.jpg";
 
 const team = [
   {
     name: "Petya Marinova",
-    avatar: PetiPhoto,
+    avatar: PetyaPhoto,
     personInfo: ["Petya Marinova"],
-    role: ["Front - End"],
+    role: "Front - End",
   },
   {
     name: "Dimitrina Yordanova",
-    avatar: "../../src/images/laptopPicture.jpg",
+    avatar: DimitrinaPhoto,
     personInfo: ["Dimitrina Yordanova"],
-    role: ["Front - End"],
+    role: "Front - End",
   },
   {
     name: "Simeon Cholakov",
-    avatar: "../../src/images/laptopPicture.jpg",
+    avatar: SimeonPhoto,
     personInfo: ["Simeon Cholakov"],
-    role: ["Front - End"],
+    role: "Front - End",
   },
   {
     name: "Ivaylo Slavchev",
-    avatar: "../../src/images/laptopPicture.jpg",
+    avatar: IvayloPhoto,
     personInfo: ["Ivaylo Slavchev"],
-    role: ["Front - End , Back - End"],
+    role: "Front - End",
   },
   {
     name: "Zahari Cheyrekov",
-    avatar: "../../src/images/laptopPicture.jpg",
+    avatar: ZahariPhoto,
     personInfo: ["Zahari Cheyrekov"],
-    role: ["Front - End"],
+    role: "Front - End",
   },
   {
     name: "Georgi Peev",
-    avatar: "../../src/images/laptopPicture.jpg",
+    avatar: GeorgiPhoto,
     personInfo: ["Georgi Peev"],
-    role: ["Back - End"],
+    role: "Back - End",
   },
   {
     name: "Pavel Pindarev",
-    avatar: "../../src/images/laptopPicture.jpg",
+    avatar: PavelPhoto,
     personInfo: ["Pavel Pindarev"],
-    role: ["Back - End"],
+    role: "Back - End",
   },
   {
     name: "Bozhidar Valkov",
-    avatar: "../../src/images/laptopPicture.jpg",
+    avatar: BozhidarPhoto,
     personInfo: ["Bozhidar Valkov"],
-    role: ["Back - End"],
+    role: "Back - End",
   },
 ];
 
