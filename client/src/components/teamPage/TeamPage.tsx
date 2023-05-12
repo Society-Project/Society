@@ -13,37 +13,56 @@ import Avatar from "@mui/material/Avatar";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
 import CloseIcon from "@mui/icons-material/Close";
+import PetiPhoto from "src/images/Peti.jpg"
 
 const team = [
   {
-    name: "Petya Petyova",
-    avatar: "/src/images/didiPic.jpg",
-    personInfo: ["Petya Petyova"],
+    name: "Petya Marinova",
+    avatar: PetiPhoto,
+    personInfo: ["Petya Marinova"],
+    role: ["Front - End"],
   },
   {
-    name: "Didi Didova",
+    name: "Dimitrina Yordanova",
     avatar: "../../src/images/laptopPicture.jpg",
-    personInfo: ["Didi Didova"],
+    personInfo: ["Dimitrina Yordanova"],
+    role: ["Front - End"],
   },
   {
-    name: "Moni Monev",
+    name: "Simeon Cholakov",
     avatar: "../../src/images/laptopPicture.jpg",
-    personInfo: ["Moni Monev"],
+    personInfo: ["Simeon Cholakov"],
+    role: ["Front - End"],
   },
   {
-    name: "Ivo Ivov",
+    name: "Ivaylo Slavchev",
     avatar: "../../src/images/laptopPicture.jpg",
-    personInfo: ["Ivo Ivov"],
+    personInfo: ["Ivaylo Slavchev"],
+    role: ["Front - End , Back - End"],
   },
   {
-    name: "Zahari Zaharev",
+    name: "Zahari Cheyrekov",
     avatar: "../../src/images/laptopPicture.jpg",
-    personInfo: ["Zahari Zaharev"],
+    personInfo: ["Zahari Cheyrekov"],
+    role: ["Front - End"],
   },
   {
-    name: "Joro Jorev",
+    name: "Georgi Peev",
     avatar: "../../src/images/laptopPicture.jpg",
-    personInfo: ["Joro Jorev"],
+    personInfo: ["Georgi Peev"],
+    role: ["Back - End"],
+  },
+  {
+    name: "Pavel Pindarev",
+    avatar: "../../src/images/laptopPicture.jpg",
+    personInfo: ["Pavel Pindarev"],
+    role: ["Back - End"],
+  },
+  {
+    name: "Bozhidar Valkov",
+    avatar: "../../src/images/laptopPicture.jpg",
+    personInfo: ["Bozhidar Valkov"],
+    role: ["Back - End"],
   },
 ];
 
@@ -57,17 +76,22 @@ export const TeamPage = () => {
         <Typography className="TeamText">Team</Typography>
         <Box id="box">
           <List>
-            {team.map((oneOfUs:any, index:number) => (
+            {team.map((oneOfUs: any, index: number) => (
               <React.Fragment key={index}>
                 <ListItem>
                   <ListItem className="ProfileInformation">
-                    <ListItemAvatar className="Avatar">
-                      <Avatar alt={oneOfUs.name} src={oneOfUs.avatar} />
-                      <ListItemText primary={oneOfUs.name} />
-                      <Typography className="PersonRole" variant="body2">
-                        Front - End
-                      </Typography>
-                    </ListItemAvatar>
+                    <img
+                      src={oneOfUs.avatar}
+                      alt={oneOfUs.name}
+                    />
+                    <ListItemText
+                      className="FirstAndLastName"
+                      primary={oneOfUs.name}
+                    />
+                    <ListItemText
+                      className="PersonRole"
+                      primary={oneOfUs.role}
+                    />
                     {oneOfUs.personInfo.length != 0 && (
                       <Button
                         className="SeeMoreButton"

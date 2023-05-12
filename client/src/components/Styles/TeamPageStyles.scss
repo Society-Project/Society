@@ -48,17 +48,22 @@
 
     .Avatar {
       margin-left: 2vw;
-      width: 50px;
+      border-radius: 0%;
+      margin-top: 5px;
+    }
+    .FirstAndLastName{
+      margin-left: 2vw;
+      width: 150px;
       height: 50px;
       border-radius: 0%;
+      margin-top: 5px;
     }
     .PersonRole {
       position: absolute;
       left: 12vw;
       top: 20%;
       color: rgba(21, 104, 41, 1);
-      font-weight: 900;
-      font-size: 20px;
+      font-size: 24px;
       font-family: Roboto;
     }
   }
