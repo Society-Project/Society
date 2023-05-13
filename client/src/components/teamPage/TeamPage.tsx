@@ -24,13 +24,13 @@ import BozhidarPhoto from "src/images/Bozhidar.jpg";
 const team = [
   {
     name: "Petya Marinova",
-    avatar: PetyaPhoto,
+    avatar: PetyaPhoto.src,
     personInfo: ["Petya Marinova"],
     role: "Front - End",
   },
   {
     name: "Dimitrina Yordanova",
-    avatar: DimitrinaPhoto,
+    avatar: DimitrinaPhoto.src,
     personInfo: ["Dimitrina Yordanova"],
     role: "Front - End",
   },
