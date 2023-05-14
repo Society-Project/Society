@@ -1,7 +1,9 @@
 package com.society.server.service;
 
 import com.society.server.dto.friendRequest.FriendRequestDTO;
+import com.society.server.dto.friendRequest.FriendResponseDTO;
 import com.society.server.exception.*;
+import com.society.server.exception.userRelationshipsExceptions.*;
 import com.society.server.model.entity.FriendRequestEntity;
 import com.society.server.model.entity.user.UserEntity;
 import com.society.server.model.enums.RelationshipStatus;
@@ -66,7 +68,7 @@ public class FriendRequestService {
         return friendRequestMapper.friendRequestEntityToFriendRequestDTO(save);
     }
 
-    public List<FriendRequestDTO> getAllReceivedRequests(String username) {
+    public List<FriendResponseDTO> getAllReceivedRequests(String username) {
         UserEntity user = userRepository.findByUsername(username)
                 .orElseThrow(() ->
                         new UserNotFoundException(format("User with username: %s cannot be found!", username))
@@ -77,9 +79,10 @@ public class FriendRequestService {
         if (allByReceiver.isEmpty() || allByReceiver.get().size() == 0) {
             throw new FriendRequestsNotFoundException();
         }
+
         return allByReceiver.get()
                 .stream()
-                .map(friendRequestMapper::friendRequestEntityToFriendRequestDTO)
+                .map(entity -> friendEntityToFriendResponse(entity, user))
                 .collect(Collectors.toList());
     }
 
@@ -98,26 +101,31 @@ public class FriendRequestService {
         return friendRequestMapper.friendRequestEntityToFriendRequestDTO(friendRequestEntity);
     }
 
-    public List<FriendRequestDTO> getAllFriends(Long userId) {
+    public List<FriendResponseDTO> getAllFriends(Long userId) {
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() ->
                         new UserNotFoundException(format("User with id: %d cannot be found!", userId))
                 );
 
-        Optional<List<FriendRequestEntity>> allFriends =
-                friendRequestRepository.findAllFriends(user.getId());
+        List<FriendRequestEntity> allFriends =
+                friendRequestRepository.findAllFriends(user.getId())
+                        .orElseThrow(FriendRequestsNotFoundException::new)
+                        .stream()
+                        .filter(entity -> entity.getStatus().equals(RelationshipStatus.FRIENDS))
+                        .toList();
 
-        if (allFriends.isEmpty() || allFriends.get().size() == 0) {
+        if (allFriends.isEmpty()) {
             throw new FriendRequestsNotFoundException();
         }
-        return allFriends.get()
+
+        return allFriends
                 .stream()
-                .map(friendRequestMapper::friendRequestEntityToFriendRequestDTO)
+                .map(entity -> friendEntityToFriendResponse(entity, user))
                 .collect(Collectors.toList());
     }
 
-    public FriendRequestDTO getRequestById(Long requestId, String username) {
-        FriendRequestEntity friendRequestEntity = friendRequestRepository.findById(requestId)
+    public FriendResponseDTO getRequestById(Long requestId, String username) {
+        FriendRequestEntity friendRequestEntity = friendRequestRepository.findByIdAndStatus(requestId, RelationshipStatus.PENDING)
                 .orElseThrow(FriendRequestsNotFoundException::new);
 
         UserEntity user = userRepository.findByUsername(username)
@@ -125,13 +133,10 @@ public class FriendRequestService {
                         new UserNotFoundException(format("User with username: %s cannot be found!", username))
                 );
 
-        FriendRequestDTO friendRequestDTO = friendRequestMapper.
-                friendRequestEntityToFriendRequestDTO(friendRequestEntity);
-
-        if (!Objects.equals(user.getId(), friendRequestDTO.getReceiverId())) {
+        if (!Objects.equals(user.getId(), friendRequestEntity.getReceiver().getId())) {
             throw new NotAuthorizedException();
         }
-        return friendRequestDTO;
+        return friendEntityToFriendResponse(friendRequestEntity, user);
     }
 
     public void deleteRequestById(Long requestId, String username) {
@@ -177,4 +182,42 @@ public class FriendRequestService {
 
         friendRequestRepository.save(entity);
     }
+
+    public void unblockUser(Long userIdToUnblock, String principalUsername) {
+        UserEntity user = userRepository.findByUsername(principalUsername)
+                .orElseThrow(() ->
+                        new UserNotFoundException(format("User with username: %s cannot be found!", principalUsername))
+                );
+
+        UserEntity userToUnblock = userRepository.findById(userIdToUnblock)
+                .orElseThrow(() ->
+                        new UserNotFoundException(format("User with id: %d cannot be found!", userIdToUnblock))
+                );
+
+        Optional<FriendRequestEntity> ifRelationshipExists =
+                friendRequestRepository.findIfRelationshipExists(user.getId(), userToUnblock.getId());
+
+        if (ifRelationshipExists.isEmpty()) {
+            throw new RelationshipNotExistException(HttpStatus.BAD_REQUEST, "Relationship between users don't exist");
+        }
+        FriendRequestEntity entity = ifRelationshipExists.get();
+        if (!entity.getStatus().equals(RelationshipStatus.BLOCKED)) {
+            throw new UserNotBlockedException(HttpStatus.BAD_REQUEST, "Relationship is not blocked");
+        }
+        friendRequestRepository.delete(entity);
+    }
+
+    private FriendResponseDTO friendEntityToFriendResponse(FriendRequestEntity entity, UserEntity currentUser) {
+        FriendResponseDTO friendResponseDTO;
+        if (currentUser.equals(entity.getReceiver())) {
+            friendResponseDTO = new FriendResponseDTO(entity.getStatus(),
+                    entity.getCreator().getFirstName() + " " + entity.getCreator().getLastName());
+        } else {
+            friendResponseDTO = new FriendResponseDTO(entity.getStatus(),
+                    entity.getReceiver().getFirstName() + " " + entity.getReceiver().getLastName());
+        }
+        return friendResponseDTO;
+    }
+
+
 }
