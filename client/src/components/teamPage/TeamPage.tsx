@@ -36,37 +36,37 @@ const team = [
   },
   {
     name: "Simeon Cholakov",
-    avatar: SimeonPhoto,
+    avatar: SimeonPhoto.src,
     personInfo: ["Simeon Cholakov"],
     role: "Front - End",
   },
   {
     name: "Ivaylo Slavchev",
-    avatar: IvayloPhoto,
+    avatar: IvayloPhoto.src,
     personInfo: ["Ivaylo Slavchev"],
     role: "Front - End",
   },
   {
     name: "Zahari Cheyrekov",
-    avatar: ZahariPhoto,
+    avatar: ZahariPhoto.src,
     personInfo: ["Zahari Cheyrekov"],
     role: "Front - End",
   },
   {
     name: "Georgi Peev",
-    avatar: GeorgiPhoto,
+    avatar: GeorgiPhoto.src,
     personInfo: ["Georgi Peev"],
     role: "Back - End",
   },
   {
     name: "Pavel Pindarev",
-    avatar: PavelPhoto,
+    avatar: PavelPhoto.src,
     personInfo: ["Pavel Pindarev"],
     role: "Back - End",
   },
   {
     name: "Bozhidar Valkov",
-    avatar: BozhidarPhoto,
+    avatar: BozhidarPhoto.src,
     personInfo: ["Bozhidar Valkov"],
     role: "Back - End",
   },
@@ -82,35 +82,40 @@ export const TeamPage = () => {
         <Typography className="TeamText">Team</Typography>
         <Box id="box">
           <List>
-            {team.map((oneOfUs: any, index: number) => (
+            {team.map((oneOfTheTeam: any, index: number) => (
               <React.Fragment key={index}>
                 <ListItem>
-                  <ListItem className="ProfileInformation">
-                    <img
-                      src={oneOfUs.avatar}
-                      alt={oneOfUs.name}
-                    />
-                    <ListItemText
-                      className="FirstAndLastName"
-                      primary={oneOfUs.name}
-                    />
+                  <Box className="ProfileInformation">
                     <ListItemText
                       className="PersonRole"
-                      primary={oneOfUs.role}
+                      primary={oneOfTheTeam.role}
                     />
-                    {oneOfUs.personInfo.length != 0 && (
-                      <Button
-                        className="SeeMoreButton"
-                        variant="contained"
-                        onClick={() => {
-                          setModalData(oneOfUs);
-                          setModalIsOpen(true);
-                        }}
-                      >
-                        See more
-                      </Button>
-                    )}
-                  </ListItem>
+                    <Box className="AvatarContainer">
+                      <img
+                        className="Avatar"
+                        src={oneOfTheTeam.avatar}
+                        alt={oneOfTheTeam.name}
+                      />
+                      {oneOfTheTeam.personInfo.length !== 0 && (
+                        <Button
+                          className="SeeMoreButton"
+                          variant="contained"
+                          onClick={() => {
+                            setModalData(oneOfTheTeam);
+                            setModalIsOpen(true);
+                          }}
+                        >
+                          See more
+                        </Button>
+                      )}
+                    </Box>
+                    <Box className="ListItemTextContainer">
+                      <ListItemText
+                        className="FirstAndLastName"
+                        primary={oneOfTheTeam.name}
+                      />
+                    </Box>
+                  </Box>
                 </ListItem>
                 {index < team.length - 1}
               </React.Fragment>
