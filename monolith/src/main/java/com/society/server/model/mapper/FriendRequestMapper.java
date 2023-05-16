@@ -1,6 +1,7 @@
 package com.society.server.model.mapper;
 
 import com.society.server.dto.friendRequest.FriendRequestDTO;
+import com.society.server.dto.friendRequest.FriendResponseDTO;
 import com.society.server.model.entity.FriendRequestEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -14,4 +15,5 @@ public interface FriendRequestMapper {
             @Mapping(source = "receiver.id", target = "receiverId")
     })
     FriendRequestDTO friendRequestEntityToFriendRequestDTO(FriendRequestEntity friendRequestEntity);
+
 }

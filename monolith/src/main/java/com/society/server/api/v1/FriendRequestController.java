@@ -1,6 +1,7 @@
 package com.society.server.api.v1;
 
 import com.society.server.dto.friendRequest.FriendRequestDTO;
+import com.society.server.dto.friendRequest.FriendResponseDTO;
 import com.society.server.dto.response.ResponseDTO;
 import com.society.server.security.UserPrincipal;
 import com.society.server.service.FriendRequestService;
@@ -27,18 +28,9 @@ public class FriendRequestController {
             @PathVariable Long receiverId,
             @AuthenticationPrincipal UserPrincipal userPrincipal) {
 
-        FriendRequestDTO friendRequestDTO;
-        try {
-            friendRequestDTO = friendRequestService.sendFriendRequest(userPrincipal.getUsername(), receiverId);
-        } catch (RuntimeException exception) {
-            return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(ResponseDTO
-                            .<FriendRequestDTO>builder()
-                            .status(HttpStatus.BAD_REQUEST.value())
-                            .message(exception.getMessage())
-                            .build());
-        }
+        FriendRequestDTO friendRequestDTO =
+                friendRequestService.sendFriendRequest(userPrincipal.getUsername(), receiverId);
+
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(ResponseDTO
@@ -50,23 +42,15 @@ public class FriendRequestController {
     }
 
     @GetMapping
-    public ResponseEntity<ResponseDTO<List<FriendRequestDTO>>> getAllRequests(
-            @AuthenticationPrincipal UserPrincipal userPrincipal
-    ) {
-        List<FriendRequestDTO> allReceivedRequests;
-        try {
-            allReceivedRequests = friendRequestService.getAllReceivedRequests(userPrincipal.getUsername());
-        } catch (RuntimeException exception) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(ResponseDTO.<List<FriendRequestDTO>>builder()
-                            .status(HttpStatus.NOT_FOUND.value())
-                            .message(exception.getMessage())
-                            .build());
-        }
+    public ResponseEntity<ResponseDTO<List<FriendResponseDTO>>> getAllRequests(
+            @AuthenticationPrincipal UserPrincipal userPrincipal) {
+
+        List<FriendResponseDTO> allReceivedRequests =
+                friendRequestService.getAllReceivedRequests(userPrincipal.getUsername());
+
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ResponseDTO.<List<FriendRequestDTO>>builder()
+                .body(ResponseDTO.<List<FriendResponseDTO>>builder()
                         .status(HttpStatus.OK.value())
                         .message("Successfully received all requests for you.")
                         .content(allReceivedRequests)
@@ -74,24 +58,16 @@ public class FriendRequestController {
     }
 
     @GetMapping("/{requestId}")
-    public ResponseEntity<ResponseDTO<FriendRequestDTO>> getRequest(
+    public ResponseEntity<ResponseDTO<FriendResponseDTO>> getRequest(
             @PathVariable Long requestId,
             @AuthenticationPrincipal UserPrincipal userPrincipal) {
 
-        FriendRequestDTO requestById;
-        try {
-            requestById = friendRequestService.getRequestById(requestId, userPrincipal.getUsername());
-        } catch (RuntimeException exception) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(ResponseDTO.<FriendRequestDTO>builder()
-                            .status(HttpStatus.NOT_FOUND.value())
-                            .message(exception.getMessage())
-                            .build());
-        }
+        FriendResponseDTO requestById =
+                friendRequestService.getRequestById(requestId, userPrincipal.getUsername());
+
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ResponseDTO.<FriendRequestDTO>builder()
+                .body(ResponseDTO.<FriendResponseDTO>builder()
                         .status(HttpStatus.OK.value())
                         .message("Successfully get request by id.")
                         .content(requestById)
@@ -103,18 +79,9 @@ public class FriendRequestController {
             @PathVariable Long requestId,
             @AuthenticationPrincipal UserPrincipal userPrincipal) {
 
-        FriendRequestDTO friendRequestDTO;
-        try {
-            friendRequestDTO =
-                    friendRequestService.acceptFriendRequest(requestId, userPrincipal.getUsername());
-        } catch (Exception exception) {
-            return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .body(ResponseDTO.<FriendRequestDTO>builder()
-                            .message(exception.getMessage())
-                            .status(HttpStatus.UNAUTHORIZED.value())
-                            .build());
-        }
+        FriendRequestDTO friendRequestDTO =
+                friendRequestService.acceptFriendRequest(requestId, userPrincipal.getUsername());
+
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
                 .body(ResponseDTO.<FriendRequestDTO>builder()
@@ -124,28 +91,63 @@ public class FriendRequestController {
                         .build());
     }
 
-    @GetMapping("/friends")
-    public ResponseEntity<ResponseDTO<List<FriendRequestDTO>>> getAllFriends(
-            @AuthenticationPrincipal UserPrincipal userPrincipal
-    ) {
-        List<FriendRequestDTO> allFriends;
-        try {
-            allFriends = friendRequestService.getAllFriends(userPrincipal.getUsername());
-        } catch (RuntimeException exception) {
-            return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
-                    .body(ResponseDTO.<List<FriendRequestDTO>>builder()
-                            .status(HttpStatus.NOT_FOUND.value())
-                            .message(exception.getMessage())
-                            .build());
-        }
+    @GetMapping("/friends/{userId}")
+    public ResponseEntity<ResponseDTO<List<FriendResponseDTO>>> getAllFriends(
+            @PathVariable Long userId) {
+
+        List<FriendResponseDTO> allFriends =
+                friendRequestService.getAllFriends(userId);
+
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(ResponseDTO.<List<FriendRequestDTO>>builder()
+                .body(ResponseDTO.<List<FriendResponseDTO>>builder()
                         .status(HttpStatus.OK.value())
                         .message("Successfully received all friends for you.")
                         .content(allFriends)
                         .build());
 
     }
+
+    @DeleteMapping("/{requestId}")
+    public ResponseEntity<ResponseDTO<Void>> deleteRequest(
+            @PathVariable Long requestId,
+            @AuthenticationPrincipal UserPrincipal userPrincipal) {
+
+        friendRequestService.deleteRequestById(requestId, userPrincipal.getUsername());
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ResponseDTO.<Void>builder()
+                        .status(HttpStatus.OK.value())
+                        .message("Successfully delete a request")
+                        .build());
+    }
+
+    @PutMapping("/{userId}/block")
+    public ResponseEntity<ResponseDTO<Void>> blockUser(
+            @PathVariable Long userId,
+            @AuthenticationPrincipal UserPrincipal userPrincipal) {
+
+        friendRequestService.blockUser(userId, userPrincipal.getUsername());
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ResponseDTO.<Void>builder()
+                        .status(HttpStatus.OK.value())
+                        .message("Successfully blocked a user.")
+                        .build());
+    }
+
+    @PutMapping("/{userId}/unblock")
+    public ResponseEntity<ResponseDTO<Void>> unblockUser(
+            @PathVariable Long userId,
+            @AuthenticationPrincipal UserPrincipal userPrincipal) {
+
+        friendRequestService.unblockUser(userId, userPrincipal.getUsername());
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(ResponseDTO.<Void>builder()
+                        .status(HttpStatus.OK.value())
+                        .message("Successfully unblocked a user.")
+                        .build());
+    }
+
 }
