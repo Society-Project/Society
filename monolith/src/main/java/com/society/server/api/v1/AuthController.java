@@ -78,7 +78,7 @@ public class AuthController {
                     );
         }
 
-        try {
+
             authService.signUpUser(signupDto);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
@@ -90,18 +90,7 @@ public class AuthController {
                                     .status(HttpStatus.CREATED.value())
                                     .build()
                     );
-        }catch (UserAlreadyExistsException ex){
-            return ResponseEntity
-                    .status(ex.getStatus())
-                    .body(
-                            ResponseDTO
-                                    .builder()
-                                    .message(ex.getMessage())
-                                    .status(ex.getStatus().value())
-                                    .content(null)
-                                    .build()
-                    );
-        }
+
 
 
     }

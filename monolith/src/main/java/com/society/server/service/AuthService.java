@@ -3,11 +3,11 @@ package com.society.server.service;
 import com.society.server.dto.payload.SigninDTO;
 import com.society.server.dto.payload.SignupDTO;
 import com.society.server.exception.InvalidCredentialsException;
-import com.society.server.exception.ResourceNotFoundException;
 import com.society.server.exception.RoleNotFoundException;
 import com.society.server.exception.UserAlreadyExistsException;
 import com.society.server.model.entity.RoleEntity;
 import com.society.server.model.entity.user.UserEntity;
+import com.society.server.model.entity.user.UserPersonalInfo;
 import com.society.server.model.enums.RoleEnum;
 import com.society.server.repository.RoleRepository;
 import com.society.server.repository.UserRepository;
@@ -83,6 +83,9 @@ public class AuthService {
 
         //create new user
         UserEntity user = modelMapper.map(signupDto, UserEntity.class);
+        UserPersonalInfo userPersonalInfo = new UserPersonalInfo();
+        userPersonalInfo.setBirthday(signupDto.getBirthday());
+        user.setUserPersonalInfo(userPersonalInfo);
         user.setPassword(passwordEncoder.encode(signupDto.getPassword()));
         user.setRoles(Set.of(role));
         user.setEnabled(true);

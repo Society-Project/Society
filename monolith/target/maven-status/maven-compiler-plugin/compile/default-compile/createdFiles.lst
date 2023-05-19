@@ -5,6 +5,7 @@ com\society\server\dto\comment\CommentDTO.class
 com\society\server\exception\AccountProblemException.class
 com\society\server\model\entity\PhotoEntity.class
 com\society\server\dto\post\CreatePostDTO.class
+com\society\server\utils\validators\EmailConditional.class
 com\society\server\model\entity\user\UserPersonalInfo.class
 com\society\server\model\entity\RoleEntity.class
 com\society\server\dto\message\RoomDTO.class
@@ -18,6 +19,7 @@ com\society\server\dto\comment\UpdateCommentDTO$UpdateCommentDTOBuilder.class
 com\society\server\dto\photo\PhotoDTO$PhotoDTOBuilder.class
 com\society\server\service\ChatService.class
 com\society\server\dto\payload\SignupDTO.class
+com\society\server\utils\validators\impl\EmailConditionalValidator.class
 com\society\server\dto\response\ResponseDTO$ResponseDTOBuilder.class
 com\society\server\model\entity\BaseEntity$BaseEntityBuilder.class
 com\society\server\dto\photo\UploadPhotoDTO.class
@@ -47,6 +49,7 @@ com\society\server\model\entity\CommentEntity$CommentEntityBuilder.class
 com\society\server\dto\user\UserSetPersInfoDTO$UserSetPersInfoDTOBuilder.class
 com\society\server\exception\RoleNotFoundException.class
 com\society\server\dto\response\JwtResponseDTO.class
+com\society\server\utils\validators\BirthdayValidator.class
 com\society\server\dto\photo\UploadPhotoDTO$UploadPhotoDTOBuilder.class
 com\society\server\api\v1\ChatController.class
 com\society\server\exception\UserAlreadyExistsException.class
@@ -87,6 +90,8 @@ com\society\server\repository\PostRepository.class
 com\society\server\dto\response\JwtResponseDTO$JwtResponseDTOBuilder.class
 com\society\server\model\entity\RoomEntity$RoomEntityBuilder.class
 com\society\server\repository\RoleRepository.class
+com\society\server\utils\validators\impl\BirthdayValidatorImpl.class
+com\society\server\utils\validators\impl\PasswordConditionalValidatorImpl.class
 com\society\server\dto\payload\SignupDTO$SignupDTOBuilder.class
 com\society\server\config\OpenAPIConfig.class
 com\society\server\Society.class
@@ -98,4 +103,5 @@ com\society\server\repository\PhotoRepository.class
 com\society\server\dto\post\UpdatePostDTO.class
 com\society\server\utils\validators\impl\CommentValidatorImpl.class
 com\society\server\service\CommentService.class
+com\society\server\utils\validators\PasswordConditional.class
 com\society\server\exception\NotAuthorizedException.class

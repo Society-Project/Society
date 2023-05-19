@@ -24,6 +24,7 @@ public class GlobalExceptionHandler {
                         .builder()
                         .message(ex.getMessage())
                         .content(null)
+                        .status(400)
                         .timestamp(LocalDateTime.now())
                         .build()
         );
@@ -50,6 +51,7 @@ public class GlobalExceptionHandler {
                         ResponseDTO
                                 .builder()
                                 .message(ex.getMessage())
+                                .status(403)
                                 .content(null)
                                 .build()
                 );
