@@ -23,6 +23,7 @@ public class GlobalExceptionHandler {
                 ResponseDTO
                         .builder()
                         .message(ex.getMessage())
+                        .status(HttpStatus.BAD_REQUEST.value())
                         .content(null)
                         .status(400)
                         .timestamp(LocalDateTime.now())
@@ -50,6 +51,7 @@ public class GlobalExceptionHandler {
                 .body(
                         ResponseDTO
                                 .builder()
+                                .status(HttpStatus.FORBIDDEN.value())
                                 .message(ex.getMessage())
                                 .status(403)
                                 .content(null)
