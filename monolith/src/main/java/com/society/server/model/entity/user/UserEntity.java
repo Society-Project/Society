@@ -6,6 +6,7 @@ import com.society.server.utils.validators.UserUsernameValidator;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -20,10 +21,13 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "users")
+@NamedEntityGraph(name = "UserEntity.userPersonalInfo",
+        attributeNodes = @NamedAttributeNode("userPersonalInfo"))
 public class UserEntity extends BaseEntity {
     @UserUsernameValidator
     private String username;
-    @NotNull
+    @NotNull()
+    @Size(min = 6, max = 70, message = "Password must be at least 6 symbols.")
     private String password;
     @NotBlank()
     private String firstName;
@@ -32,7 +36,8 @@ public class UserEntity extends BaseEntity {
     @EmailValidator
     private String email;
 
-    @Embedded
+    @Access(AccessType.PROPERTY)
+    @Embedded()
     private UserPersonalInfo userPersonalInfo;
 
     @Builder.Default

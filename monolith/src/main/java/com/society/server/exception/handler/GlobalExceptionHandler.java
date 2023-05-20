@@ -25,6 +25,7 @@ public class GlobalExceptionHandler {
                         .message(ex.getMessage())
                         .status(HttpStatus.BAD_REQUEST.value())
                         .content(null)
+                        .status(400)
                         .timestamp(LocalDateTime.now())
                         .build()
         );
@@ -52,6 +53,7 @@ public class GlobalExceptionHandler {
                                 .builder()
                                 .status(HttpStatus.FORBIDDEN.value())
                                 .message(ex.getMessage())
+                                .status(403)
                                 .content(null)
                                 .build()
                 );

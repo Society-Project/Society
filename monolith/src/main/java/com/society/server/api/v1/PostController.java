@@ -4,7 +4,6 @@ import com.society.server.dto.post.CreatePostDTO;
 import com.society.server.dto.post.PostDTO;
 import com.society.server.dto.post.UpdatePostDTO;
 import com.society.server.dto.response.ResponseDTO;
-import com.society.server.security.IAuthenticationFacade;
 import com.society.server.service.PostService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

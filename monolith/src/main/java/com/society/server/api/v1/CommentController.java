@@ -4,8 +4,6 @@ import com.society.server.dto.comment.CommentDTO;
 import com.society.server.dto.comment.CreateCommentDTO;
 import com.society.server.dto.comment.UpdateCommentDTO;
 import com.society.server.dto.response.ResponseDTO;
-import com.society.server.exception.NotAuthorizedException;
-import com.society.server.exception.ResourceNotFoundException;
 import com.society.server.service.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
