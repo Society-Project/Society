@@ -3,12 +3,12 @@ HELP.md
 !**/src/main/**/target/
 !**/src/test/**/target/
 target/classes
-target/generated-sources
-target/generated-test-sources
-target/maven-archiver
-target/maven-status
-target/surefire-reports
-target/test-classes
+/monolith/target/generated-sources
+/monolith/target/generated-test-sources
+/monolith/target/maven-archiver
+/monolith/target/maven-status
+/monolith/target/surefire-reports
+/monolith/target/test-classes
 
 ### STS ###
 .apt_generated
