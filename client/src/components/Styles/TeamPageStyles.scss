@@ -23,7 +23,6 @@
   .ProfileInformation img {
     width: 110px;
     height: 110px;
-    border-radius: 18px;
   }
 
   #box::-webkit-scrollbar {
@@ -56,7 +55,7 @@
         margin-top: 20px;
         margin-left: 20px;
         margin-bottom: 5px;
-      }      
+      }
       .SeeMoreButton {
         font-family: Roboto;
         font-size: 20px;
@@ -67,21 +66,20 @@
         background-color: white;
         text-decoration: none;
         text-transform: none;
-        margin-left: 53vw;
-        margin-top: 5vh;
-      }      
+        margin-right: 2vw;
+      }
+      .PersonRole {
+        color: rgba(21, 104, 41, 1) ;
+        font-weight: bold;
+      }
       .ListItemTextContainer {
         display: flex;
-        margin-left: 16px; 
-        .FirstAndLastName{
-          color:black;
-          font-weight: 700;
-        }
+        margin-left: 16px;
+      }
+      .FirstAndLastName {
+        color: black;
+        font-weight: 700;
       }
     }
-    .PersonRole{
-      color:rgba(21, 104, 41, 1);
-    }
   }
-
 }

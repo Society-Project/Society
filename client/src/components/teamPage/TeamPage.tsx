@@ -4,10 +4,11 @@ import "../Styles/MainPage.scss";
 import { SearchBar } from "../SearchBar";
 import Modal from "react-modal";
 import { Typography } from "@mui/material";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import Button from "@mui/material/Button";
@@ -27,48 +28,64 @@ const team = [
     avatar: PetyaPhoto.src,
     personInfo: ["Petya Marinova"],
     role: "Front - End",
+    linkedin: "https://www.linkedin.com/in/pmmarinova/",
+    github: "https://github.com/petya0111",
   },
   {
     name: "Dimitrina Yordanova",
     avatar: DimitrinaPhoto.src,
     personInfo: ["Dimitrina Yordanova"],
     role: "Front - End",
+    linkedin: "https://www.linkedin.com/in/dimitrina-yordanova-81a659245/",
+    github: "https://github.com/di-yordanova",
   },
   {
     name: "Simeon Cholakov",
     avatar: SimeonPhoto.src,
     personInfo: ["Simeon Cholakov"],
     role: "Front - End",
+    linkedin: "https://www.linkedin.com/in/simeon-cholakov/",
+    github: "https://github.com/cholakovsimeon",
   },
   {
     name: "Ivaylo Slavchev",
     avatar: IvayloPhoto.src,
     personInfo: ["Ivaylo Slavchev"],
     role: "Front - End",
+    linkedin: "https://www.linkedin.com/in/ivaylo-slavchev-6425a521b/",
+    github: "https://github.com/IvayloSlavchev",
   },
   {
     name: "Zahari Cheyrekov",
     avatar: ZahariPhoto.src,
     personInfo: ["Zahari Cheyrekov"],
     role: "Front - End",
+    linkedin: "https://www.linkedin.com/in/zahari-cheyrekov-5647a9227/",
+    github: "https://github.com/ZahariCheyrekov",
   },
   {
     name: "Georgi Peev",
     avatar: GeorgiPhoto.src,
     personInfo: ["Georgi Peev"],
     role: "Back - End",
+    linkedin: "https://www.linkedin.com/in/georgipeev/",
+    github: "https://github.com/PeevG",
   },
   {
     name: "Pavel Pindarev",
     avatar: PavelPhoto.src,
     personInfo: ["Pavel Pindarev"],
     role: "Back - End",
+    linkedin: "https://www.linkedin.com/in/pavel-pindarev/",
+    github: "https://github.com/PavelPindarev",
   },
   {
     name: "Bozhidar Valkov",
     avatar: BozhidarPhoto.src,
     personInfo: ["Bozhidar Valkov"],
     role: "Back - End",
+    linkedin: "https://www.linkedin.com/in/bozhidar-valkov-9b10ab24b/",
+    github: "https://github.com/beval1",
   },
 ];
 
@@ -86,16 +103,32 @@ export const TeamPage = () => {
               <React.Fragment key={index}>
                 <ListItem>
                   <Box className="ProfileInformation">
-                    <ListItemText
-                      className="PersonRole"
-                      primary={oneOfTheTeam.role}
-                    />
                     <Box className="AvatarContainer">
                       <img
                         className="Avatar"
                         src={oneOfTheTeam.avatar}
                         alt={oneOfTheTeam.name}
                       />
+                    <ListItemText
+                      className="PersonRole"
+                      primary={oneOfTheTeam.role}
+                    />
+                    <Button
+                        component="a"
+                        href={oneOfTheTeam.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <LinkedInIcon style={{ fontSize: "40px", color: "#0871bd" }}/>
+                      </Button>
+                      <Button
+                        component="a"
+                        href={oneOfTheTeam.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <GitHubIcon style={{ fontSize: "40px" , color: "black"}}/>
+                      </Button>
                       {oneOfTheTeam.personInfo.length !== 0 && (
                         <Button
                           className="SeeMoreButton"
