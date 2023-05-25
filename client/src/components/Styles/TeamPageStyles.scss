@@ -20,11 +20,9 @@
     font-size: 26px;
     margin: 80px 25px 25px;
   }
-  .ProfileInformation{
-    background: rgba(74, 122, 99, 0.2);
-    border-radius: 18px;
-    width: 100vw;
-    height: 25vh;
+  .ProfileInformation img {
+    width: 110px;
+    height: 110px;
   }
 
   #box::-webkit-scrollbar {
@@ -46,38 +44,46 @@
     overflow-y: auto;
     height: 64vh;
 
-    .Avatar {
-      margin-left: 2vw;
-      border-radius: 0%;
-      margin-top: 5px;
+    .ProfileInformation {
+      background: rgba(74, 122, 99, 0.2);
+      border-radius: 18px;
+      width: 73vw;
+      height: 27vh;
+      .AvatarContainer {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+        margin-left: 20px;
+        margin-bottom: 5px;
+        .GithubAndLinkeInIcons{
+          margin-top: 40px;
+          margin-left: 30px;
+        }
+        .PersonRole {
+          color: rgba(21, 104, 41, 1) ;
+          font-weight: bold;
+        }
+      }
+      .SeeMoreButton {
+        font-family: Roboto;
+        font-size: 20px;
+        color: rgba(21, 104, 41, 1);
+        border-radius: 18px;
+        width: 10vw;
+        height: 6vh;
+        background-color: white;
+        text-decoration: none;
+        text-transform: none;
+        margin-right: 2vw;
+      }      
+      .ListItemTextContainer {
+        display: flex;
+        margin-left: 16px;
+      }
+      .FirstAndLastName {
+        color: black;
+        font-weight: 700;
+      }
     }
-    .FirstAndLastName{
-      margin-left: 2vw;
-      width: 150px;
-      height: 50px;
-      border-radius: 0%;
-      margin-top: 5px;
-    }
-    .PersonRole {
-      position: absolute;
-      left: 12vw;
-      top: 20%;
-      color: rgba(21, 104, 41, 1);
-      font-size: 24px;
-      font-family: Roboto;
-    }
-  }
-
-  .SeeMoreButton {
-    font-family: Roboto;
-    font-size: 20px;
-    color: rgba(21, 104, 41, 1);
-    border-radius: 18px;
-    width: 10vw;
-    height: 6vh;
-    background-color: white;
-    text-decoration: none;
-    text-transform: none;
-    margin-left: 55vw;
   }
 }
