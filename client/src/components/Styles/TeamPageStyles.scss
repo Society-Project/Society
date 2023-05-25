@@ -55,6 +55,14 @@
         margin-top: 20px;
         margin-left: 20px;
         margin-bottom: 5px;
+        .GithubAndLinkeInIcons{
+          margin-top: 40px;
+          margin-left: 30px;
+        }
+        .PersonRole {
+          color: rgba(21, 104, 41, 1) ;
+          font-weight: bold;
+        }
       }
       .SeeMoreButton {
         font-family: Roboto;
@@ -67,11 +75,7 @@
         text-decoration: none;
         text-transform: none;
         margin-right: 2vw;
-      }
-      .PersonRole {
-        color: rgba(21, 104, 41, 1) ;
-        font-weight: bold;
-      }
+      }      
       .ListItemTextContainer {
         display: flex;
         margin-left: 16px;
