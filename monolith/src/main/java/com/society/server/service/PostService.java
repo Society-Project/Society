@@ -3,13 +3,16 @@ package com.society.server.service;
 import com.society.server.dto.post.CreatePostDTO;
 import com.society.server.dto.post.PostDTO;
 import com.society.server.dto.post.UpdatePostDTO;
+import com.society.server.dto.reaction.ReactionDTO;
 import com.society.server.exception.NotAuthorizedException;
 import com.society.server.exception.ResourceNotFoundException;
 import com.society.server.model.entity.CommentEntity;
 import com.society.server.model.entity.PostEntity;
+import com.society.server.model.entity.ReactionEntity;
 import com.society.server.model.entity.user.UserEntity;
 import com.society.server.repository.CommentRepository;
 import com.society.server.repository.PostRepository;
+import com.society.server.repository.ReactionRepository;
 import com.society.server.repository.UserRepository;
 import com.society.server.security.IAuthenticationFacade;
 import org.modelmapper.ModelMapper;
@@ -31,13 +34,15 @@ public class PostService {
     private final UserRepository userRepository;
     private final CommentRepository commentRepository;
     private final IAuthenticationFacade authenticationFacade;
+    private final ReactionRepository reactionRepository;
 
-    public PostService(PostRepository postRepository, ModelMapper modelMapper, UserRepository userRepository, CommentRepository commentRepository, IAuthenticationFacade authenticationFacade) {
+    public PostService(PostRepository postRepository, ModelMapper modelMapper, UserRepository userRepository, CommentRepository commentRepository, IAuthenticationFacade authenticationFacade, ReactionRepository reactionRepository) {
         this.postRepository = postRepository;
         this.modelMapper = modelMapper;
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
         this.authenticationFacade = authenticationFacade;
+        this.reactionRepository = reactionRepository;
     }
 
     //Return the last 50 posts sorted by creation time and cache them.
@@ -48,6 +53,8 @@ public class PostService {
         List<PostDTO> postDTOS = new ArrayList<>();
         for (PostEntity p : allPosts) {
             List<CommentEntity> commentEntities = new ArrayList<>(commentRepository.findAllByPostId(p.getId()));
+            List<ReactionEntity> reactionEntities = new ArrayList<>(reactionRepository.findAllByTargetEntityId(p.getId()));
+            p.setReactions(reactionEntities);
             p.setComments(commentEntities);
             PostDTO postDTO = modelMapper.map(p, PostDTO.class);
             postDTOS.add(postDTO);
@@ -59,6 +66,8 @@ public class PostService {
         PostEntity postEntity = postRepository
                 .findPostEntityById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Post with id " + id + " not exist."));
+        List<ReactionEntity> reactionsByPostId = reactionRepository.findAllByTargetEntityId(id);
+        postEntity.setReactions(reactionsByPostId);
         return modelMapper.map(postEntity, PostDTO.class);
     }
 
@@ -86,9 +95,10 @@ public class PostService {
         if (!isOwner(id, username))
             throw new NotAuthorizedException(HttpStatus.UNAUTHORIZED, "You can only update posts written by you!");
 
-        postEntity.setTextContent(updatePostDTO.getTextContent())
-                .setImageUrl(updatePostDTO.getImageUrl())
-                .setUpdatedOn(LocalDateTime.now());
+        postEntity.setTextContent(updatePostDTO.getTextContent());
+        postEntity.setImageUrl(updatePostDTO.getImageUrl());
+        postEntity.setUpdatedOn(LocalDateTime.now());
+        postEntity.setReactions(reactionRepository.findAllByTargetEntityId(postEntity.getId()));
         postRepository.save(postEntity);
 
         return modelMapper.map(postEntity, PostDTO.class);
@@ -126,6 +136,48 @@ public class PostService {
         if (!userRepository.existsByUsername(username))
             throw new ResourceNotFoundException(HttpStatus.NOT_FOUND, "User with username " + username + " not found.");
         List<PostEntity> postsByUsername = postRepository.findAllByAuthorUsername(username);
+        for (PostEntity postEntity : postsByUsername) {
+            List<ReactionEntity> reactionsByPostId = reactionRepository.findAllByTargetEntityId(postEntity.getId());
+            postEntity.setReactions(reactionsByPostId);
+        }
         return postsByUsername.stream().map(postEntity -> modelMapper.map(postEntity, PostDTO.class)).collect(Collectors.toList());
+    }
+
+    public void reactToPost(Long postId, ReactionDTO reactionDTO) {
+        UserEntity userEntity = userRepository.findByUsername(authenticationFacade.getAuthentication().getName())
+                .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "User not found"));
+        ReactionEntity reactionEntity = reactionRepository
+                .findByRespondingUserIdAndTargetEntityId(userEntity.getId(), reactionDTO.getTargetEntityId());
+        PostEntity postEntity = postRepository.findById(postId)
+                .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Post with id " + postId + " not found"));
+        if (reactionEntity != null) {
+            if (reactionDTO.getReactionType() == null) {
+                List<ReactionEntity> postReactions = reactionRepository.findAllByTargetEntityId(postId);
+                postReactions.remove(reactionEntity);
+                postEntity.setReactions(postReactions);
+                postRepository.save(postEntity);
+                reactionRepository.delete(reactionEntity);
+            } else {
+                reactionEntity.setReactionType(reactionDTO.getReactionType());
+                reactionRepository.save(reactionEntity);
+            }
+        } else {
+            if (reactionDTO.getReactionType() != null) {
+                List<ReactionEntity> postReactions = reactionRepository.findAllByTargetEntityId(postId);
+                ReactionEntity newReaction = new ReactionEntity(reactionDTO.getReactionType(), userEntity.getId(), postId);
+                reactionRepository.save(newReaction);
+                postReactions.add(newReaction);
+                postEntity.setReactions(postReactions);
+                postRepository.save(postEntity);
+            }
+        }
+    }
+
+    public List<ReactionDTO> getAllReactionsByPostId(Long postId) {
+        List<ReactionEntity> reactionEntities = reactionRepository.findAllByTargetEntityId(postId);
+        return reactionEntities
+                .stream()
+                .map(reactionEntity -> modelMapper.map(reactionEntity, ReactionDTO.class))
+                .collect(Collectors.toList());
     }
 }

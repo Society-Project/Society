@@ -3,6 +3,7 @@ package com.society.server.api.v1;
 import com.society.server.dto.post.CreatePostDTO;
 import com.society.server.dto.post.PostDTO;
 import com.society.server.dto.post.UpdatePostDTO;
+import com.society.server.dto.reaction.ReactionDTO;
 import com.society.server.dto.response.ResponseDTO;
 import com.society.server.service.PostService;
 import jakarta.validation.Valid;
@@ -131,6 +132,37 @@ public class PostController {
                         ResponseDTO
                                 .<Void>builder()
                                 .status(HttpStatus.OK.value())
+                                .build()
+                );
+    }
+
+    @PostMapping("/{postId}/reactions")
+    public ResponseEntity<ResponseDTO<Void>> reactToPost(@PathVariable("postId") Long postId,
+                                                         @RequestBody ReactionDTO reactionDTO) {
+        postService.reactToPost(postId, reactionDTO);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<Void>builder()
+                                .status(HttpStatus.OK.value())
+                                .message("Successfully reacted to post with id " + postId)
+                                .build()
+                );
+    }
+
+    @GetMapping("/{postId}/reactions")
+    public ResponseEntity<ResponseDTO<List<ReactionDTO>>> getAllReactionsByPostId(@PathVariable("postId") Long postId) {
+
+        List<ReactionDTO> reactionDTOS = postService.getAllReactionsByPostId(postId);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<List<ReactionDTO>>builder()
+                                .status(HttpStatus.OK.value())
+                                .content(reactionDTOS)
+                                .message("Successfully retrieving reactions for postId = " + postId)
                                 .build()
                 );
     }

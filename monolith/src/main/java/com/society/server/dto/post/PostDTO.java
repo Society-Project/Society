@@ -1,5 +1,6 @@
 package com.society.server.dto.post;
 import com.society.server.dto.comment.CommentDTO;
+import com.society.server.model.entity.ReactionEntity;
 import com.society.server.model.entity.user.UserEntity;
 
 import java.time.LocalDateTime;
@@ -13,6 +14,8 @@ public class PostDTO {
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
     private List<CommentDTO> comments;
+
+    private List<ReactionEntity> reactions;
 
     public PostDTO() {
     }
@@ -78,5 +81,13 @@ public class PostDTO {
     public PostDTO setComments(List<CommentDTO> comments) {
         this.comments = comments;
         return this;
+    }
+
+    public List<ReactionEntity> getReactions() {
+        return reactions;
+    }
+
+    public void setReactions(List<ReactionEntity> reactions) {
+        this.reactions = reactions;
     }
 }
