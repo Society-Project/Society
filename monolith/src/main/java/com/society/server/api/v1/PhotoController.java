@@ -2,7 +2,9 @@ package com.society.server.api.v1;
 
 import com.society.server.dto.photo.PhotoDTO;
 import com.society.server.dto.photo.UploadPhotoDTO;
+import com.society.server.dto.reaction.ReactionDTO;
 import com.society.server.dto.response.ResponseDTO;
+import com.society.server.repository.ReactionRepository;
 import com.society.server.service.PhotoService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -60,6 +62,7 @@ public class PhotoController {
                 .body(
                         ResponseDTO
                                 .<Void>builder()
+                                .message("Successfully uploaded photo")
                                 .status(HttpStatus.CREATED.value())
                                 .build()
                 );
@@ -87,6 +90,37 @@ public class PhotoController {
                         ResponseDTO
                                 .<List<PhotoDTO>>builder()
                                 .content(userPhotos)
+                                .status(HttpStatus.OK.value())
+                                .build()
+                );
+    }
+
+    @PostMapping("/{photoId}/reactions")
+    public ResponseEntity<ResponseDTO<Void>> reactToPhoto(@PathVariable("photoId") Long photoId,
+                                                            @RequestBody ReactionDTO reactionDTO) {
+        photoService.reactToPhoto(photoId, reactionDTO);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<Void>builder()
+                                .status(HttpStatus.OK.value())
+                                .message("Successfully reacted to photo with id " + photoId)
+                                .build()
+                );
+    }
+
+    @GetMapping("/{photoId}/reactions")
+    public ResponseEntity<ResponseDTO<List<ReactionDTO>>> getAllReactionsByPhotoId(@PathVariable(name = "photoId") Long photoId) {
+        List<ReactionDTO> reactionsByPhoto = photoService.getAllReactionsByPhotoId(photoId);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<List<ReactionDTO>>builder()
+                                .content(reactionsByPhoto)
+                                .message("Successfully retrieving reactions for photo with id = " + photoId)
                                 .status(HttpStatus.OK.value())
                                 .build()
                 );

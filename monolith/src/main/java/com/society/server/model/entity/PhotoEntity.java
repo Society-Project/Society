@@ -32,4 +32,10 @@ public class PhotoEntity extends BaseEntity{
     private List<CommentEntity> comments = new ArrayList<>();
     @NotEmpty
     private String photoOwner;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "photo_reactions",
+            joinColumns = @JoinColumn(name = "photo_id"),
+            inverseJoinColumns = @JoinColumn(name = "reaction_id"))
+    private List<ReactionEntity> reactions = new ArrayList<>();
 }
