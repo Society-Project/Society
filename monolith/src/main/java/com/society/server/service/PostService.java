@@ -10,6 +10,7 @@ import com.society.server.model.entity.CommentEntity;
 import com.society.server.model.entity.PostEntity;
 import com.society.server.model.entity.ReactionEntity;
 import com.society.server.model.entity.user.UserEntity;
+import com.society.server.model.enums.ReactionTargetTypeEnum;
 import com.society.server.repository.CommentRepository;
 import com.society.server.repository.PostRepository;
 import com.society.server.repository.ReactionRepository;
@@ -52,9 +53,14 @@ public class PostService {
         List<PostEntity> allPosts = postRepository.findTop50ByOrderByCreatedOnDesc();
         List<PostDTO> postDTOS = new ArrayList<>();
         for (PostEntity p : allPosts) {
-            List<CommentEntity> commentEntities = new ArrayList<>(commentRepository.findAllByPostId(p.getId()));
-            List<ReactionEntity> reactionEntities = new ArrayList<>(reactionRepository.findAllByTargetEntityId(p.getId()));
+            List<CommentEntity> commentEntities = commentRepository.findAllByPostId(p.getId());
+            List<ReactionEntity> reactionEntities = reactionRepository.findAllByTargetEntityIdAndTargetEntityTypeEnum(p.getId(), ReactionTargetTypeEnum.POST);
             p.setReactions(reactionEntities);
+            for (CommentEntity commentEntity : commentEntities) {
+                List<ReactionEntity> commentReactions = reactionRepository
+                        .findAllByTargetEntityIdAndTargetEntityTypeEnum(commentEntity.getId(), ReactionTargetTypeEnum.COMMENT);
+                commentEntity.setReactions(commentReactions);
+            }
             p.setComments(commentEntities);
             PostDTO postDTO = modelMapper.map(p, PostDTO.class);
             postDTOS.add(postDTO);
@@ -66,8 +72,16 @@ public class PostService {
         PostEntity postEntity = postRepository
                 .findPostEntityById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Post with id " + id + " not exist."));
-        List<ReactionEntity> reactionsByPostId = reactionRepository.findAllByTargetEntityId(id);
+        List<ReactionEntity> reactionsByPostId = reactionRepository
+                .findAllByTargetEntityIdAndTargetEntityTypeEnum(id, ReactionTargetTypeEnum.POST);
+
+        List<CommentEntity> commentsByPostId = commentRepository.findAllByPostId(id);
+        for (CommentEntity commentEntity : commentsByPostId) {
+            commentEntity.setReactions(reactionRepository
+                    .findAllByTargetEntityIdAndTargetEntityTypeEnum(id, ReactionTargetTypeEnum.COMMENT));
+        }
         postEntity.setReactions(reactionsByPostId);
+        postEntity.setComments(commentsByPostId);
         return modelMapper.map(postEntity, PostDTO.class);
     }
 
@@ -94,11 +108,19 @@ public class PostService {
                 .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Post with id " + id + " not exist."));
         if (!isOwner(id, username))
             throw new NotAuthorizedException(HttpStatus.UNAUTHORIZED, "You can only update posts written by you!");
+        List<CommentEntity> commentsByPostId = commentRepository.findAllByPostId(postEntity.getId());
+        for (CommentEntity commentEntity : commentsByPostId) {
+            List<ReactionEntity> reactionsByComment = reactionRepository
+                    .findAllByTargetEntityIdAndTargetEntityTypeEnum(commentEntity.getId(), ReactionTargetTypeEnum.COMMENT);
+            commentEntity.setReactions(reactionsByComment);
+        }
 
         postEntity.setTextContent(updatePostDTO.getTextContent());
         postEntity.setImageUrl(updatePostDTO.getImageUrl());
         postEntity.setUpdatedOn(LocalDateTime.now());
-        postEntity.setReactions(reactionRepository.findAllByTargetEntityId(postEntity.getId()));
+        postEntity.setComments(commentsByPostId);
+        postEntity.setReactions(reactionRepository
+                .findAllByTargetEntityIdAndTargetEntityTypeEnum(postEntity.getId(), ReactionTargetTypeEnum.POST));
         postRepository.save(postEntity);
 
         return modelMapper.map(postEntity, PostDTO.class);
@@ -137,8 +159,16 @@ public class PostService {
             throw new ResourceNotFoundException(HttpStatus.NOT_FOUND, "User with username " + username + " not found.");
         List<PostEntity> postsByUsername = postRepository.findAllByAuthorUsername(username);
         for (PostEntity postEntity : postsByUsername) {
-            List<ReactionEntity> reactionsByPostId = reactionRepository.findAllByTargetEntityId(postEntity.getId());
+            List<ReactionEntity> reactionsByPostId = reactionRepository
+                    .findAllByTargetEntityIdAndTargetEntityTypeEnum(postEntity.getId(), ReactionTargetTypeEnum.POST);
+            List<CommentEntity> commentsByPostId = commentRepository.findAllByPostId(postEntity.getId());
+            for (CommentEntity commentEntity : commentsByPostId) {
+                List<ReactionEntity> commentReactions = reactionRepository
+                        .findAllByTargetEntityIdAndTargetEntityTypeEnum(commentEntity.getId(), ReactionTargetTypeEnum.COMMENT);
+                commentEntity.setReactions(commentReactions);
+            }
             postEntity.setReactions(reactionsByPostId);
+            postEntity.setComments(commentsByPostId);
         }
         return postsByUsername.stream().map(postEntity -> modelMapper.map(postEntity, PostDTO.class)).collect(Collectors.toList());
     }
@@ -147,12 +177,13 @@ public class PostService {
         UserEntity userEntity = userRepository.findByUsername(authenticationFacade.getAuthentication().getName())
                 .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "User not found"));
         ReactionEntity reactionEntity = reactionRepository
-                .findByRespondingUserIdAndTargetEntityId(userEntity.getId(), reactionDTO.getTargetEntityId());
+                .findByTargetEntityIdAndRespondingUserIdAndTargetEntityTypeEnum(postId, userEntity.getId(), ReactionTargetTypeEnum.POST);
         PostEntity postEntity = postRepository.findById(postId)
                 .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Post with id " + postId + " not found"));
         if (reactionEntity != null) {
             if (reactionDTO.getReactionType() == null) {
-                List<ReactionEntity> postReactions = reactionRepository.findAllByTargetEntityId(postId);
+                List<ReactionEntity> postReactions = reactionRepository
+                        .findAllByTargetEntityIdAndTargetEntityTypeEnum(postId, ReactionTargetTypeEnum.POST);
                 postReactions.remove(reactionEntity);
                 postEntity.setReactions(postReactions);
                 postRepository.save(postEntity);
@@ -163,8 +194,9 @@ public class PostService {
             }
         } else {
             if (reactionDTO.getReactionType() != null) {
-                List<ReactionEntity> postReactions = reactionRepository.findAllByTargetEntityId(postId);
-                ReactionEntity newReaction = new ReactionEntity(reactionDTO.getReactionType(), userEntity.getId(), postId);
+                List<ReactionEntity> postReactions = reactionRepository
+                        .findAllByTargetEntityIdAndTargetEntityTypeEnum(postId, ReactionTargetTypeEnum.POST);
+                ReactionEntity newReaction = new ReactionEntity(reactionDTO.getReactionType(), userEntity.getId(), postId, ReactionTargetTypeEnum.POST);
                 reactionRepository.save(newReaction);
                 postReactions.add(newReaction);
                 postEntity.setReactions(postReactions);
@@ -174,7 +206,10 @@ public class PostService {
     }
 
     public List<ReactionDTO> getAllReactionsByPostId(Long postId) {
-        List<ReactionEntity> reactionEntities = reactionRepository.findAllByTargetEntityId(postId);
+        postRepository.findById(postId).orElseThrow(() ->
+                new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Post with id " + postId + " not found"));
+        List<ReactionEntity> reactionEntities = reactionRepository
+                .findAllByTargetEntityIdAndTargetEntityTypeEnum(postId, ReactionTargetTypeEnum.POST);
         return reactionEntities
                 .stream()
                 .map(reactionEntity -> modelMapper.map(reactionEntity, ReactionDTO.class))

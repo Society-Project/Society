@@ -131,6 +131,7 @@ public class PostController {
                 .body(
                         ResponseDTO
                                 .<Void>builder()
+                                .message("Post successfully deleted")
                                 .status(HttpStatus.OK.value())
                                 .build()
                 );
