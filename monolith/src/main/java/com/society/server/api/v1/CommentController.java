@@ -3,6 +3,7 @@ package com.society.server.api.v1;
 import com.society.server.dto.comment.CommentDTO;
 import com.society.server.dto.comment.CreateCommentDTO;
 import com.society.server.dto.comment.UpdateCommentDTO;
+import com.society.server.dto.reaction.ReactionDTO;
 import com.society.server.dto.response.ResponseDTO;
 import com.society.server.service.CommentService;
 import jakarta.validation.Valid;
@@ -82,7 +83,7 @@ public class CommentController {
                 );
     }
 
-    @DeleteMapping("/posts/comments/{commentId}")
+    @DeleteMapping("/comments/{commentId}")
     public ResponseEntity<ResponseDTO<Void>> deleteComment(@PathVariable("commentId") Long commentId) {
 
         commentService.deleteComment(commentId);
@@ -162,6 +163,37 @@ public class CommentController {
                                 .<List<CommentDTO>>builder()
                                 .status(HttpStatus.OK.value())
                                 .content(commentsByPhotoId)
+                                .build()
+                );
+    }
+
+    @PostMapping("/comments/{commentId}/reactions")
+    public ResponseEntity<ResponseDTO<Void>> reactToComment(@PathVariable("commentId") Long commentId,
+                                                            @RequestBody ReactionDTO reactionDTO) {
+        commentService.reactToComment(commentId, reactionDTO);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<Void>builder()
+                                .status(HttpStatus.OK.value())
+                                .message("Successfully reacted to comment with id " + commentId)
+                                .build()
+                );
+    }
+
+    @GetMapping("/comments/{commentId}/reactions")
+    public ResponseEntity<ResponseDTO<List<ReactionDTO>>> getAllReactionsByCommentId(@PathVariable(name = "commentId") Long commentId) {
+        List<ReactionDTO> reactionsByComment = commentService.getAllReactionsByCommentId(commentId);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(
+                        ResponseDTO
+                                .<List<ReactionDTO>>builder()
+                                .content(reactionsByComment)
+                                .message("Successfully retrieving reactions for comment with id = " + commentId)
+                                .status(HttpStatus.OK.value())
                                 .build()
                 );
     }

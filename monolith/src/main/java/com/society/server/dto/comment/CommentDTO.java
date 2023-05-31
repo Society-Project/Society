@@ -1,6 +1,9 @@
 package com.society.server.dto.comment;
 
+import com.society.server.model.entity.ReactionEntity;
+
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class CommentDTO {
     private Long id;
@@ -11,6 +14,7 @@ public class CommentDTO {
     private LocalDateTime updatedOn;
     private Long postId;
     private Long photoId;
+    private List<ReactionEntity> reactions;
 
     public CommentDTO() {
     }
@@ -81,5 +85,13 @@ public class CommentDTO {
 
     public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
+    }
+
+    public List<ReactionEntity> getReactions() {
+        return reactions;
+    }
+
+    public void setReactions(List<ReactionEntity> reactions) {
+        this.reactions = reactions;
     }
 }
