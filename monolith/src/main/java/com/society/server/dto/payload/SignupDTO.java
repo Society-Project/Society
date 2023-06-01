@@ -2,6 +2,7 @@ package com.society.server.dto.payload;
 
 import com.society.server.utils.validators.BirthdayValidator;
 import com.society.server.utils.validators.EmailValidator;
+import com.society.server.utils.validators.UserUsernameValidator;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,7 +18,7 @@ import java.time.LocalDate;
 @Builder
 @BirthdayValidator
 public class SignupDTO {
-    @NotBlank(message = "Username is required.")
+    @UserUsernameValidator
     private String username;
     @EmailValidator
     private String email;
