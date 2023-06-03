@@ -21,11 +21,19 @@ import GeorgiPhoto from "src/images/Georgi.jpg";
 import PavelPhoto from "src/images/Pavel.jpg";
 import BozhidarPhoto from "src/images/Bozhidar.jpg";
 
-const team = [
+interface ITeam {
+  name: string;
+  role: string;
+  avatar: string;
+  linkedin: string;
+  github: string;
+  info: string;
+}
+
+const team: ITeam[] = [
   {
     name: "Petya Marinova",
     avatar: PetyaPhoto.src,
-    personInfo: "Petya Marinova",
     role: "Front - End",
     linkedin: "https://www.linkedin.com/in/pmmarinova/",
     github: "https://github.com/petya0111",
@@ -34,7 +42,6 @@ const team = [
   {
     name: "Dimitrina Yordanova",
     avatar: DimitrinaPhoto.src,
-    personInfo: "Dimitrina Yordanova",
     role: "Front - End",
     linkedin: "https://www.linkedin.com/in/dimitrina-yordanova-81a659245/",
     github: "https://github.com/di-yordanova",
@@ -43,7 +50,6 @@ const team = [
   {
     name: "Simeon Cholakov",
     avatar: SimeonPhoto.src,
-    personInfo: "Simeon Cholakov",
     role: "Front - End",
     linkedin: "https://www.linkedin.com/in/simeon-cholakov/",
     github: "https://github.com/cholakovsimeon",
@@ -52,7 +58,6 @@ const team = [
   {
     name: "Ivaylo Slavchev",
     avatar: IvayloPhoto.src,
-    personInfo: "Ivaylo Slavchev",
     role: "Front - End",
     linkedin: "https://www.linkedin.com/in/ivaylo-slavchev-6425a521b/",
     github: "https://github.com/IvayloSlavchev",
@@ -61,7 +66,6 @@ const team = [
   {
     name: "Zahari Cheyrekov",
     avatar: ZahariPhoto.src,
-    personInfo: "Zahari Cheyrekov",
     role: "Front - End",
     linkedin: "https://www.linkedin.com/in/zahari-cheyrekov-5647a9227/",
     github: "https://github.com/ZahariCheyrekov",
@@ -70,7 +74,6 @@ const team = [
   {
     name: "Georgi Peev",
     avatar: GeorgiPhoto.src,
-    personInfo: "Georgi Peev",
     role: "Back - End",
     linkedin: "https://www.linkedin.com/in/georgipeev/",
     github: "https://github.com/PeevG",
@@ -79,7 +82,6 @@ const team = [
   {
     name: "Pavel Pindarev",
     avatar: PavelPhoto.src,
-    personInfo: "Pavel Pindarev",
     role: "Back - End",
     linkedin: "https://www.linkedin.com/in/pavel-pindarev/",
     github: "https://github.com/PavelPindarev",
@@ -88,7 +90,6 @@ const team = [
   {
     name: "Bozhidar Valkov",
     avatar: BozhidarPhoto.src,
-    personInfo: "Bozhidar Valkov",
     role: "Back - End",
     linkedin: "https://www.linkedin.com/in/bozhidar-valkov-9b10ab24b/",
     github: "https://github.com/beval1",
@@ -97,8 +98,15 @@ const team = [
 ];
 
 export const TeamPage = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalData, setModalData]: any = useState(null);
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [modalData, setModalData] = useState({
+    name: "",
+    role: "",
+    avatar: "",
+    linkedin: "",
+    github: "",
+    info: "",
+  });
   return (
     <Box className="page-box">
       <SearchBar />
@@ -185,7 +193,7 @@ export const TeamPage = () => {
                   color="rgba(74, 122, 99, 1)"
                   fontSize={"18px"}
                 >
-                  {modalData?.personInfo}
+                  {modalData?.name}
                 </Typography>
                 <Divider
                   sx={{
