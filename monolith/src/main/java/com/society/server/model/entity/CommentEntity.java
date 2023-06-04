@@ -9,6 +9,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -42,4 +44,10 @@ public class CommentEntity extends BaseEntity {
 
     @Column(name = "photo_id")
     private Long photoId;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "comment_reactions",
+            joinColumns = @JoinColumn(name = "comment_id"),
+            inverseJoinColumns = @JoinColumn(name = "reaction_id"))
+    private List<ReactionEntity> reactions =  new ArrayList<>();
 }

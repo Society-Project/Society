@@ -3,16 +3,16 @@ package com.society.server.service;
 import com.society.server.dto.comment.CommentDTO;
 import com.society.server.dto.comment.CreateCommentDTO;
 import com.society.server.dto.comment.UpdateCommentDTO;
+import com.society.server.dto.reaction.ReactionDTO;
 import com.society.server.exception.NotAuthorizedException;
 import com.society.server.exception.ResourceNotFoundException;
 import com.society.server.model.entity.CommentEntity;
 import com.society.server.model.entity.PhotoEntity;
 import com.society.server.model.entity.PostEntity;
+import com.society.server.model.entity.ReactionEntity;
 import com.society.server.model.entity.user.UserEntity;
-import com.society.server.repository.CommentRepository;
-import com.society.server.repository.PhotoRepository;
-import com.society.server.repository.PostRepository;
-import com.society.server.repository.UserRepository;
+import com.society.server.model.enums.ReactionTargetTypeEnum;
+import com.society.server.repository.*;
 import com.society.server.security.IAuthenticationFacade;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,10 +33,11 @@ public class CommentService {
     private final PostRepository postRepository;
     private final PhotoRepository photoRepository;
     private final IAuthenticationFacade authenticationFacade;
+    private final ReactionRepository reactionRepository;
 
     public CommentService(CommentRepository commentRepository, PostService postService,
                           ModelMapper modelMapper, UserRepository userRepository, PostRepository postRepository,
-                          PhotoRepository photoRepository, IAuthenticationFacade authenticationFacade) {
+                          PhotoRepository photoRepository, IAuthenticationFacade authenticationFacade, ReactionRepository reactionRepository) {
         this.commentRepository = commentRepository;
         this.postService = postService;
         this.modelMapper = modelMapper;
@@ -43,6 +45,7 @@ public class CommentService {
         this.postRepository = postRepository;
         this.photoRepository = photoRepository;
         this.authenticationFacade = authenticationFacade;
+        this.reactionRepository = reactionRepository;
     }
 
     public CommentDTO createCommentToPostId(Long postId, CreateCommentDTO createCommentDTO) {
@@ -59,6 +62,7 @@ public class CommentService {
                 .commentText(createCommentDTO.getCommentText())
                 .imageUrl(createCommentDTO.getImageUrl())
                 .postId(postEntity.getId())
+                .reactions(new ArrayList<>())
                 .build();
         commentRepository.save(commentEntity);
 
@@ -82,6 +86,7 @@ public class CommentService {
                 .creatorUsername(username)
                 .commentText(createCommentDTO.getCommentText())
                 .photoId(photoId)
+                .reactions(new ArrayList<>())
                 .imageUrl(createCommentDTO.getImageUrl())
                 .build();
         commentRepository.save(commentEntity);
@@ -133,6 +138,9 @@ public class CommentService {
         if (!commentEntity.getCreatorUsername().equals(username)) {
             throw new NotAuthorizedException(HttpStatus.UNAUTHORIZED, "Not enough permissions to update comment.");
         } else {
+            List<ReactionEntity> commentReactions = reactionRepository
+                    .findAllByTargetEntityIdAndTargetEntityTypeEnum(commentEntity.getId(), ReactionTargetTypeEnum.COMMENT);
+            commentEntity.setReactions(commentReactions);
             commentEntity.setCommentText(updateCommentDTO.getCommentText());
             commentEntity.setImageUrl(updateCommentDTO.getImageUrl());
             commentEntity.setUpdatedOn(LocalDateTime.now());
@@ -144,7 +152,9 @@ public class CommentService {
     public CommentDTO getComment(Long id) {
         CommentEntity commentEntity = commentRepository.findById(id).orElseThrow(() ->
                 new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Comment with id " + id + " not exist!"));
-
+        List<ReactionEntity> commentReactions = reactionRepository
+                .findAllByTargetEntityIdAndTargetEntityTypeEnum(id, ReactionTargetTypeEnum.COMMENT);
+        commentEntity.setReactions(commentReactions);
         return modelMapper.map(commentEntity, CommentDTO.class);
     }
 
@@ -155,7 +165,12 @@ public class CommentService {
         return postEntity
                 .getComments()
                 .stream()
-                .map(commentEntity -> modelMapper.map(commentEntity, CommentDTO.class))
+                .map(commentEntity -> {
+                    List<ReactionEntity> commentReactions = reactionRepository
+                            .findAllByTargetEntityIdAndTargetEntityTypeEnum(commentEntity.getId(), ReactionTargetTypeEnum.COMMENT);
+                    commentEntity.setReactions(commentReactions);
+                    return modelMapper.map(commentEntity, CommentDTO.class);
+                })
                 .collect(Collectors.toList());
     }
 
@@ -165,9 +180,58 @@ public class CommentService {
         List<CommentEntity> commentsByPhotoId = commentRepository.findAllByPhotoId(photoId);
         return commentsByPhotoId
                 .stream()
-                .map(commentEntity -> modelMapper.map(commentEntity, CommentDTO.class))
+                .map(commentEntity -> {
+                    List<ReactionEntity> commentReactions = reactionRepository
+                            .findAllByTargetEntityIdAndTargetEntityTypeEnum(commentEntity.getId(), ReactionTargetTypeEnum.COMMENT);
+                    commentEntity.setReactions(commentReactions);
+                    return modelMapper.map(commentEntity, CommentDTO.class);
+                })
                 .collect(Collectors.toList());
     }
 
 
+    public void reactToComment(Long commentId, ReactionDTO reactionDTO) {
+        UserEntity userEntity = userRepository.findByUsername(authenticationFacade.getAuthentication().getName())
+                .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "User not found"));
+        ReactionEntity reactionEntity = reactionRepository
+                .findByTargetEntityIdAndRespondingUserIdAndTargetEntityTypeEnum(commentId, userEntity.getId(), ReactionTargetTypeEnum.COMMENT);
+        CommentEntity commentEntity = commentRepository.findById(commentId)
+                .orElseThrow(() -> new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Comment with id " + commentId + " not found"));
+
+        if (reactionEntity != null) {
+            if (reactionDTO.getReactionType() == null) {
+                List<ReactionEntity> commentReactions = reactionRepository
+                        .findAllByTargetEntityIdAndTargetEntityTypeEnum(commentId, ReactionTargetTypeEnum.COMMENT);
+                commentReactions.remove(reactionEntity);
+                commentEntity.setReactions(commentReactions);
+                commentRepository.save(commentEntity);
+                reactionRepository.delete(reactionEntity);
+            } else {
+                reactionEntity.setReactionType(reactionDTO.getReactionType());
+                reactionRepository.save(reactionEntity);
+            }
+        } else {
+            if (reactionDTO.getReactionType() != null) {
+                List<ReactionEntity> commentReactions = reactionRepository
+                        .findAllByTargetEntityIdAndTargetEntityTypeEnum(commentId, ReactionTargetTypeEnum.COMMENT);
+                ReactionEntity newReaction =
+                        new ReactionEntity(reactionDTO.getReactionType(), userEntity.getId(), commentId, ReactionTargetTypeEnum.COMMENT);
+                reactionRepository.save(newReaction);
+                commentReactions.add(newReaction);
+                commentEntity.setReactions(commentReactions);
+                commentRepository.save(commentEntity);
+            }
+        }
+    }
+
+    public List<ReactionDTO> getAllReactionsByCommentId(Long commentId) {
+        commentRepository.findById(commentId).orElseThrow(() ->
+                new ResourceNotFoundException(HttpStatus.NOT_FOUND, "Comment with id " + commentId + " not found"));
+        List<ReactionEntity> reactionEntities = reactionRepository
+                .findAllByTargetEntityIdAndTargetEntityTypeEnum(commentId, ReactionTargetTypeEnum.COMMENT);
+        return reactionEntities
+                .stream()
+                .map(reactionEntity -> modelMapper.map(reactionEntity, ReactionDTO.class))
+                .collect(Collectors.toList());
+    }
 }

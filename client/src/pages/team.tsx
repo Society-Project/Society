@@ -11,7 +11,7 @@ const team = () => (
       <TeamPage />
     </Main>
   </>
-)
+);
 
 export default team;
 
