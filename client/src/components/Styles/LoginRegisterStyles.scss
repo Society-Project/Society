@@ -1,4 +1,5 @@
 @import "./definitions.scss";
+
 .wrapper {
   width: 100vw;
   height: 100vh;
@@ -17,6 +18,7 @@
     align-items: center;
     justify-content: center;
   }
+
   .Image {
     width: 50vw;
     height: 100vh;
@@ -26,31 +28,52 @@
       display: none;
     }
   }
+
   .Form {
     width: 90vw;
     height: 85vh;
     max-width: 44vw;
-    margin-left: 2rem;
     margin: 2rem;
+
     @media (max-width: $max-tablet-width) {
       background-color: rgba(255, 255, 255, 0.5);
       max-width: 53rem;
       width: 100%;
+      max-height: 90vh;
+      margin: 1rem;
     }
+
     @media (max-width: $max-mobile-width) {
       width: 45rem;
     }
+
+    .mobile-sign-up {
+      display: none;
+
+      @media (max-width: $max-tablet-width) {
+        display: block;
+
+        a {
+          color: rgba(74, 122, 99, 1);
+        }
+      }
+    }
+
     .textField,
     .css-u6xcb0-MuiFormControl-root-MuiTextField-root {
       width: 24rem;
       border-radius: 12px;
+
       @media (max-width: $max-tablet-width) {
         width: 27rem;
+        height: 40px;
       }
+
       @media (max-width: $max-mobile-width) {
         width: 16rem;
       }
     }
+
     .css-1d3z3hw-MuiOutlinedInput-notchedOutline {
       border: 0;
     }
@@ -70,6 +93,7 @@
   height: 6.5vh;
   margin-bottom: -4rem;
 }
+
 .inactiveTab {
   width: 6.5rem;
 }
@@ -125,4 +149,8 @@
 .HeaderLogo {
   margin-top: 2rem;
   margin-bottom: 3rem;
+
+  @media (max-width: $max-tablet-width) {
+    margin-bottom: 1rem;
+  }
 }
