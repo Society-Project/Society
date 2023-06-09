@@ -8,6 +8,7 @@ import com.society.server.service.ChatService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
@@ -29,7 +30,7 @@ public class ChatController {
 
     //    /chat/app/{roomId}/sendMessage
     @MessageMapping("/{roomId}/sendMessage")
-    public ResponseEntity<ResponseDTO<MessageDTO>> sendMessage(@PathVariable Long roomId,
+    public ResponseEntity<ResponseDTO<MessageDTO>> sendMessage(@DestinationVariable Long roomId,
                                                                @Valid @RequestBody MessageDTO messageDTO,
                                                                BindingResult bindingResult) {
 
