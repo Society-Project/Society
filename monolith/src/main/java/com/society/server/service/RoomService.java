@@ -1,7 +1,9 @@
 package com.society.server.service;
 
+import com.society.server.dto.message.RoomDTO;
 import com.society.server.exception.ResourceNotFoundException;
 import com.society.server.model.entity.RoomEntity;
+import com.society.server.model.mapper.RoomMapper;
 import com.society.server.repository.RoomRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -9,9 +11,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class RoomService {
     private final RoomRepository roomRepository;
+    private final RoomMapper roomMapper;
 
-    public RoomService(RoomRepository roomRepository) {
+    public RoomService(RoomRepository roomRepository, RoomMapper roomMapper) {
         this.roomRepository = roomRepository;
+        this.roomMapper = roomMapper;
     }
 
     public RoomEntity getRoomById(Long roomId) {
@@ -20,12 +24,12 @@ public class RoomService {
         );
     }
 
-    public void save(RoomEntity room) {
+    public RoomDTO save(RoomEntity room) {
         if (room == null) {
             throw new NullPointerException("RoomEntity value is null!");
         }
-        this.roomRepository.save(room);
-
+        RoomEntity save = this.roomRepository.save(room);
+        return roomMapper.roomEntityToRoomDTO(roomRepository.findRoomEntityById(save.getId()).get());
     }
 
 

@@ -10,6 +10,7 @@ import com.society.server.model.mapper.RoomMapper;
 import com.society.server.repository.MessageRepository;
 import com.society.server.repository.UserRepository;
 import com.society.server.security.UserPrincipal;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -23,23 +24,28 @@ public class ChatService {
     private final UserRepository userRepository;
     private final MessageRepository messageRepository;
     private final RoomMapper roomMapper;
+    private final SimpMessagingTemplate simpMessagingTemplate;
 
     public ChatService(RoomService roomService,
                        UserRepository userRepository,
                        MessageRepository messageRepository,
-                       RoomMapper roomMapper) {
+                       RoomMapper roomMapper,
+                       SimpMessagingTemplate simpMessagingTemplate) {
         this.roomService = roomService;
         this.userRepository = userRepository;
         this.messageRepository = messageRepository;
         this.roomMapper = roomMapper;
+        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
-    public void saveMessage(MessageDTO messageDTO, Long roomId) {
+    public MessageDTO saveMessage(MessageDTO messageDTO, Long roomId) {
         RoomEntity room = roomService.getRoomById(roomId);
 
         UserEntity user = userRepository.findByUsername(messageDTO.getSenderName())
                 .orElseThrow(() -> new UserNotFoundException(
                         format("User with username %s is not found!", messageDTO.getSenderName())));
+
+        simpMessagingTemplate.convertAndSend(format("/channel/%d", roomId), messageDTO);
 
         MessageEntity message = MessageEntity.builder()
                 .content(messageDTO.getMessage())
@@ -47,13 +53,16 @@ public class ChatService {
                 .sender(user)
                 .build();
 
-        room.addMessage(message);
+        MessageEntity save = messageRepository.save(message);
 
-        messageRepository.save(message);
+        room.addMessage(save);
+
         roomService.save(room);
+
+        return new MessageDTO(save.getSender().getUsername(), save.getContent());
     }
 
-    public Long createRoom(RoomDTO roomDTO, UserPrincipal userPrincipal) {
+    public RoomDTO createRoom(RoomDTO roomDTO, UserPrincipal userPrincipal) {
 
         UserEntity creator = userRepository.findByUsername(userPrincipal.getUsername())
                 .orElseThrow(() -> new UserNotFoundException(
@@ -63,7 +72,7 @@ public class ChatService {
         Set<UserEntity> users = roomDTO.getParticipantsIds().size() > 0 ?
                 roomDTO.getParticipantsIds()
                         .stream()
-                        .map(p -> userRepository.findById(p)
+                        .map(p -> userRepository.findUserById(p)
                                 .orElseThrow(() ->
                                         new UserNotFoundException(format("User with id %d is not found!", p)
                                         )))
@@ -76,20 +85,21 @@ public class ChatService {
                 .name(roomDTO.getName())
                 .roomEnum(roomDTO.getRoomEnum())
                 .users(users)
-                .messages(new ArrayList<>())
+                .messages(new HashSet<>())
                 .imageUrl(roomDTO.getImageUrl())
                 .build();
 
-        roomService.save(room);
+        RoomDTO savedRoom = roomService.save(room);
 
-        users.forEach(userEntity ->
-                userEntity.addRoom(
-                        roomService.getRoomById(room.getId())
-                ));
+        users.forEach(userEntity -> {
+                    userEntity.addRoom(roomService.getRoomById(room.getId()));
+                    savedRoom.getParticipantsIds().add(userEntity.getId());
+                }
+        );
 
         userRepository.saveAll(users);
 
-        return room.getId();
+        return savedRoom;
     }
 
     public List<RoomDTO> getRoomsByUser(UserPrincipal userPrincipal) {
@@ -101,7 +111,6 @@ public class ChatService {
                 .stream()
                 .map(roomEntity -> roomService.getRoomById(roomEntity.getId()))
                 .toList();
-
 
         return roomEntitiesByUser
                 .stream()

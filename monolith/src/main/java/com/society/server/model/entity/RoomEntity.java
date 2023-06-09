@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,11 +36,11 @@ public class RoomEntity extends BaseEntity {
 
     @OneToMany(fetch = FetchType.LAZY,
             mappedBy = "room", targetEntity = MessageEntity.class)
-    private List<MessageEntity> messages;
+    private Set<MessageEntity> messages;
 
     public void addMessage(MessageEntity entity) {
         if (this.messages.size() == 0) {
-            this.messages = new ArrayList<>();
+            this.messages = new HashSet<>();
         }
         this.messages.add(entity);
     }
