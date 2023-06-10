@@ -4,7 +4,7 @@
   top: 1vw;
   background: none;
   border: none;
-  cursor: pointer;  
+  cursor: pointer;
 }
 .ReactModal__Overlay {
   width: 490px;
@@ -12,7 +12,6 @@
   border-radius: 18px;
   border-width: 10px;
   background-color: rgba(255, 255, 255, 0) !important;
-  
 }
 .NumberOfMutualFriends {
   color: rgba(74, 122, 99, 1);
@@ -25,18 +24,19 @@
     font-family: Roboto;
     font-size: 26px;
     margin: 80px 25px 25px;
+    margin-left: 50px;
   }
 
   #box::-webkit-scrollbar {
     width: 11px;
-    background-color: #F5F5F5;
+    background-color: #f5f5f5;
   }
-   
+
   #box::-webkit-scrollbar-thumb {
     border-radius: 18px;
-    background-color:rgba(0, 0, 0, 0.2);
-  }  
-  
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
   #box {
     width: 76vw;
     background-color: rgb(255, 255, 255);
@@ -47,20 +47,67 @@
     height: 64vh;
 
     .Avatar {
-      margin-left: 2vw;
+      margin-left: 20px;
+    }
+    .Avatar img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-right: 10px;
+      margin-top: 1px;
+      margin-bottom: 1px;
+    }
+    .FirstAndLastName {
+      color: black;
+      .css-10hburv-MuiTypography-root {
+        font-weight: 500;
+      }
+    }
+    .MutualFriendPhoto .MuiAvatar-root {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
     }
   }
 
   .MutualFriendsButton {
+    display: flex;
     font-family: Roboto;
     font-size: 20px;
     color: white;
     border-radius: 18px;
-    width: 13vw;
-    height: 6vh;
+    width: 180px;
+    height: 40px;
     background-color: rgba(146, 145, 145, 1);
     text-decoration: none;
     text-transform: lowercase;
     margin-right: 30px;
+  }
+}
+@media (max-width: 768px) {
+  .AllFriendsText {
+    font-size: 18px;
+    margin: 50px 25px 25px;
+  }
+
+  #box {
+    width: 90vw;
+    margin-right: 5vw;
+    margin-left: 5vw;
+    height: 50vh;
+
+    .Avatar {
+      margin-left: 1vw;
+    }
+  }
+
+  .NumberOfMutualFriends {
+    font-size: 20px;
+  }
+  #box .MutualFriendsButton {
+    font-size: 16px;
+    width: 150px;
+    height: 50px;
+    margin: 5px;
   }
 }
