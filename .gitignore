@@ -2,7 +2,7 @@ HELP.md
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-target/classes
+/monolith/target/classes
 /monolith/target/generated-sources
 /monolith/target/generated-test-sources
 /monolith/target/maven-archiver

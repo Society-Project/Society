@@ -2,13 +2,14 @@ package com.society.server.api.v1;
 
 import com.society.server.dto.message.MessageDTO;
 import com.society.server.dto.message.RoomDTO;
+import com.society.server.dto.response.ResponseDTO;
 import com.society.server.security.UserPrincipal;
 import com.society.server.service.ChatService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -22,54 +23,86 @@ import static java.lang.String.format;
 @RequestMapping(path = API_BASE + "/chat")
 public class ChatController {
     private final ChatService chatService;
-    private final SimpMessagingTemplate simpMessagingTemplate;
 
-    public ChatController(ChatService chatService,
-                          SimpMessagingTemplate simpMessagingTemplate) {
+    public ChatController(ChatService chatService) {
         this.chatService = chatService;
-        this.simpMessagingTemplate = simpMessagingTemplate;
     }
 
-//    /chat/app/{roomId}/sendMessage
+    //    /chat/app/{roomId}/sendMessage
     @MessageMapping("/{roomId}/sendMessage")
-    public ResponseEntity<MessageDTO> sendMessage(@PathVariable Long roomId,
-                                                  @Valid @RequestBody MessageDTO messageDTO,
-                                                  BindingResult bindingResult) {
+    public ResponseEntity<ResponseDTO<MessageDTO>> sendMessage(@DestinationVariable Long roomId,
+                                                               @Valid @RequestBody MessageDTO messageDTO,
+                                                               BindingResult bindingResult) {
 
         if (chatService.getRoomById(roomId) == null || bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(ResponseDTO.<MessageDTO>builder()
+                            .message("Wrong input data!")
+                            .status(HttpStatus.BAD_REQUEST.value())
+                            .build());
         }
-        simpMessagingTemplate.convertAndSend(format("/channel/%d", roomId), messageDTO);
 
-        chatService.saveMessage(messageDTO, roomId);
+        MessageDTO message = chatService.saveMessage(messageDTO, roomId);
 
-        return ResponseEntity.ok(messageDTO);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseDTO.<MessageDTO>builder()
+                        .message("Successfully send a message!")
+                        .status(HttpStatus.OK.value())
+                        .content(message)
+                        .build());
     }
 
     @GetMapping
-    public ResponseEntity<List<RoomDTO>> getChatRooms(
+    public ResponseEntity<ResponseDTO<List<RoomDTO>>> getChatRooms(
             @AuthenticationPrincipal UserPrincipal userPrincipal) {
 
         List<RoomDTO> roomsByUser = chatService.getRoomsByUser(userPrincipal);
-        return ResponseEntity.ok(roomsByUser);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseDTO.<List<RoomDTO>>builder()
+                        .message("Successfully get yours chat rooms!")
+                        .status(HttpStatus.OK.value())
+                        .content(roomsByUser)
+                        .build());
     }
 
     @PostMapping
-    public ResponseEntity<Long> createRoom(@Valid @RequestBody RoomDTO roomDTO,
-                                           BindingResult bindingResult,
-                                           @AuthenticationPrincipal UserPrincipal userPrincipal) {
+    public ResponseEntity<ResponseDTO<RoomDTO>> createRoom(@Valid @RequestBody RoomDTO roomDTO,
+                                                           BindingResult bindingResult,
+                                                           @AuthenticationPrincipal UserPrincipal userPrincipal) {
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(ResponseDTO.<RoomDTO>builder()
+                            .message("Wrong input data!")
+                            .status(HttpStatus.BAD_REQUEST.value())
+                            .build());
         }
-        Long roomId = chatService.createRoom(roomDTO, userPrincipal);
+        RoomDTO room = chatService.createRoom(roomDTO, userPrincipal);
 
-        return new ResponseEntity<>(roomId, HttpStatus.CREATED);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(ResponseDTO.<RoomDTO>builder()
+                        .message("Successfully created chat room!")
+                        .status(HttpStatus.CREATED.value())
+                        .content(room)
+                        .build());
     }
 
     @GetMapping("/{roomId}")
-    public ResponseEntity<RoomDTO> getRoom(@PathVariable Long roomId) {
+    public ResponseEntity<ResponseDTO<RoomDTO>> getRoom(@PathVariable Long roomId) {
         RoomDTO roomDTO = chatService.getRoomById(roomId);
-        return ResponseEntity.ok(roomDTO);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ResponseDTO.<RoomDTO>builder()
+                        .message(format("Successfully get chat room with id: %d!", roomId))
+                        .status(HttpStatus.OK.value())
+                        .content(roomDTO)
+                        .build());
     }
 
 }
