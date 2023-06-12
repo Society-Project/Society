@@ -105,25 +105,7 @@ const LoginForm = () => {
         >
           Log In
         </Button>
-        <Button
-          href="/register"
-          sx={{
-            marginBottom: 3,
-            borderRadius: 4,
-            backgroundColor: darkGreen,
-            boxShadow: "2px 4px 4px rgba(74, 122, 99, 0.54)",
-            color: "white",
-            fontFamily: "Roboto",
-            fontSize: 20,
-            letterSpacing: 0.5,
-            width: 130,
-            height: 50,
-          }}
-          variant="contained"
-          color="success"
-        >
-          Sign up
-        </Button>
+       <div className="mobile-sign-up"> Don't have an account? <a href="/register">Sign up</a> </div>
       </Box>
       <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
         <SignUpLogInBtn />

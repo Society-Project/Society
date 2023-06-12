@@ -110,8 +110,8 @@ export const UserInput = () => {
 
       <div style={{ width: '100%', textAlign: 'center' }}>
         <Button sx={{
-          marginTop: 3,
-          marginBottom: 3,
+          marginTop: 2,
+          marginBottom: 2,
           borderRadius: 4,
           backgroundColor: 'darkGreen',
           boxShadow: '2px 4px 4px rgba(74, 122, 99, 0.54)',
@@ -120,7 +120,7 @@ export const UserInput = () => {
           fontSize: 20,
           letterSpacing: 0.5,
           width: 130,
-          height: 50,
+          height: 40,
           marginLeft: 'auto'
         }}
           variant='contained'
@@ -130,6 +130,7 @@ export const UserInput = () => {
         >
           Sign Up
         </Button>
+        <div className="mobile-sign-up"> Already have an account? <a href="/login">Log in</a> </div>
       </div>
     </div>
   )
