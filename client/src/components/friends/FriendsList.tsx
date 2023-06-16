@@ -1,15 +1,21 @@
-import { Box } from "@mui/system";
 import React, { useState } from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
-import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
-import Button from "@mui/material/Button";
-import CloseIcon from "@mui/icons-material/Close";
+import {
+  Box,
+  Typography,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
+  Divider,
+  Button,
+  TextField,
+} from "@mui/material";
+import { styled } from "@mui/system";
 import Modal from "react-modal";
-import { Typography } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
+import ClearIcon from "@mui/icons-material/Clear";
 import "../Styles/MainPage.scss";
 import { SearchBar } from "../SearchBar";
 import PetyaPhoto from "src/images/Petya.jpg";
@@ -20,7 +26,6 @@ import ZahariPhoto from "src/images/Zahari.jpg";
 import GeorgiPhoto from "src/images/Georgi.jpg";
 import PavelPhoto from "src/images/Pavel.jpg";
 import BozhidarPhoto from "src/images/Bozhidar.jpg";
-
 
 const friends = [
   {
@@ -98,13 +103,35 @@ const friends = [
 
 friends.sort((a, b) => a.name.localeCompare(b.name));
 
+const SearchWrapper = styled(Box)`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+`;
+
+const SearchInput = styled(TextField)`
+  flex-grow: 1;
+  margin-right: 10px;
+`;
+
 export const FriendsList = () => {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [modalData, setModalData] = useState({
     name: "",
     avatar: "",
-    mutualFriends: [],
+    mutualFriends: [] as { name: string; avatar: string }[],
   });
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredFriends = friends.filter((friend) =>
+    friend.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <Box className="page-box">
       <SearchBar />
@@ -112,7 +139,44 @@ export const FriendsList = () => {
         <Typography className="AllFriendsText"> All friends</Typography>
         <Box id="box">
           <List>
-            {friends.map((friend: any, index: number) => (
+            <Box className="SearchBarInFriendsList">
+              <SearchWrapper>
+                <SearchInput
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  placeholder="Search friends"
+                  variant="outlined"
+                  size="small"
+                  InputProps={{
+                    startAdornment: <SearchIcon />,
+                    color: "success",
+                  }}
+                />
+                {searchQuery && (
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    startIcon={<ClearIcon />}
+                    onClick={() => setSearchQuery("")}
+                    sx={{
+                      borderRadius: "50px",
+                      width: "2%",
+                      marginLeft: "auto",
+                    }}
+                  ></Button>
+                )}
+              </SearchWrapper>
+              <Divider
+                sx={{
+                  width: "95%",
+                  margin: "10px auto",
+                  color: "rgba(0, 0, 0, 0.6)",
+                  align: "center",
+                }}
+              />
+            </Box>
+
+            {filteredFriends.map((friend, index) => (
               <React.Fragment key={index}>
                 <ListItem>
                   <ListItemAvatar className="Avatar">
