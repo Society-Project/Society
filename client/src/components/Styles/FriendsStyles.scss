@@ -85,11 +85,6 @@
   }
 }
 @media (max-width: 768px) {
-  .AllFriendsText {
-    font-size: 18px;
-    margin: 50px 25px 25px;
-  }
-
   #box {
     width: 90vw;
     margin-right: 5vw;
@@ -109,5 +104,81 @@
     width: 150px;
     height: 50px;
     margin: 5px;
+  }
+}
+@media (max-width: 500px) {
+  .Container {
+    .AllFriendsText {
+      font-family: Roboto;
+      font-size: 22px;
+      margin: 80px 25px 25px;
+      text-align: center;
+    }
+
+    #box::-webkit-scrollbar {
+      width: 11px;
+      background-color: #f5f5f5;
+    }
+
+    #box::-webkit-scrollbar-thumb {
+      border-radius: 18px;
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+
+    #box {
+      display: flex;
+      width: 76vw;
+      background-color: rgb(255, 255, 255);
+      border-radius: 18px;
+      margin-right: 2vw;
+      margin-left: 2vw;
+      overflow-y: auto;
+      height: 64vh;
+
+      .Avatar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .Avatar img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 10px;
+        margin-top: 1px;
+        margin-bottom: 1px;
+      }
+      .FirstAndLastName {
+        color: black;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        .css-10hburv-MuiTypography-root {
+          font-weight: 500;
+        }
+      }
+      .MutualFriendPhoto .MuiAvatar-root {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+      }
+    }
+
+    .MutualFriendsButton {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: Roboto;
+      font-size: 20px;
+      color: white;
+      border-radius: 18px;
+      width: 180px;
+      height: 40px;
+      background-color: rgba(146, 145, 145, 1);
+      text-decoration: none;
+      text-transform: lowercase;
+      margin-right: 30px;
+    }
   }
 }
