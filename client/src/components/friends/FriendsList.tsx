@@ -175,10 +175,9 @@ export const FriendsList = () => {
                 }}
               />
             </Box>
-
             {filteredFriends.map((friend, index) => (
               <React.Fragment key={index}>
-                <ListItem>
+                <ListItem className="AvatarNamesAndMutualButton">
                   <ListItemAvatar className="Avatar">
                     <img alt={friend.name} src={friend.avatar} />
                   </ListItemAvatar>
