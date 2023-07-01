@@ -114,6 +114,11 @@
       margin: 80px 25px 25px;
       text-align: center;
     }
+    #box {
+      .Avatar {
+        margin-left: 0px;
+      }
+    }
     .AvatarNamesAndMutualButton {
       display: flex;
       flex-direction: column;

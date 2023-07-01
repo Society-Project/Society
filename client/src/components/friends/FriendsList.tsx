@@ -113,6 +113,9 @@ const SearchWrapper = styled(Box)`
 const SearchInput = styled(TextField)`
   flex-grow: 1;
   margin-right: 10px;
+  input {
+    padding-right: 32px;
+  }
 `;
 
 export const FriendsList = () => {
@@ -159,9 +162,11 @@ export const FriendsList = () => {
                     startIcon={<ClearIcon />}
                     onClick={() => setSearchQuery("")}
                     sx={{
-                      borderRadius: "50px",
-                      width: "2%",
-                      marginLeft: "auto",
+                      borderRadius: "18px",
+                      position: "absolute",
+                      right: "10px",
+                      border: "none",
+                      color: "green",
                     }}
                   ></Button>
                 )}
