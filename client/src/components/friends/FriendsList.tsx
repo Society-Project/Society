@@ -1,55 +1,140 @@
-import { Box } from "@mui/system";
 import React, { useState } from "react";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemAvatar from "@mui/material/ListItemAvatar";
-import ListItemText from "@mui/material/ListItemText";
-import Avatar from "@mui/material/Avatar";
-import Divider from "@mui/material/Divider";
-import Button from "@mui/material/Button";
-import CloseIcon from "@mui/icons-material/Close";
+import {
+  Box,
+  Typography,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
+  Divider,
+  Button,
+  TextField,
+} from "@mui/material";
+import { styled } from "@mui/system";
 import Modal from "react-modal";
-import { Typography } from "@mui/material";
-import { MainPageBox } from "../page-box/PageBox";
+import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
+import ClearIcon from "@mui/icons-material/Clear";
 import "../Styles/MainPage.scss";
 import { SearchBar } from "../SearchBar";
+import PetyaPhoto from "src/images/Petya.jpg";
+import DimitrinaPhoto from "src/images/Dimitrina.jpg";
+import SimeonPhoto from "src/images/Simeon.jpg";
+import IvayloPhoto from "src/images/Ivaylo.jpg";
+import ZahariPhoto from "src/images/Zahari.jpg";
+import GeorgiPhoto from "src/images/Georgi.jpg";
+import PavelPhoto from "src/images/Pavel.jpg";
+import BozhidarPhoto from "src/images/Bozhidar.jpg";
 
 const friends = [
   {
-    name: "Petya",
-    avatar: "../../src/images/laptopPicture.jpg",
-    mutualFriends: ["Didi", "Ivo"],
+    name: "Petya Marinova",
+    avatar: PetyaPhoto.src,
+    mutualFriends: [
+      {
+        name: "Dimitrina Yordanova",
+        avatar: DimitrinaPhoto.src,
+      },
+      {
+        name: "Ivaylo Slavchev",
+        avatar: IvayloPhoto.src,
+      },
+    ],
   },
   {
-    name: "Didi",
-    avatar: "../../src/images/laptopPicture.jpg",
-    mutualFriends: ["Petya", "Ivo"],
+    name: "Dimitrina Yordanova",
+    avatar: DimitrinaPhoto.src,
+    mutualFriends: [
+      {
+        name: "Petya Marinova",
+        avatar: PetyaPhoto.src,
+      },
+      {
+        name: "Ivaylo Slavchev",
+        avatar: IvayloPhoto.src,
+      },
+    ],
   },
   {
-    name: "Moni",
-    avatar: "../../src/images/laptopPicture.jpg",
-    mutualFriends: ["Didi", "Ivo"],
+    name: "Simeon Cholakov",
+    avatar: SimeonPhoto.src,
+    mutualFriends: [
+      {
+        name: "Dimitrina Yordanova",
+        avatar: DimitrinaPhoto.src,
+      },
+      {
+        name: "Ivaylo Slavchev",
+        avatar: IvayloPhoto.src,
+      },
+      {
+        name: "Zahari Cheyrekov",
+        avatar: ZahariPhoto.src,
+      },
+    ],
   },
   {
-    name: "Ivo",
-    avatar: "../../src/images/laptopPicture.jpg",
+    name: "Ivaylo Slavchev",
+    avatar: IvayloPhoto.src,
     mutualFriends: [],
   },
   {
-    name: "Zahari",
-    avatar: "../../src/images/laptopPicture.jpg",
+    name: "Zahari Cheyrekov",
+    avatar: ZahariPhoto.src,
     mutualFriends: [],
   },
   {
-    name: "Joro ",
-    avatar: "../../src/images/laptopPicture.jpg",
+    name: "Georgi Peev",
+    avatar: GeorgiPhoto.src,
+    mutualFriends: [],
+  },
+  {
+    name: "Pavel Pindarev",
+    avatar: PavelPhoto.src,
+    mutualFriends: [],
+  },
+  {
+    name: "Bozhidar Valkov",
+    avatar: BozhidarPhoto.src,
     mutualFriends: [],
   },
 ];
 
+friends.sort((a, b) => a.name.localeCompare(b.name));
+
+const SearchWrapper = styled(Box)`
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+`;
+
+const SearchInput = styled(TextField)`
+  flex-grow: 1;
+  margin-right: 10px;
+  input {
+    padding-right: 32px;
+  }
+`;
+
 export const FriendsList = () => {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [modalData, setModalData] = useState<any>(null);
+  const [modalData, setModalData] = useState({
+    name: "",
+    avatar: "",
+    mutualFriends: [] as { name: string; avatar: string }[],
+  });
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const filteredFriends = friends.filter((friend) =>
+    friend.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <Box className="page-box">
       <SearchBar />
@@ -57,13 +142,54 @@ export const FriendsList = () => {
         <Typography className="AllFriendsText"> All friends</Typography>
         <Box id="box">
           <List>
-            {friends.map((friend, index) => (
+            <Box className="SearchBarInFriendsList">
+              <SearchWrapper>
+                <SearchInput
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                  placeholder="Search friends"
+                  variant="outlined"
+                  size="small"
+                  InputProps={{
+                    startAdornment: <SearchIcon />,
+                    color: "success",
+                  }}
+                />
+                {searchQuery && (
+                  <Button
+                    variant="outlined"
+                    size="small"
+                    startIcon={<ClearIcon />}
+                    onClick={() => setSearchQuery("")}
+                    sx={{
+                      borderRadius: "18px",
+                      position: "absolute",
+                      right: "10px",
+                      border: "none",
+                      color: "green",
+                    }}
+                  ></Button>
+                )}
+              </SearchWrapper>
+              <Divider
+                sx={{
+                  width: "95%",
+                  margin: "10px auto",
+                  color: "rgba(0, 0, 0, 0.6)",
+                  align: "center",
+                }}
+              />
+            </Box>
+            {filteredFriends.map((friend, index) => (
               <React.Fragment key={index}>
-                <ListItem>
+                <ListItem className="AvatarNamesAndMutualButton">
                   <ListItemAvatar className="Avatar">
-                    <Avatar alt={friend.name} src={friend.avatar} />
+                    <img alt={friend.name} src={friend.avatar} />
                   </ListItemAvatar>
-                  <ListItemText primary={friend.name} />
+                  <ListItemText
+                    className="FirstAndLastName"
+                    primary={friend.name}
+                  />
                   {friend.mutualFriends.length != 0 && (
                     <Button
                       className="MutualFriendsButton"
@@ -118,13 +244,18 @@ export const FriendsList = () => {
                 />
                 <List>
                   {modalData?.mutualFriends.map(
-                    (mutualFriend: string, index: number) => (
-                      <ListItem key={index}>
-                        <ListItemAvatar className="Avatar">
-                          <Avatar alt={mutualFriend} src={""} />
-                        </ListItemAvatar>
-                        <ListItemText primary={mutualFriend} />
-                      </ListItem>
+                    (mutualFriend: any, index: number) => (
+                      <React.Fragment key={index}>
+                        <ListItem key={index}>
+                          <ListItemAvatar className="MutualFriendPhoto">
+                            <Avatar
+                              alt={mutualFriend.name}
+                              src={mutualFriend.avatar}
+                            />
+                          </ListItemAvatar>
+                          <ListItemText primary={mutualFriend.name} />
+                        </ListItem>
+                      </React.Fragment>
                     )
                   )}
                 </List>
@@ -142,15 +273,15 @@ const modalStyle: any = {
     border: "2px solid rgba(74, 122, 99, 1)",
     borderRadius: "18px",
     bottom: "auto",
-    height: "30vh", // set height
-    left: "65.3%",
+    height: "45vh",
+    left: "55%",
     padding: "5vh",
     position: "fixed",
-    right: "auto",
-    top: "48%", // start from center
-    transform: "translate(-50%,-100px)", // adjust top "up" based on height
-    width: "40%",
-    maxWidth: "40rem",
+    right: "42%",
+    top: "48%",
+    transform: "translate(-50%,-100px)",
+    width: "55%",
+    maxWidth: "45%",
     boxShadow: "0px 0px 10px 0px rgba(74, 122, 99, 1)",
   },
 };
