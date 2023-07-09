@@ -4,7 +4,7 @@
 */
 import Cookie from 'universal-cookie';
 
-export const localhostURL: string = 'http://localhost:8080';
+export const localhostURL: string = 'https://society-production.up.railway.app';
 const cookies: Cookie = new Cookie();
 const userCookie: string | undefined = cookies.get('accessToken');
 
