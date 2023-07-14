@@ -1,4 +1,5 @@
 import React from "react";
+
 import styled from "styled-components";
 import { NavigationBar } from "@/components/NavigationBar/Navigation";
 import "../../src/components/Styles/TeamPageStyles.scss";
