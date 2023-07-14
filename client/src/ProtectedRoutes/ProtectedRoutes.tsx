@@ -1,14 +1,24 @@
 import Cookie from 'universal-cookie';
-import { ValidateUser } from '../pages/settings';
+import { useEffect } from 'react';
 
+const ValidateUser = () => {
+  const cookies: Cookie = new Cookie();
+  const getUserCookie: string | null = cookies.get('accessToken');
+
+  if(getUserCookie === undefined) {
+    return window.location.href = '/login';
+  }
+}
 const ProtectedRoutes = ({ children }: any) => {
   const cookies: Cookie = new Cookie();
   const userCookie: string | null = cookies.get('accessToken')
 
-  if(userCookie === undefined){
-    return ValidateUser();
-  }
-
+  useEffect((): any => {
+    if(userCookie === undefined){
+      return ValidateUser();
+    }
+  
+  }, [])
   return children;
 }
 
