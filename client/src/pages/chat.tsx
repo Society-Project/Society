@@ -1,13 +1,10 @@
-import { useEffect } from "react";
 import Chat from "@/components/chat/Chat";
-import { ValidateUser } from "./settings";
+import ProtectedRoutes from "@/ProtectedRoutes/ProtectedRoutes";
 
 const chat = () => {
-  useEffect(() => {
-    ValidateUser();
-  }, [])
-
-  return <Chat />
+  return <ProtectedRoutes>
+    <Chat />
+  </ProtectedRoutes>
 }
 
 export default chat
