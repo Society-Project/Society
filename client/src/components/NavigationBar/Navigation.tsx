@@ -50,12 +50,12 @@ export const NavigationBar = () => {
     type icon = SvgIconProps
 
     const IconArray: icon[] = [
-        <HomeOutlinedIcon onClick={homeOnClick} />,
-        <NotificationsIcon onClick={notificationsOnClick} />,
-        <TextsmsOutlinedIcon onClick={chatOnClick} />,
-        <PeopleIcon onClick={friendsOnClick} />,
-        <SettingsOutlinedIcon onClick={settingsOnClick}  />,
-        <LogoutOutlinedIcon
+        <HomeOutlinedIcon key={1} onClick={homeOnClick} />,
+        <NotificationsIcon key={2} onClick={notificationsOnClick} />,
+        <TextsmsOutlinedIcon key={3} onClick={chatOnClick} />,
+        <PeopleIcon key={4} onClick={friendsOnClick} />,
+        <SettingsOutlinedIcon key={5} onClick={settingsOnClick}  />,
+        <LogoutOutlinedIcon key={6}
              className='log-out-icon' 
              onClick={logOutOnClick} />,
     ]
