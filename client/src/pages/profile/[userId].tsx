@@ -32,9 +32,7 @@ import "./Profile.scss";
 
 const UserProfile = () => {
   const [open, setOpen] = useState(false);
-  const [imageSrc, setImageSrc] = useState<
-    String | ArrayBuffer | StaticImport | null
-  >("");
+  const [imageSrc, setImageSrc] = useState<any>("");
   const [uploadData, setUploadData] = useState<Object>();
 
   const handleOpen = () => {

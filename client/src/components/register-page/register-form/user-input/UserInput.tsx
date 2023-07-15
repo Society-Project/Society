@@ -6,8 +6,9 @@ import HttpsOutlinedIcon from "@mui/icons-material/HttpsOutlined";
 import dayjs, { Dayjs } from "dayjs";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { PasswordInput, UserSignUpTextFields } from './UserInputTextFields';
+import { UserSignUpTextFields } from './UserInputTextFields';
 import { RegisterRequest } from '../../../api'
+import Link from 'next/link';
 
 import "../../../Styles/LoginRegisterStyles.scss"
 
@@ -130,7 +131,7 @@ export const UserInput = () => {
         >
           Sign Up
         </Button>
-        <div className="mobile-sign-up"> Already have an account? <a href="/login">Log in</a> </div>
+        <div className="mobile-sign-up"> Already have an account? <Link href="/login">Log in</Link> </div>
       </div>
     </div>
   )

@@ -10,7 +10,7 @@ import { PasswordInput } from "../register-page/register-form/user-input/UserInp
 import { userTextFieldIcon, userInputSx } from "../register-page/register-form/user-input/UserInput";
 import { LoginRequest } from "../api";
 import Cookie from 'universal-cookie';
-
+import Link from "next/link";
 
 const LoginForm = () => {
   const [usernameOrEmail, setUsernameOrEmail] = useState<string>("");
@@ -105,7 +105,7 @@ const LoginForm = () => {
         >
           Log In
         </Button>
-       <div className="mobile-sign-up"> Don't have an account? <a href="/register">Sign up</a> </div>
+       <div className="mobile-sign-up"> Don&apos;t have an account? <Link href="/register">Sign up</Link> </div>
       </Box>
       <Box display={"flex"} justifyContent={"center"} alignItems={"center"}>
         <SignUpLogInBtn />

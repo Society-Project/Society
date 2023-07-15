@@ -19,9 +19,6 @@ const friends = () => {
 
 export default friends;
 
-const Wrapper = styled.div`
-  position: relative;
-`;
 const Main = styled.div`
   position: relative;
 `;
