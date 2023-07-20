@@ -10,6 +10,9 @@ The server application is a Java application with Spring Boot framework, Postgre
 
 <img src="./readme-img/next.png?w=200" alt="react mui" width="200"><img src="./readme-img/mui.png?w=200" alt="react mui" width="200"><img src="./readme-img/docker.png" alt="docker" width="200">
 
+ER diagram:
+<img src="./readme-img/SocietyER.png" alt="Society ER diagram">
+
 ## Local setup
 ```
 1. In the folder /monolith/docker create .env file with values from .env.example. Contact persons of the team to have exact setup env vars. 
