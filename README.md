@@ -11,7 +11,7 @@ The server application is a Java application with Spring Boot framework, Postgre
 <img src="./readme-img/next.png?w=200" alt="react mui" width="200"><img src="./readme-img/mui.png?w=200" alt="react mui" width="200"><img src="./readme-img/docker.png" alt="docker" width="200">
 
 ER diagram:
-<img src="./readme-img/Society-ER-1.png" alt="Society ER diagram - left side"><img src="./readme-img/Society-ER-2.png" alt="Society ER diagram - middle side"><img src="./readme-img/Society-ER-3.png" alt="Society ER diagram - right side">
+<img src="./readme-img/Society-ER-WB.png" alt="Society ER diagram">
 
 ## Local setup
 ```
