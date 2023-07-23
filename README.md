@@ -8,6 +8,8 @@ The client app is a NextJS TypeScript project, using MUI React components.
 
 The server application is a Java application with Spring Boot framework, Postgre database, app is dockerized.
 
+<a href="https://www.figma.com/file/QarG3zw9NTJUzreI9kCbG2/Society-project?type=design&mode=design">Figma designs and all screens</a>
+
 <img src="./readme-img/next.png?w=200" alt="react mui" width="200"><img src="./readme-img/mui.png?w=200" alt="react mui" width="200"><img src="./readme-img/docker.png" alt="docker" width="200">
 
 ## ER diagram:
@@ -25,6 +27,10 @@ The server application is a Java application with Spring Boot framework, Postgre
 ## Action Map 
 <img src="./readme-img/Action-Map.png" alt="Society Action Map Image">
 
-<img src="./readme-img/Designer.jpg" alt="Design image">
+<a href="https://www.figma.com/file/QarG3zw9NTJUzreI9kCbG2/Society-project?node-id=0%3A1&t=aNj436JqIzFJv3sQ-0">🔗<img src="./readme-img/Designer.jpg" alt="Design image"></a>
 
-<span style="background-color:magenta; opacity: 0.6">[di-yordanova](https://github.com/di-yordanova)</span>
+## Team members 
+
+<a href="https://github.com/Society-Project/Society/graphs/contributors"><img src="./readme-img/team1.png" alt="Team people"></a>
+<a href="https://github.com/Society-Project/Society/graphs/contributors"><img src="./readme-img/team2.png" alt="Team people"></a>
+<a href="https://github.com/Society-Project/Society/graphs/contributors"><img src="./readme-img/team3.png" alt="Team people"></a>
