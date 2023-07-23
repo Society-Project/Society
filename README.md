@@ -26,3 +26,5 @@ The server application is a Java application with Spring Boot framework, Postgre
 <img src="./readme-img/Action-Map.png" alt="Society Action Map Image">
 
 <img src="./readme-img/Designer.jpg" alt="Design image">
+
+<span style="background-color:magenta; opacity: 0.6">[di-yordanova](https://github.com/di-yordanova)</span>
